@@ -1,35 +1,34 @@
 import React, {useEffect, useState} from 'react';
 import {Link, useHistory} from 'react-router-dom';
-import {FiPower, FiTrash2, FiThumbsDown} from 'react-icons/fi';
+import {FiPower, FiTrash2} from 'react-icons/fi';
 import logoImg from '../../assets/logo.svg';
 import './styles.css';
 import api from '../../services/api';
 
-export default function Profile(){
-    const [incidents, setIncidents] = useState([]);
-    const ongId = localStorage.getItem('ongId');
-    const ongName = localStorage.getItem('ongName');
+export default function ListMes(){
+    const [meses, setMeses] = useState([]);
+    const id_usuario = "1e54cc5b";
     const history = useHistory();
 
     useEffect(() => {
-        api.get('usuarios', {
+        api.get('meses', {
             headers: {
-                Authorization: ongId,
+                Authorization: id_usuario,
             }
         }).then(response => {
-            setIncidents(response.data);
+            setMeses(response.data);
         })
-    }, [ongId]);
+    }, [id_usuario]);
 
-    async function handleDeleteIncident(id){
+    async function handleDeleteMes(id){
         try{
-            await api.delete(`incidents/${id}`, {
+            await api.delete(`meses/${id}`, {
                 headers: {
-                    Authorization: ongId,
+                    Authorization: id_usuario,
                 }
             });
             
-            setIncidents(incidents.filter(incident => incident.id != id));
+            setMeses(meses.filter(mes => mes.id !== id));
         }catch(err){
             alert('Erro ao deletar caso, tente novamente.')
         }
@@ -37,43 +36,46 @@ export default function Profile(){
 
     function handleLogout(){
         localStorage.clear();
-        history.push('/');
+        history.push('/meses');
     }
 
     return (
         <div className="profile-container">
             <header>
                 <img src={logoImg} alt="Be The Hero"/>
-                <span>Bem Vinda, {ongName}</span>
+                <span>Bem Vinda, TESTE</span>
 
-                <Link className="button" to="/incidents/new">
-                    Cadastrar novo caso
+                <Link className="button" to="/meses/new">
+                    NOVO mês
                 </Link>
                 <button type="button" onClick={handleLogout}>
                     <FiPower size={18} color="#E02041"/>
                 </button>
             </header>
 
-            <h1>Casos Cadastrados</h1>
+            <h1>Meses Cadastrados</h1>
 
             <ul>
-                {incidents.map(incident => (
-                    <li key={incident.id}>
-                        <strong>NOME:</strong>
-                        <p>{incident.nome}</p>
+                {meses.map(mes => (
+                    <li key={mes.id}>
+                        <strong>ID:</strong>
+                        <p>{mes.id}</p>
 
-                        <strong>EMAIL:</strong>
-                        <p>{incident.email}</p>
+                        <strong>ID USUARIO:</strong>
+                        <p>{mes.id_usuario}</p>
 
-                        <strong>FONE:</strong>
-                        <p>{incident.fone}</p>
+                        <strong>MES:</strong>
+                        <p>{mes.mes}</p>
 
-                        <strong>SENHA:</strong>
-                        <p>{incident.senha}</p>
+                        <strong>ANO:</strong>
+                        <p>{mes.ano}</p>
+
+                        <strong>QTD NAO:</strong>
+                        <p>{mes.qtd_nao}</p>
 
                         <button 
                             type="button" 
-                            onClick={() => handleDeleteIncident(incident.id)
+                            onClick={() => handleDeleteMes(mes.id)
                         }>
                             <FiTrash2 size={20} color="#a8a8b3"/>
                         </button>

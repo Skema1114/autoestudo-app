@@ -5,30 +5,29 @@ import {FiArrowLeft} from 'react-icons/fi'
 import {Link, useHistory} from 'react-router-dom'
 import api from '../../services/api';
 
-const id_usuario = localStorage.getItem('id_usuario');
-
-export default function Tarefa(){
-    const [nome, setNome] = useState('');
-    const [email, setEmail] = useState('');
-    const [fone, setFone] = useState('');
-    const [senha, setSenha] = useState('');
+export default function NewUsuario(){
+    const [mes, setMes] = useState('');
+    const [ano, setAno] = useState('');
+    const [qtdNao, setQtdNao] = useState('');
     const history = useHistory();
+    const id_usuario = localStorage.getItem('id_usuario');
 
     async function handleNewUsuario(e){
         e.preventDefault();
 
         const data = {
-            nome,
-            email,
-            fone,
-            senha
+            mes,
+            ano,
+            qtdNao
         };
 
         try{
-            await api.post('usuarios', data, {
+            await api.post('meses', data, {
+                headers: {
+                    Authorization: id_usuario,
+                }
             })
-
-            history.push('/profile')
+            history.push('/meses/')
         }catch(err){
             alert("Erro ao cadastrar caso, tente novamente.")
         }
@@ -45,7 +44,7 @@ export default function Tarefa(){
                         para resolver isso.
                     </p>
                     
-                    <Link className="back-link" to="/profile">
+                    <Link className="back-link" to="/">
                         <FiArrowLeft size={16} color="#E02041"/>
                         Voltar para home
                     </Link>
@@ -53,25 +52,20 @@ export default function Tarefa(){
 
                 <form onSubmit={handleNewUsuario}>
                     <input 
-                        placeholder="nome"
-                        value={nome}
-                        onChange={e => setNome(e.target.value)}
+                        placeholder="mes"
+                        value={mes}
+                        onChange={e => setMes(e.target.value)}
                     />
                     <textarea 
-                        placeholder="email"
-                        value={email}
-                        onChange={e => setEmail(e.target.value)}
-                    />
-                    <input 
-                        placeholder="fone"
-                        value={fone}
-                        onChange={e => setFone(e.target.value)}
+                        placeholder="ano"
+                        value={ano}
+                        onChange={e => setAno(e.target.value)}
                     />
 
                     <input 
-                        placeholder="senha"
-                        value={senha}
-                        onChange={e => setSenha(e.target.value)}
+                        placeholder="qtdNao"
+                        value={qtdNao}
+                        onChange={e => setQtdNao(e.target.value)}
                     />
 
                     <button className="button" type="submit">Cadastrar</button>
