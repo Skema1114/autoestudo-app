@@ -21,8 +21,9 @@ export default function NewUsuario(){
         };
 
         try{
-            await api.post('usuarios', data, {})
-            history.push('/usuarios/')
+            const response = await api.post('usuario', data)
+            alert(`Seu ID de usuario: ${response.data.id}`)
+            history.push('/')
         }catch(err){
             alert("Erro ao cadastrar caso, tente novamente.")
         }

@@ -22,7 +22,7 @@ export default function ListResultadoMes(){
 
     async function handleDeleteResultadoMes(id){
         try{
-            await api.delete(`resultado_meses/${id}`, {
+            await api.delete(`resultado_mes/${id}`, {
                 headers: {
                     Authorization: id_usuario,
                 }
@@ -45,7 +45,7 @@ export default function ListResultadoMes(){
                 <img src={logoImg} alt="Be The Hero"/>
                 <span>Bem Vinda, TESTE</span>
 
-                <Link className="button" to="/resultado_meses/new">
+                <Link className="button" to="/resultado_mes/novo">
                     NOVO resultado mes
                 </Link>
                 <button type="button" onClick={handleLogout}>

@@ -5,29 +5,30 @@ import {FiArrowLeft} from 'react-icons/fi'
 import {Link, useHistory} from 'react-router-dom'
 import api from '../../services/api';
 
-export default function NewUsuario(){
+export default function NewMes(){
     const [mes, setMes] = useState('');
     const [ano, setAno] = useState('');
     const [qtdNao, setQtdNao] = useState('');
     const history = useHistory();
-    const id_usuario = localStorage.getItem('id_usuario');
+    const id_usuario = "1e54cc5b";
 
-    async function handleNewUsuario(e){
+    async function handleNewMes(e){
         e.preventDefault();
 
         const data = {
+            id_usuario,
             mes,
             ano,
             qtdNao
         };
 
         try{
-            await api.post('meses', data, {
+            await api.post('mes', data, {
                 headers: {
                     Authorization: id_usuario,
                 }
             })
-            history.push('/meses/')
+            history.push('/')
         }catch(err){
             alert("Erro ao cadastrar caso, tente novamente.")
         }
@@ -44,13 +45,13 @@ export default function NewUsuario(){
                         para resolver isso.
                     </p>
                     
-                    <Link className="back-link" to="/">
+                    <Link className="back-link" to="/meses">
                         <FiArrowLeft size={16} color="#E02041"/>
-                        Voltar para home
+                        Voltar para meses
                     </Link>
                 </section>
 
-                <form onSubmit={handleNewUsuario}>
+                <form onSubmit={handleNewMes}>
                     <input 
                         placeholder="mes"
                         value={mes}

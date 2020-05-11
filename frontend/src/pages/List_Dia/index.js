@@ -20,9 +20,9 @@ export default function ListDia(){
         })
     }, [id_usuario]);
 
-    async function handleDeleteMes(id){
+    async function handleDeleteDia(id){
         try{
-            await api.delete(`dias/${id}`, {
+            await api.delete(`dia/${id}`, {
                 headers: {
                     Authorization: id_usuario,
                 }
@@ -45,7 +45,7 @@ export default function ListDia(){
                 <img src={logoImg} alt="Be The Hero"/>
                 <span>Bem Vinda, TESTE</span>
 
-                <Link className="button" to="/dias/new">
+                <Link className="button" to="/dia/novo">
                     NOVO dia
                 </Link>
                 <button type="button" onClick={handleLogout}>
@@ -69,7 +69,7 @@ export default function ListDia(){
 
                         <button 
                             type="button" 
-                            onClick={() => handleDeleteMes(dia.id)
+                            onClick={() => handleDeleteDia(dia.id)
                         }>
                             <FiTrash2 size={20} color="#a8a8b3"/>
                         </button>

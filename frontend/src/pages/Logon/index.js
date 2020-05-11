@@ -4,7 +4,7 @@ import heroesImg from '../../assets/heroes.png';
 import logoImg from '../../assets/logo.svg';
 import {FiLogIn} from 'react-icons/fi'
 import {Link, useHistory} from 'react-router-dom'
-//import api from '../../services/api';
+import api from '../../services/api';
 
 export default function Logon(){
     const [id, setId] = useState('');
@@ -14,8 +14,9 @@ export default function Logon(){
         e.preventDefault();
 
         try{
-            //const response = await api.get('usuario', {id})
+            const response = await api.get('sessions', {id})
             localStorage.setItem('id', id);
+            localStorage.setItem('usuarioNome', response.data.name);
             history.push('/usuarios')
         }catch(err){
             alert('Falha no login, tente novamente.')

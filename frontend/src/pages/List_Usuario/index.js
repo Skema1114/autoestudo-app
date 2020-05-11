@@ -41,7 +41,7 @@ export default function ListUsuario(){
                 <img src={logoImg} alt="Be The Hero"/>
                 <span>Bem Vinda, TESTE</span>
 
-                <Link className="button" to="/usuarios/new">
+                <Link className="button" to="/usuario/novo">
                     NOVO usuario
                 </Link>
                 <button type="button" onClick={handleLogout}>

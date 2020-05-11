@@ -22,7 +22,7 @@ export default function ListMes(){
 
     async function handleDeleteMes(id){
         try{
-            await api.delete(`meses/${id}`, {
+            await api.delete(`mes/${id}`, {
                 headers: {
                     Authorization: id_usuario,
                 }
@@ -45,7 +45,7 @@ export default function ListMes(){
                 <img src={logoImg} alt="Be The Hero"/>
                 <span>Bem Vinda, TESTE</span>
 
-                <Link className="button" to="/meses/new">
+                <Link className="button" to="/mes/novo">
                     NOVO mês
                 </Link>
                 <button type="button" onClick={handleLogout}>

@@ -1,9 +1,6 @@
-import React, {useEffect, useState} from 'react';
-import {Link, useHistory} from 'react-router-dom';
-import {FiPower, FiTrash2} from 'react-icons/fi';
-import logoImg from '../../assets/logo.svg';
+import React from 'react';
+import {Link} from 'react-router-dom';
 import './styles.css';
-import api from '../../services/api';
 
 export default function TelaTeste(){
 
@@ -41,25 +38,25 @@ export default function TelaTeste(){
                     </li>
 
                     <li>
-                        <Link className="button" to="/dias/new">
+                        <Link className="button" to="/usuarios/novo">
                             NEW USUARIO
                         </Link>
-                        <Link className="button" to="/dias/new">
+                        <Link className="button" to="/meses/novo">
                             NEW MES
                         </Link>
-                        <Link className="button" to="/dias/new">
+                        <Link className="button" to="/dias/novo">
                             NEW DIA
                         </Link>
-                        <Link className="button" to="/dias/new">
+                        <Link className="button" to="/tarefas/novo">
                             NEW TAREFA
                         </Link>
-                        <Link className="button" to="/dias/new">
+                        <Link className="button" to="/tarefa_dias/novo">
                             NEW TAREFA DIA
                         </Link>
-                        <Link className="button" to="/dias/new">
+                        <Link className="button" to="/resultado_dias/novo">
                             NEW RESULTADO DIA
                         </Link>
-                        <Link className="button" to="/dias/new">
+                        <Link className="button" to="/resultado_meses/novo">
                             NEW RESULTADO MES
                         </Link>
                     </li>

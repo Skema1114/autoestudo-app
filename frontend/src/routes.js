@@ -26,21 +26,28 @@ export default function Rooutes(){
             <Switch>
                 <Route path="/" exact component={TelaTeste}/>
 
+                <Route path="/logon" exact component={Logon}/>
+
                 <Route path="/usuarios" component={ListUsuario}/>
-                <Route path="/usuarios/new" component={NewUsuario}/>
+                <Route path="/usuario/novo" component={NewUsuario}/>
 
                 <Route path="/meses" component={ListMes}/>
-                <Route path="/meses/new" component={NewMes}/>
+                <Route path="/mes/novo" component={NewMes}/>
 
                 <Route path="/dias" component={ListDia}/>
+                <Route path="/mes/novo" component={NewMes}/>
 
                 <Route path="/tarefas" component={ListTarefa}/>
+                <Route path="/mes/novo" component={NewMes}/>
 
                 <Route path="/tarefa_dias" component={ListTarefaDia}/>
+                <Route path="/tarefa_dia/novo" component={NewMes}/>
 
                 <Route path="/resultado_dias" component={ListResultadoDia}/>
+                <Route path="/resultado_dia/novo" component={NewMes}/>
 
                 <Route path="/resultado_meses" component={ListResultadoMes}/>
+                <Route path="/resultado_mes/novo" component={NewMes}/>
 
             </Switch>
         </BrowserRouter>

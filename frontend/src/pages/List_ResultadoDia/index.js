@@ -22,7 +22,7 @@ export default function ListResultadoDia(){
 
     async function handleDeleteResultadoDias(id){
         try{
-            await api.delete(`resultado_dias/${id}`, {
+            await api.delete(`resultado_dia/${id}`, {
                 headers: {
                     Authorization: id_usuario,
                 }
@@ -45,7 +45,7 @@ export default function ListResultadoDia(){
                 <img src={logoImg} alt="Be The Hero"/>
                 <span>Bem Vinda, TESTE</span>
 
-                <Link className="button" to="/resultado_dias/new">
+                <Link className="button" to="/resultado_dia/novo">
                     NOVO resultado dia
                 </Link>
                 <button type="button" onClick={handleLogout}>

@@ -22,7 +22,7 @@ export default function ListTarefa(){
 
     async function handleDeleteTarefa(id){
         try{
-            await api.delete(`tarefas/${id}`, {
+            await api.delete(`tarefa/${id}`, {
                 headers: {
                     Authorization: id_usuario,
                 }
@@ -45,7 +45,7 @@ export default function ListTarefa(){
                 <img src={logoImg} alt="Be The Hero"/>
                 <span>Bem Vinda, TESTE</span>
 
-                <Link className="button" to="/tarefas/new">
+                <Link className="button" to="/tarefa/novo">
                     NOVA tarefa
                 </Link>
                 <button type="button" onClick={handleLogout}>
