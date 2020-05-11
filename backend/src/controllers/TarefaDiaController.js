@@ -7,7 +7,6 @@ module.exports = {
         const [count] = await connection('tarefa_dia')
             .count();
 
-
         const tarefa_dias = await connection('tarefa_dia')
         .select('*')
         .where('id_usuario', id_usuario);
@@ -35,17 +34,16 @@ module.exports = {
         const {id} = request.params;
         const id_usuario = request.headers.authorization;
 
-        const tarefa_dia = await connection('tarefa_dia')
+        const tarefa_dias = await connection('tarefa_dia')
             .where('id', id)
             .select('id_usuario')
             .first()
 
-    if((tarefa_dia.id_usuario !== id_usuario)&&(tarefa_dia.id_tarefa !== id)){
+    if((tarefa_dias.id_usuario !== id_usuario)&&(tarefa_dias.id_tarefa !== id)){
             return response.status(401).json({
                 error: 'Operation not permitted.'
             });
         }
-
         await connection('tarefa_dia').where('id', id).delete();
 
         return response.status(204).send();

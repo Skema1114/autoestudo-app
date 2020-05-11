@@ -4,20 +4,20 @@ module.exports = {
     async index(request, response){
         const id_usuario = request.headers.authorization;
 
-        const [count] = await connection('tarefa')
+        const [count] = await connection('mes')
             .count();
 
-        const tarefas = await connection('tarefa')
+        const meses = await connection('mes')
         .select('*')
         .where('id_usuario', id_usuario);
 
         response.header('X-Total-Count', count['count(*)']);
 
-        return response.json(tarefas);
+        return response.json(meses);
     },
 
     async create(request, response){
-        const {nome, data_criacao} = request.body;
+        const {mes, ano, qtd_nao} = request.body;
         const id_usuario = request.headers.authorization;
 
         const [id] = await connection("tarefa").insert({

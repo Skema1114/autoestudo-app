@@ -4,26 +4,27 @@ module.exports = {
     async index(request, response){
         const id_usuario = request.headers.authorization;
 
-        const [count] = await connection('tarefa')
+        const [count] = await connection('resultado_mes')
             .count();
 
-        const tarefas = await connection('tarefa')
+        const resultado_meses = await connection('resultado_mes')
         .select('*')
         .where('id_usuario', id_usuario);
 
         response.header('X-Total-Count', count['count(*)']);
 
-        return response.json(tarefas);
+        return response.json(resultado_meses);
     },
 
     async create(request, response){
-        const {nome, data_criacao} = request.body;
+        const {resultado} = request.body;
         const id_usuario = request.headers.authorization;
+        const {id_mes} = request.params;
 
-        const [id] = await connection("tarefa").insert({
+        const [id] = await connection("resultado_mes").insert({
+            id_mes,
             id_usuario,
-            nome,
-            data_criacao
+            resultado
         });
 
         return response.json({id});
@@ -33,17 +34,17 @@ module.exports = {
         const {id} = request.params;
         const id_usuario = request.headers.authorization;
 
-        const tarefas = await connection('tarefa')
+        const resultado_meses = await connection('resultado_mes')
             .where('id', id)
             .select('id_usuario')
             .first()
 
-    if(tarefas.id_usuario !== id_usuario){
+    if((resultado_meses.id_usuario !== id_usuario)&&(resultado_meses.id !== id)){
             return response.status(401).json({
                 error: 'Operation not permitted.'
             });
         }
-        await connection('tarefa').where('id', id).delete();
+        await connection('resultado_mes').where('id', id).delete();
 
         return response.status(204).send();
     }

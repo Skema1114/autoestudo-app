@@ -4,26 +4,28 @@ module.exports = {
     async index(request, response){
         const id_usuario = request.headers.authorization;
 
-        const [count] = await connection('tarefa')
+        const [count] = await connection('resultado_dia')
             .count();
 
-        const tarefas = await connection('tarefa')
+        const resultado_dias = await connection('resultado_dia')
         .select('*')
         .where('id_usuario', id_usuario);
 
         response.header('X-Total-Count', count['count(*)']);
 
-        return response.json(tarefas);
+        return response.json(resultado_dias);
     },
 
     async create(request, response){
-        const {nome, data_criacao} = request.body;
+        const {resultado, qtd_nao} = request.body;
         const id_usuario = request.headers.authorization;
+        const {id_dia} = request.params;
 
-        const [id] = await connection("tarefa").insert({
+        const [id] = await connection("resultado_dia").insert({
+            id_dia,
             id_usuario,
-            nome,
-            data_criacao
+            resultado,
+            qtd_nao
         });
 
         return response.json({id});
@@ -33,17 +35,17 @@ module.exports = {
         const {id} = request.params;
         const id_usuario = request.headers.authorization;
 
-        const tarefas = await connection('tarefa')
+        const resultado_dias = await connection('resultado_dia')
             .where('id', id)
             .select('id_usuario')
             .first()
 
-    if(tarefas.id_usuario !== id_usuario){
+    if((resultado_dias.id_usuario !== id_usuario)&&(resultado_dias.id !== id)){
             return response.status(401).json({
                 error: 'Operation not permitted.'
             });
         }
-        await connection('tarefa').where('id', id).delete();
+        await connection('resultado_dia').where('id', id).delete();
 
         return response.status(204).send();
     }
