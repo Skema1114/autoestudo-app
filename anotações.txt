@@ -1,0 +1,187 @@
+=== == == == == == == == == == == === FRONT END === == == == == == == == == == == ===
+
+//instalar pacotes dos icones para o react
+//npm install react-icons
+
+//instalar o pacote de rotas
+//npm install react-router-dom
+//npm install axios
+
+// JSX (JAVASCRIPT XML)
+
+ === == == == == == == == == == == === BACK END === == == == == == == == == == == ===
+/**
+ * Rota / Recurso
+ */
+
+/**
+ * Metodos HTTP:
+ * GET: Buscar uma informaçção do back-end
+ * POST: Criar uma informação no back-end
+ * PUT: Alterar uma informação do back-end
+ * DELETE: Deletar uma informação no back-end
+ */
+
+/**
+ * Tipos de Parametros
+ * QUERY PARAMS: Parametros nomeados enviados na rota após "?" (filtros, paginação)
+ * ROUTE PARAMS: Parametros utilizados para identificar recursos
+ * REQUEST BODY: Cop-rpo da requisição, utilizado para criar ou alterar recursos
+ */
+
+/**
+ * npm install nodemon -D
+ * 
+ * nao precisar rodar sempre o servidor quando modificar, ele faz automatico, roda um server
+ * que fica escutando e restarta automatico e o -D é para adicionar os pacotes no modo dev, 
+ * quando for pro prod ele nao pega os pacotes dev
+ * para startar sempre precisa do 
+ * 
+ * npm start
+ * 
+ * mas antes precisa ser configurando o package.json
+ */  
+
+/**
+ * Bancos de dados
+ * SQL: mysql, sqlite, postgresql, oracle, microsoft sql server, etc..
+ * NOSQL: mongodb, couchdb, etc..
+ * 
+ * utilizaremos sqlite
+ */
+
+/**
+ * DRIVER: select * from users where
+ * QUERY BUILDER: table('users').select('*').where()
+ * 
+ * utilizaremos query builder, KNEX.JS
+ */
+
+/**
+ * npm install knex
+ * 
+ * npm install sqlite3
+ * 
+ * npx knex init
+ * 
+ * npm install cors
+ */
+
+/**
+ * para criar um arquivo de tabela
+ * 
+ * npx knex migrate:make [nome]
+ * 
+ * para rodar o arquivo de migrate criado, FAZ A ULTIMA MIGRATION
+ * 
+ * npx knex migrate:latest
+ * 
+ * para executar o drop, o segundo metodo do arquivo de criação das tabelas, DESFAZ A ULTIMA MIGRATION
+ * 
+ * npx knex migrate:rollback
+ * 
+ * lista as migrations ja executadas
+ * 
+ * npx knex migrate:status
+ * 
+ */
+
+/**
+//EXEMPLOS
+routes.get('/', (request, response) => {
+    return response.json({
+       evento: 'Semana Oministack 11.0',
+       aluno: 'Rafael Martins',
+       codigo: 'Hello World'
+   });
+});
+ 
+// QUERY PARAMS (http://localhost:3333/usuarios?name=Rafael&Idade=22)
+routes.get('/usuarios', (request, response) => {
+   const params = request.query;
+
+   console.log(params);
+   
+   return response.json({
+       evento: 'Semana Oministack 11.0',
+       aluno: 'Rafael Martins',
+       codigo: 'Hello World'
+   });
+});
+
+// ROUTE PARAMS (http://localhost:3333/nomes/12)
+routes.get('/nomes/:id', (request, response) => {
+   const params = request.params;
+
+   console.log(params);
+   
+   return response.json({
+       evento: 'Semana Oministack 11.0',
+       aluno: 'Rafael Martins',
+       codigo: 'Hello World'
+   });
+});
+
+// REQUEST BODY (http://localhost:3333/nomes/12)
+routes.post('/animais', (request, response) => {
+   const body = request.body;
+
+   console.log(body);
+   
+   return response.json({
+       evento: 'Semana Oministack 11.0',
+       aluno: 'Rafael Martins',
+       codigo: 'Hello World'
+   }); 
+});
+* 
+*/
+
+// conteudos do ultimo video
+
+npm install celebrate
+
+npm install jest
+
+npx jest --init [-D, testar usar o -D no final] (yes, node, no, yes)
+
+npm test
+
+npm install cross-env
+
+npm install supertest -D (-D para dependencioa de desenvolvimento)
+
+=== == == == == == == == == == == === FORA === == == == == == == == == == == ===
+//instalar global para criar o mobile
+npm install -g expo-cli
+
+BACKEND: node.js
+FRONTEND: reactJs (nao tenho certeza)
+MOBILE: react native
+
+L E M B R A R   D E   V E R I F I C A R   O   I P   D O   P C
+
+=== == == == == == == == == == == === MOBILE === == == == == == == == == == == ===
+
+npm install @react-navigation/native
+
+expo install react-native-gesture-handler react-native-reanimated react-native-screens react-native-safe-area-context @react-native-community/masked-view
+
+npm install @react-navigation/stack
+
+expo install expo-constants
+
+expo install expo-mail-composer
+
+npm install intl
+
+
+=== == == == == == == == == == == === ESTUDOS === == == == == == == == == == == ===
+
+Padrões de código: ESLint, Prettier;
+
+Autenticação JWT;
+
+Styled Components;
+
+** Fazer uma pub com gif do que eu fiz e publicar no Linkedin
