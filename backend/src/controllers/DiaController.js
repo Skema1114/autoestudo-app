@@ -19,7 +19,7 @@ module.exports = {
     async create(request, response){
         const {data} = request.body;
         const id_usuario = request.headers.authorization;
-        const {id_mes} = request.params;
+        const id_mes = request.params;
 
         const [id] = await connection("dia").insert({
             id_usuario,

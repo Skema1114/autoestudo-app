@@ -17,7 +17,7 @@ module.exports = {
     },
 
     async create(request, response){
-        const {mes, ano, qtd_nao} = request.body;
+        const {nome, data_criacao} = request.body;
         const id_usuario = request.headers.authorization;
 
         const [id] = await connection("tarefa").insert({
