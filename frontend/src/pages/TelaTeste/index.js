@@ -38,25 +38,25 @@ export default function TelaTeste(){
                     </li>
 
                     <li>
-                        <Link className="button" to="/usuarios/novo">
+                        <Link className="button" to="/usuario/novo">
                             NEW USUARIO
                         </Link>
-                        <Link className="button" to="/meses/novo">
+                        <Link className="button" to="/mes/novo">
                             NEW MES
                         </Link>
-                        <Link className="button" to="/dias/novo">
+                        <Link className="button" to="/dia/novo">
                             NEW DIA
                         </Link>
-                        <Link className="button" to="/tarefas/novo">
+                        <Link className="button" to="/tarefa/novo">
                             NEW TAREFA
                         </Link>
-                        <Link className="button" to="/tarefa_dias/novo">
+                        <Link className="button" to="/tarefa_dia/novo">
                             NEW TAREFA DIA
                         </Link>
-                        <Link className="button" to="/resultado_dias/novo">
+                        <Link className="button" to="/resultado_dia/novo">
                             NEW RESULTADO DIA
                         </Link>
-                        <Link className="button" to="/resultado_meses/novo">
+                        <Link className="button" to="/resultado_mes/novo">
                             NEW RESULTADO MES
                         </Link>
                     </li>
