@@ -17,13 +17,14 @@ module.exports = {
     },
 
     async create(request, response){
-        const {nome, data_criacao} = request.body;
+        const {mes, ano, qtd_nao} = request.body;
         const id_usuario = request.headers.authorization;
 
-        const [id] = await connection("tarefa").insert({
+        const [id] = await connection("mes").insert({
             id_usuario,
-            nome,
-            data_criacao
+            mes,
+            ano,
+            qtd_nao
         });
 
         return response.json({id});
@@ -33,7 +34,7 @@ module.exports = {
         const {id} = request.params;
         const id_usuario = request.headers.authorization;
 
-        const tarefas = await connection('tarefa')
+        const tarefas = await connection('mes')
             .where('id', id)
             .select('id_usuario')
             .first()
@@ -43,7 +44,7 @@ module.exports = {
                 error: 'Operation not permitted.'
             });
         }
-        await connection('tarefa').where('id', id).delete();
+        await connection('mes').where('id', id).delete();
 
         return response.status(204).send();
     }
