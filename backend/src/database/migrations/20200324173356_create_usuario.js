@@ -11,6 +11,5 @@ exports.up = function(knex) {
 };
 
 exports.down = function(knex) {
-  //aqui é caso der errado, o que ele faz, aqui ele dropa a tabela
   return knex.schema.dropTable('usuario');
 };

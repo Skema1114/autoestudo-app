@@ -7,17 +7,17 @@ import {Link, useHistory} from 'react-router-dom'
 import api from '../../services/api';
 
 export default function Logon(){
-    const [id, setId] = useState('');
+    const [email, setEmail] = useState('');
+    const [senha, setSenha] = useState('');
     const history = useHistory();
 
     async function handleLogin(e){
         e.preventDefault();
 
         try{
-            const response = await api.get('sessions', {id})
-            localStorage.setItem('id', id);
-            localStorage.setItem('usuarioNome', response.data.name);
-            history.push('/tarefas')
+            const response = await api.post('sessions', {email, senha})
+            localStorage.setItem('id', response.id);
+            history.push('/testes')
         }catch(err){
             alert('Falha no login, tente novamente.')
         }
@@ -32,14 +32,20 @@ export default function Logon(){
                     <h1>Faça seu logon</h1>
 
                     <input 
-                        placeholder="Sua ID"
-                        value={id}
-                        onChange={e => setId(e.target.value)}
+                        placeholder="email"
+                        value={email}
+                        onChange={e => setEmail(e.target.value)}
+                    />
+
+                    <input 
+                        placeholder="Senha"
+                        value={senha}
+                        onChange={e => setSenha(e.target.value)}
                     />
 
                     <button className="button" type="submit">Entrar</button>
 
-                    <Link className="back-link" to="/usuarios/new">
+                    <Link className="back-link" to="/usuario/novo">
                         <FiLogIn size={16} color="#E02041"/>
                         Não tenho cadastro
                     </Link>

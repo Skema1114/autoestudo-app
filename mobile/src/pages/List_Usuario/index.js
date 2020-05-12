@@ -5,16 +5,18 @@ import styles from './styles';
 import {Feather} from '@expo/vector-icons';
 import {useNavigation} from '@react-navigation/native';
 import api from '../../services/api';
+import {CheckBox} from 'react-native';
 
-export default function Usuarios(){
+export default function ListUsuario(){
   const navigation = useNavigation();
   const [usuarios, setUsuarios] = useState([]);
   const [total, setTotal] = useState(0);
-  //const [page, setPage] = useState(1);
+  const [checador, setChecador] = useState(false);
+  const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
 
-  function navigateToDetail(usuarios){
-    navigation.navigate('Detail', {usuarios});
+  function navigateToDetail(usuario){
+    navigation.navigate('DetailUsuario', {usuario});
   }
 
   async function loadUsuarios(){
@@ -27,16 +29,29 @@ export default function Usuarios(){
     }
 
     setLoading(true);
-    const response = await api.get('usuarios', {});
+    const response = await api.get('usuarios', {
+      params: {page}
+    });
 
     setUsuarios([...usuarios, ...response.data]);
     setTotal(response.headers['x-total-count']);
+    setPage(page + 1);
     setLoading(false);
   }
 
   useEffect(() => {
     loadUsuarios();
   }, []);
+
+  function checado(id){
+    if(checador===false){
+      alert("Foi checado o "+id)
+      setChecador(true)
+    }else{
+      alert("Foi deschecado o "+id)
+      setChecador(false)
+    }
+  }
 
   return (
     <View style={styles.container}>
@@ -61,18 +76,10 @@ export default function Usuarios(){
         onEndReachedThreshold={0.2}
         renderItem={({item: usuario}) => (
           <View style={styles.incident}>
-
+            <CheckBox id="c12"
+            value={checador} onChange={() => checado(usuario.id)}></CheckBox>
             <Text style={styles.incidentProperty}>NOME:</Text>
             <Text style={styles.incidentValue}>{usuario.nome}</Text>
-
-            <Text style={styles.incidentProperty}>EMAIL:</Text>
-            <Text style={styles.incidentValue}>{usuario.email}</Text>
-
-            <Text style={styles.incidentProperty}>FONE:</Text>
-            <Text style={styles.incidentValue}>{usuario.fone}</Text>
-
-            <Text style={styles.incidentProperty}>DATA SENHA:</Text>
-            <Text style={styles.incidentValue}>{usuario.senha}</Text>
 
             <TouchableOpacity
               style={styles.detailsButton}

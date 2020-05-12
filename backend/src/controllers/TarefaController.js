@@ -4,12 +4,12 @@ module.exports = {
     async index(request, response){
         const id_usuario = request.headers.authorization;
 
-        const [count] = await connection('tarefa')
-            .count();
-
         const tarefas = await connection('tarefa')
         .select('*')
         .where('id_usuario', id_usuario);
+
+        const [count] = await connection('tarefa')
+            .count();
 
         response.header('X-Total-Count', count['count(*)']);
 

@@ -3,13 +3,25 @@ const generateUniqueId = require('../util/generateUniqueId');
 
 module.exports = {
     async index(request, response){
-        const usuarios = await connection('usuario').select('*');
+
+        const {page = 1} = request.query;
+
+        const usuarios = await connection('usuario')
+        .limit(100)
+        .offset((page - 1) * 100)
+        .select('*');
+
+        const [count] = await connection('usuario')
+            .count();
+
+        response.header('X-Total-Count', count['count(*)']);
         
+
         return response.json(usuarios);
     },
 
     async create(request, response){
-        const {nome, email, fone, senha} = request.body;
+        const {nome, email, senha} = request.body;
 
         const id = generateUniqueId();
      

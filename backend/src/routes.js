@@ -217,11 +217,12 @@ routes.delete('/resultado_mes/:id',celebrate({
 
 
 /**
- * #################### /RESULTADO MES
+ * #################### /SESSIONS
  */
 routes.post('/sessions',celebrate({
           [Segments.BODY]: Joi.object().keys({
-            id: Joi.string().required()
+            email: Joi.string().required(),
+            senha: Joi.string().required()
           })
 }), SessionController.create);
 

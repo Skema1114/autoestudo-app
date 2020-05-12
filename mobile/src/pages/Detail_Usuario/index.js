@@ -6,11 +6,11 @@ import styles from './styles';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import * as MailComposer from 'expo-mail-composer';
 
-export default function Detail(){
+export default function DetailUsuario(){
   const navigation = useNavigation();
   const route = useRoute();
-  const incident = route.params.incident;
-  const message = `Olá ${incident.name}, estou entrando em contato pois gostaria de ajudar no caso "${incident.title}" com o valor de ${Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(incident.value)}`;
+  const usuario = route.params.usuario;
+  const message = `Olá ${usuario.name}, estou entrando em contato pois gostaria de ajudar no caso "${usuario.email}" com o valor de`;
 
   function navigateBack(){
     navigation.goBack();
@@ -18,14 +18,14 @@ export default function Detail(){
 
   function sendMail(){
     MailComposer.composeAsync({
-      subject: `Herói do caso: ${incident.title}`,
-      recipients: [incident.email],
+      subject: `Herói do caso: ${usuario.nome}`,
+      recipients: [usuario.email],
       body: message
     })
   }
 
   function sendWhatsapp(){
-    Linking.openURL(`whatsapp://send?phone=${incident.whatsapp}&text=${message}`);
+    Linking.openURL(`whatsapp://send?phone=${usuario.whatsapp}&text=${message}`);
   }
 
   return (
@@ -39,19 +39,11 @@ export default function Detail(){
       </View>
 
       <View style={styles.incident}>
-      <Text style={styles.incidentProperty}>ONG:</Text>
-      <Text style={styles.incidentValue}>{incident.name} de {incident.city}/{incident.uf}</Text>
+      <Text style={styles.incidentProperty}>NOME:</Text>
+      <Text style={styles.incidentValue}>{usuario.nome}</Text>
 
-        <Text style={styles.incidentProperty}>CASO:</Text>
-        <Text style={styles.incidentValue}>{incident.title}</Text>
-
-        <Text style={styles.incidentProperty}>VALOR:</Text>
-        <Text style={styles.incidentValue}>
-          {Intl.NumberFormat('pt-BR', {
-            style: 'currency', 
-            currency: 'BRL'
-          }).format(incident.value)}
-        </Text>
+        <Text style={styles.incidentProperty}>EMAIL:</Text>
+        <Text style={styles.incidentValue}>{usuario.email}</Text>
       </View>
 
       <View style={styles.contactBox}>
