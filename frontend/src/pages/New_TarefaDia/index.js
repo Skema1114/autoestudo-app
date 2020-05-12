@@ -23,10 +23,10 @@ export default function NewTarefaDia(){
         try{
             await api.post('tarefa_dia', data, {
                 headers: {
-                    Authorization: id_usuario,
+                    authorization: id_usuario,
                 }
             })
-            history.push('/')
+              history.push('/tarefa_dias')
         }catch(err){
             alert("Erro ao cadastrar caso, tente novamente.")
         }

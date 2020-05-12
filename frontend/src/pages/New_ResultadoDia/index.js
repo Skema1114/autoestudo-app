@@ -28,7 +28,7 @@ export default function NewResultadoDia(){
                     Authorization: id_usuario,
                 }
             })
-            history.push('/')
+            history.push('/resultado_dias')
         }catch(err){
             alert("Erro ao cadastrar caso, tente novamente.")
         }

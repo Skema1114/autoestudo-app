@@ -36,7 +36,7 @@ export default function ListTarefa(){
 
     function handleLogout(){
         localStorage.clear();
-        history.push('/tarefas');
+        history.push('/');
     }
 
     return (

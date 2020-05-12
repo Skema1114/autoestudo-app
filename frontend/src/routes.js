@@ -40,7 +40,7 @@ export default function Rooutes(){
                 <Route path="/mes/novo" component={NewMes}/>
 
                 <Route path="/dias" component={ListDia}/>
-                <Route path="/dia/novo" component={NewDia}/>
+                <Route path="/dia/:id_mes" component={NewDia}/>
 
                 <Route path="/tarefas" component={ListTarefa}/>
                 <Route path="/tarefa/novo" component={NewTarefa}/>

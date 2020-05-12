@@ -26,7 +26,7 @@ export default function NewTarefa(){
                     Authorization: id_usuario,
                 }
             })
-            history.push('/')
+            history.push('/tarefas')
         }catch(err){
             alert("Erro ao cadastrar caso, tente novamente.")
         }

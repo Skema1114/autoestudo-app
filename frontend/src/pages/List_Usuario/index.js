@@ -32,7 +32,7 @@ export default function ListUsuario(){
 
     function handleLogout(){
         localStorage.clear();
-        history.push('/usuarios');
+        history.push('/');
     }
 
     return (

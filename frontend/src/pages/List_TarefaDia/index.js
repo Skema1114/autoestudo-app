@@ -36,7 +36,7 @@ export default function ListTarefaDia(){
 
     function handleLogout(){
         localStorage.clear();
-        history.push('/tarefa_dias');
+        history.push('/');
     }
 
     return (

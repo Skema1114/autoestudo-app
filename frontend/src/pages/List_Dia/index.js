@@ -5,6 +5,7 @@ import logoImg from '../../assets/logo.svg';
 import './styles.css';
 import api from '../../services/api';
 
+
 export default function ListDia(){
     const [dias, setDias] = useState([]);
     const id_usuario = "1e54cc5b";
@@ -36,7 +37,7 @@ export default function ListDia(){
 
     function handleLogout(){
         localStorage.clear();
-        history.push('/dias');
+        history.push('/');
     }
 
     return (
@@ -45,7 +46,7 @@ export default function ListDia(){
                 <img src={logoImg} alt="Be The Hero"/>
                 <span>Bem Vinda, TESTE</span>
 
-                <Link className="button" to="/dia/novo">
+                <Link className="button" to="/dia/1">
                     NOVO dia
                 </Link>
                 <button type="button" onClick={handleLogout}>

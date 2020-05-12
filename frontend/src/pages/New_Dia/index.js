@@ -26,7 +26,7 @@ export default function NewDia(){
                     Authorization: id_usuario,
                 }
             })
-            history.push('/')
+            history.push('/dias')
         }catch(err){
             alert("Erro ao cadastrar caso, tente novamente.")
         }

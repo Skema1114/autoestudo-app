@@ -23,7 +23,7 @@ export default function NewUsuario(){
         try{
             const response = await api.post('usuario', data)
             alert(`Seu ID de usuario: ${response.data.id}`)
-            history.push('/')
+            history.push('/usuarios')
         }catch(err){
             alert("Erro ao cadastrar caso, tente novamente.")
         }
@@ -52,7 +52,7 @@ export default function NewUsuario(){
                         value={nome}
                         onChange={e => setNome(e.target.value)}
                     />
-                    <textarea 
+                    <input 
                         placeholder="email"
                         value={email}
                         onChange={e => setEmail(e.target.value)}

@@ -26,7 +26,7 @@ export default function NewResultadoMes(){
                     Authorization: id_usuario,
                 }
             })
-            history.push('/')
+            history.push('/resultado_meses')
         }catch(err){
             alert("Erro ao cadastrar caso, tente novamente.")
         }

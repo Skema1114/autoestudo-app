@@ -36,7 +36,7 @@ export default function ListResultadoDia(){
 
     function handleLogout(){
         localStorage.clear();
-        history.push('/resultado_dias');
+        history.push('/');
     }
 
     return (

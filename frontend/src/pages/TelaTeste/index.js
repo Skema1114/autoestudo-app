@@ -10,8 +10,6 @@ export default function TelaTeste(){
 
             </header>
 
-            <h1>Dias Cadastrados</h1>
-
             <ul>
                     <li>
                         <Link className="button" to="/usuarios">

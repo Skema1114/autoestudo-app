@@ -36,7 +36,7 @@ export default function ListResultadoMes(){
 
     function handleLogout(){
         localStorage.clear();
-        history.push('/resultado_meses');
+        history.push('/');
     }
 
     return (

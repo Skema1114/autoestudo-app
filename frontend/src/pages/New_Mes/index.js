@@ -28,7 +28,7 @@ export default function NewMes(){
                     Authorization: id_usuario,
                 }
             })
-            history.push('/')
+            history.push('/meses')
         }catch(err){
             alert("Erro ao cadastrar caso, tente novamente.")
         }
@@ -57,7 +57,7 @@ export default function NewMes(){
                         value={mes}
                         onChange={e => setMes(e.target.value)}
                     />
-                    <textarea 
+                    <input 
                         placeholder="ano"
                         value={ano}
                         onChange={e => setAno(e.target.value)}

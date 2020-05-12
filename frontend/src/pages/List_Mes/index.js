@@ -36,7 +36,7 @@ export default function ListMes(){
 
     function handleLogout(){
         localStorage.clear();
-        history.push('/meses');
+        history.push('/');
     }
 
     return (
