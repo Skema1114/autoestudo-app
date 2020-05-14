@@ -13,7 +13,12 @@ import ListResultadoDia from './pages/List_ResultadoDia';
 import ListResultadoMes from './pages/List_ResultadoMes';
 
 import DetailUsuario from './pages/Detail_Usuario';
-
+import DetailMes from './pages/Detail_Mes';
+import DetailDia from './pages/Detail_Dia';
+import DetailTarefa from './pages/Detail_Tarefa';
+import DetailTarefaDia from './pages/Detail_TarefaDia';
+import DetailResultadoDia from './pages/Detail_ResultadoDia';
+import DetailResultadoMes from './pages/Detail_ResultadoMes';
 
 const AppStack = createStackNavigator();
 
@@ -32,6 +37,12 @@ export default function Routes(){
         <AppStack.Screen name="ListResultadoMes" component={ListResultadoMes}/>
 
         <AppStack.Screen name="DetailUsuario" component={DetailUsuario}/>
+        <AppStack.Screen name="DetailMes" component={DetailMes}/>
+        <AppStack.Screen name="DetailDia" component={DetailDia}/>
+        <AppStack.Screen name="DetailTarefa" component={DetailTarefa}/>
+        <AppStack.Screen name="DetailTarefaDia" component={DetailTarefaDia}/>
+        <AppStack.Screen name="DetailResultadoDia" component={DetailResultadoDia}/>
+        <AppStack.Screen name="DetailResultadoMes" component={DetailResultadoMes}/>
 
       </AppStack.Navigator>
     </NavigationContainer>

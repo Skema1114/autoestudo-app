@@ -15,7 +15,7 @@ export default function ListTarefa(){
   const id_usuario = '1e54cc5b';
 
   function navigateToDetail(tarefa){
-    navigation.navigate('DetailUsuario', {tarefa});
+    navigation.navigate('DetailTarefa', {tarefa});
   }
 
   async function loadTarefas(){

@@ -1,16 +1,16 @@
-import React from './node_modules/react';
+import React from 'react';
 import {View, Image, Text, TouchableOpacity, Linking} from 'react-native';
-import {Feather} from './node_modules/@expo/vector-icons';
+import {Feather} from '@expo/vector-icons';
 import logoImg from '../../assets/logo.png';
 import styles from './styles';
-import {useNavigation, useRoute} from './node_modules/@react-navigation/native';
-import * as MailComposer from './node_modules/expo-mail-composer';
+import {useNavigation, useRoute} from '@react-navigation/native';
+import * as MailComposer from 'expo-mail-composer';
 
 export default function DetailMes(){
   const navigation = useNavigation();
   const route = useRoute();
   const mes = route.params.mes;
-  //const mesmes${mes.name}, estou entrando em contato pois gostaria de ajudar no caso "${mes.email}" com o valor de`;
+  //const message = `Olá ${dia.name}, estou entrando em contato pois gostaria de ajudar no caso "${dia.email}" com o valor de`;
 
   function navigateBack(){
     navigation.goBack();
@@ -18,14 +18,14 @@ export default function DetailMes(){
 
   function sendMail(){
    // MailComposer.composeAsync({
-     // subject: `Herói do caso: ${mes.nome}`,
-    //  recipients: [mes.email],
-   //   body: message
-// })
+   //   subject: `Herói do caso: ${usuario.nome}`,
+    //  recipients: [usuario.email],
+    //  body: message
+   // })
   }
 
   function sendWhatsapp(){
-   // Linking.openURL(`whatsapp://send?phone=${mes.whatsapp}&text=${message}`);
+   // Linking.openURL(`whatsapp://send?phone=${usuario.whatsapp}&text=${message}`);
   }
 
   return (
