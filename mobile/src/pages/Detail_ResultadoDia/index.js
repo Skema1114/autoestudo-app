@@ -6,11 +6,11 @@ import styles from './styles';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import * as MailComposer from 'expo-mail-composer';
 
-export default function DetailUsuario(){
+export default function DetailResultadoDia(){
   const navigation = useNavigation();
   const route = useRoute();
-  const usuario = route.params.usuario;
-  const message = `Olá ${usuario.name}, estou entrando em contato pois gostaria de ajudar no caso "${usuario.email}" com o valor de`;
+  const resultadoDia = route.params.resultadoDia;
+  //const message = `Olá ${dia.name}, estou entrando em contato pois gostaria de ajudar no caso "${dia.email}" com o valor de`;
 
   function navigateBack(){
     navigation.goBack();
@@ -40,16 +40,19 @@ export default function DetailUsuario(){
 
         <View style={styles.incident}>
         <Text style={styles.incidentProperty}>ID:</Text>
-        <Text style={styles.incidentValue}>{usuario.id}</Text>
+        <Text style={styles.incidentValue}>{resultadoDia.id}</Text>
 
-        <Text style={styles.incidentProperty}>NOME:</Text>
-        <Text style={styles.incidentValue}>{usuario.nome}</Text>
+        <Text style={styles.incidentProperty}>ID DIA:</Text>
+        <Text style={styles.incidentValue}>{resultadoDia.id_dia}</Text>
 
-        <Text style={styles.incidentProperty}>EMAIL:</Text>
-        <Text style={styles.incidentValue}>{usuario.email}</Text>
+        <Text style={styles.incidentProperty}>ID USUARIO:</Text>
+        <Text style={styles.incidentValue}>{resultadoDia.id_usuario}</Text>
 
-        <Text style={styles.incidentProperty}>SENHA:</Text>
-        <Text style={styles.incidentValue}>{usuario.senha}</Text>
+        <Text style={styles.incidentProperty}>RESULTADO:</Text>
+        <Text style={styles.incidentValue}>{resultadoDia.resultado}</Text>
+
+        <Text style={styles.incidentProperty}>QTD NAO:</Text>
+        <Text style={styles.incidentValue}>{resultadoDia.qtd_nao}</Text>
       </View>
 
       <View style={styles.contactBox}>

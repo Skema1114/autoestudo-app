@@ -6,7 +6,7 @@ import {Feather} from '@expo/vector-icons';
 import {useNavigation} from '@react-navigation/native';
 import api from '../../services/api';
 
-export default function ListRsultadoDia(){
+export default function ListResultadoDia(){
   const navigation = useNavigation();
   const [resultadoDias, setResultadoDias] = useState([]);
   const [total, setTotal] = useState(0);

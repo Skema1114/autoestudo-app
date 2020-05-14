@@ -1,16 +1,16 @@
-import React from 'react';
+import React from './node_modules/react';
 import {View, Image, Text, TouchableOpacity, Linking} from 'react-native';
-import {Feather} from '@expo/vector-icons';
+import {Feather} from './node_modules/@expo/vector-icons';
 import logoImg from '../../assets/logo.png';
 import styles from './styles';
-import {useNavigation, useRoute} from '@react-navigation/native';
-import * as MailComposer from 'expo-mail-composer';
+import {useNavigation, useRoute} from './node_modules/@react-navigation/native';
+import * as MailComposer from './node_modules/expo-mail-composer';
 
-export default function DetailUsuario(){
+export default function DetailMes(){
   const navigation = useNavigation();
   const route = useRoute();
-  const usuario = route.params.usuario;
-  const message = `Olá ${usuario.name}, estou entrando em contato pois gostaria de ajudar no caso "${usuario.email}" com o valor de`;
+  const mes = route.params.mes;
+  //const mesmes${mes.name}, estou entrando em contato pois gostaria de ajudar no caso "${mes.email}" com o valor de`;
 
   function navigateBack(){
     navigation.goBack();
@@ -18,14 +18,14 @@ export default function DetailUsuario(){
 
   function sendMail(){
    // MailComposer.composeAsync({
-   //   subject: `Herói do caso: ${usuario.nome}`,
-    //  recipients: [usuario.email],
-    //  body: message
-   // })
+     // subject: `Herói do caso: ${mes.nome}`,
+    //  recipients: [mes.email],
+   //   body: message
+// })
   }
 
   function sendWhatsapp(){
-   // Linking.openURL(`whatsapp://send?phone=${usuario.whatsapp}&text=${message}`);
+   // Linking.openURL(`whatsapp://send?phone=${mes.whatsapp}&text=${message}`);
   }
 
   return (
@@ -40,16 +40,19 @@ export default function DetailUsuario(){
 
         <View style={styles.incident}>
         <Text style={styles.incidentProperty}>ID:</Text>
-        <Text style={styles.incidentValue}>{usuario.id}</Text>
+        <Text style={styles.incidentValue}>{mes.id}</Text>
 
-        <Text style={styles.incidentProperty}>NOME:</Text>
-        <Text style={styles.incidentValue}>{usuario.nome}</Text>
+        <Text style={styles.incidentProperty}>ID USUARIO:</Text>
+        <Text style={styles.incidentValue}>{mes.id_usuario}</Text>
 
-        <Text style={styles.incidentProperty}>EMAIL:</Text>
-        <Text style={styles.incidentValue}>{usuario.email}</Text>
+        <Text style={styles.incidentProperty}>MES:</Text>
+        <Text style={styles.incidentValue}>{mes.mes}</Text>
 
-        <Text style={styles.incidentProperty}>SENHA:</Text>
-        <Text style={styles.incidentValue}>{usuario.senha}</Text>
+        <Text style={styles.incidentProperty}>ANO:</Text>
+        <Text style={styles.incidentValue}>{mes.ano}</Text>
+
+        <Text style={styles.incidentProperty}>QTD NAO:</Text>
+        <Text style={styles.incidentValue}>{mes.qtd_nao}</Text>
       </View>
 
       <View style={styles.contactBox}>

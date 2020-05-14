@@ -7,12 +7,13 @@ import Teste from './pages/Teste'
 import ListUsuario from './pages/List_Usuario';
 import ListMes from './pages/List_Mes';
 import ListDia from './pages/List_Dia';
-import ListTarefa from './pages/List_Tarefa'
-import ListTarefaDia from './pages/List_TarefaDia'
-import ListResultadoDia from './pages/List_ResultadoDia'
-import ListResultadoMes from './pages/List_ResultadoMes'
+import ListTarefa from './pages/List_Tarefa';
+import ListTarefaDia from './pages/List_TarefaDia';
+import ListResultadoDia from './pages/List_ResultadoDia';
+import ListResultadoMes from './pages/List_ResultadoMes';
 
-import DetailUsuario from './pages/Detail_Usuario'
+import DetailUsuario from './pages/Detail_Usuario';
+
 
 const AppStack = createStackNavigator();
 
@@ -31,6 +32,7 @@ export default function Routes(){
         <AppStack.Screen name="ListResultadoMes" component={ListResultadoMes}/>
 
         <AppStack.Screen name="DetailUsuario" component={DetailUsuario}/>
+
       </AppStack.Navigator>
     </NavigationContainer>
   );
