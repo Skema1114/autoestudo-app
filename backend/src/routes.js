@@ -17,7 +17,11 @@ const routes = express.Router();
  * ####################  /USUARIO
  */
 
-routes.get('/usuarios', UsuarioController.index);
+routes.get('/usuarios', celebrate({
+          [Segments.QUERY]: Joi.object().keys({
+            page: Joi.number()
+          })  
+}), UsuarioController.index);
 routes.post('/usuario', celebrate({
           [Segments.BODY]: Joi.object().keys({
             nome: Joi.string().required(),
@@ -40,6 +44,9 @@ routes.get('/meses',celebrate({
           [Segments.HEADERS]: Joi.object({
             authorization: Joi.string().required()
           }).unknown(),
+          [Segments.QUERY]: Joi.object().keys({
+            page: Joi.number()
+          })  
 }), MesController.index);
 routes.post('/mes',celebrate({
           [Segments.HEADERS]: Joi.object({
@@ -70,6 +77,9 @@ routes.get('/dias',celebrate({
           [Segments.HEADERS]: Joi.object({
             authorization: Joi.string().required()
           }).unknown(),
+          [Segments.QUERY]: Joi.object().keys({
+            page: Joi.number()
+          })  
 }), DiaController.index);
 routes.post('/dia/:id_mes',celebrate({
           [Segments.HEADERS]: Joi.object({
@@ -101,6 +111,9 @@ routes.get('/tarefas',celebrate({
           [Segments.HEADERS]: Joi.object({
             authorization: Joi.string().required()
           }).unknown(),
+          [Segments.QUERY]: Joi.object().keys({
+            page: Joi.number()
+          })     
 }), TarefaController.index);
 routes.post('/tarefa',celebrate({
           [Segments.HEADERS]: Joi.object({
@@ -122,6 +135,8 @@ routes.delete('/tarefa/:id',celebrate({
 
 
 
+
+
 /**
  * #################### /TAREFA DIA
  */
@@ -130,6 +145,9 @@ routes.get('/tarefa_dias',celebrate({
           [Segments.HEADERS]: Joi.object({
             authorization: Joi.string().required()
           }).unknown(),
+          [Segments.QUERY]: Joi.object().keys({
+            page: Joi.number()
+          })  
 }), TarefaDiaController.index);
 routes.post('/tarefa_dia/:id_tarefa',celebrate({
           [Segments.HEADERS]: Joi.object({
@@ -161,6 +179,9 @@ routes.get('/resultado_dias',celebrate({
           [Segments.HEADERS]: Joi.object({
             authorization: Joi.string().required()
           }).unknown(),
+          [Segments.QUERY]: Joi.object().keys({
+            page: Joi.number()
+          })  
 }), ResultadoDiaController.index);
 routes.post('/resultado_dia/:id_dia',celebrate({
           [Segments.HEADERS]: Joi.object({
@@ -193,6 +214,9 @@ routes.get('/resultado_meses',celebrate({
           [Segments.HEADERS]: Joi.object({
             authorization: Joi.string().required()
           }).unknown(),
+          [Segments.QUERY]: Joi.object().keys({
+            page: Joi.number()
+          })  
 }), ResultadoMesController.index);
 routes.post('/resultado_mes/:id_mes',celebrate({
           [Segments.HEADERS]: Joi.object({

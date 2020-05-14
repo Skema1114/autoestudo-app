@@ -30,7 +30,6 @@ export default function ListUsuario(){
 
     setLoading(true);
     const response = await api.get('usuarios', {
-      params: {page}
     });
 
     setUsuarios([...usuarios, ...response.data]);
@@ -63,8 +62,7 @@ export default function ListUsuario(){
       </View>
 
       <Text style={styles.title}>Bem-vindo!</Text>
-      <Text style={styles.description}>Escolha um dos casos abaixo e salve o 
-        dia.
+      <Text style={styles.description}>Usuarios
       </Text>
 
       <FlatList
@@ -78,8 +76,17 @@ export default function ListUsuario(){
           <View style={styles.incident}>
             <CheckBox id="c12"
             value={checador} onChange={() => checado(usuario.id)}></CheckBox>
+            <Text style={styles.incidentProperty}>ID:</Text>
+            <Text style={styles.incidentValue}>{usuario.id}</Text>
+
             <Text style={styles.incidentProperty}>NOME:</Text>
             <Text style={styles.incidentValue}>{usuario.nome}</Text>
+
+            <Text style={styles.incidentProperty}>EMAIL:</Text>
+            <Text style={styles.incidentValue}>{usuario.email}</Text>
+
+            <Text style={styles.incidentProperty}>SENHA:</Text>
+            <Text style={styles.incidentValue}>{usuario.senha}</Text>
 
             <TouchableOpacity
               style={styles.detailsButton}

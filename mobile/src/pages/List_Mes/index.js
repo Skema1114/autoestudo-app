@@ -6,42 +6,42 @@ import {Feather} from '@expo/vector-icons';
 import {useNavigation} from '@react-navigation/native';
 import api from '../../services/api';
 
-export default function ListTarefa(){
+export default function ListMes(){
   const navigation = useNavigation();
-  const [tarefas, setTarefas] = useState([]);
+  const [meses, setMeses] = useState([]);
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const id_usuario = '1e54cc5b';
 
-  function navigateToDetail(tarefa){
-    navigation.navigate('DetailUsuario', {tarefa});
+  function navigateToMes(mes){
+    navigation.navigate('DetailMes', {mes});
   }
 
-  async function loadTarefas(){
+  async function loadMeses(){
     if(loading){
       return;
     }
 
-    if((total > 0) && (tarefas.length === total)){
+    if((total > 0) && (meses.length === total)){
       return;
     }
 
     setLoading(true);
-    const response = await api.get('tarefas', {
+    const response = await api.get('meses', {
       headers: {
         Authorization: '1e54cc5b',
       }
     });
 
-    setTarefas([...tarefas, ...response.data]);
+    setMeses([...meses, ...response.data]);
     setTotal(response.headers['x-total-count']);
     setPage(page + 1);
     setLoading(false);
   }
 
   useEffect(() => {
-    loadTarefas();
+    loadMeses();
   }, []);
 
   return (
@@ -54,33 +54,36 @@ export default function ListTarefa(){
       </View>
 
       <Text style={styles.title}>Bem-vindo!</Text>
-      <Text style={styles.description}>Tarefas
+      <Text style={styles.description}>Meses
       </Text>
 
       <FlatList
-        data={tarefas}
+        data={meses}
         style={styles.incidentList}
-        keyExtractor={tarefa => String(tarefa.id)}
+        keyExtractor={mes => String(mes.id)}
         showsVerticalScrollIndicator={false}
-        onEndReached={loadTarefas}
+        onEndReached={loadMeses}
         onEndReachedThreshold={0.2}
-        renderItem={({item: tarefa}) => (
+        renderItem={({item: mes}) => (
           <View style={styles.incident}>
             <Text style={styles.incidentProperty}>ID:</Text>
-            <Text style={styles.incidentValue}>{tarefa.id}</Text>
+            <Text style={styles.incidentValue}>{mes.id}</Text>
 
             <Text style={styles.incidentProperty}>ID USUARIO:</Text>
-            <Text style={styles.incidentValue}>{tarefa.id_usuario}</Text>
+            <Text style={styles.incidentValue}>{mes.id_usuario}</Text>
 
-            <Text style={styles.incidentProperty}>NOME:</Text>
-            <Text style={styles.incidentValue}>{tarefa.nome}</Text>
+            <Text style={styles.incidentProperty}>MES:</Text>
+            <Text style={styles.incidentValue}>{mes.mes}</Text>
 
-            <Text style={styles.incidentProperty}>DATA CRIACAO:</Text>
-            <Text style={styles.incidentValue}>{tarefa.data_criacao}</Text>
+            <Text style={styles.incidentProperty}>ANO:</Text>
+            <Text style={styles.incidentValue}>{mes.ano}</Text>
+
+            <Text style={styles.incidentProperty}>QTD NAO:</Text>
+            <Text style={styles.incidentValue}>{mes.qtd_nao}</Text>
 
             <TouchableOpacity
               style={styles.detailsButton}
-             onPress={() => navigateToDetail(tarefa)}
+             onPress={() => navigateToMes(mes)}
             >
               <Text style={styles.detailsButtonText}>Ver mais detalhes</Text>
               <Feather name="arrow-right" size={16} color="#E02041"/>

@@ -6,42 +6,42 @@ import {Feather} from '@expo/vector-icons';
 import {useNavigation} from '@react-navigation/native';
 import api from '../../services/api';
 
-export default function ListTarefa(){
+export default function ListDia(){
   const navigation = useNavigation();
-  const [tarefas, setTarefas] = useState([]);
+  const [dias, setDias] = useState([]);
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const id_usuario = '1e54cc5b';
 
-  function navigateToDetail(tarefa){
-    navigation.navigate('DetailUsuario', {tarefa});
+  function navigateToDias(dia){
+    navigation.navigate('DetailDia', {dia});
   }
 
-  async function loadTarefas(){
+  async function loadDias(){
     if(loading){
       return;
     }
 
-    if((total > 0) && (tarefas.length === total)){
+    if((total > 0) && (dias.length === total)){
       return;
     }
 
     setLoading(true);
-    const response = await api.get('tarefas', {
+    const response = await api.get('dias', {
       headers: {
         Authorization: '1e54cc5b',
       }
     });
 
-    setTarefas([...tarefas, ...response.data]);
+    setDias([...dias, ...response.data]);
     setTotal(response.headers['x-total-count']);
     setPage(page + 1);
     setLoading(false);
   }
 
   useEffect(() => {
-    loadTarefas();
+    loadDias();
   }, []);
 
   return (
@@ -54,33 +54,33 @@ export default function ListTarefa(){
       </View>
 
       <Text style={styles.title}>Bem-vindo!</Text>
-      <Text style={styles.description}>Tarefas
+      <Text style={styles.description}>Dias
       </Text>
 
       <FlatList
-        data={tarefas}
+        data={dias}
         style={styles.incidentList}
-        keyExtractor={tarefa => String(tarefa.id)}
+        keyExtractor={dia => String(dia.id)}
         showsVerticalScrollIndicator={false}
-        onEndReached={loadTarefas}
+        onEndReached={loadDias}
         onEndReachedThreshold={0.2}
-        renderItem={({item: tarefa}) => (
+        renderItem={({item: dia}) => (
           <View style={styles.incident}>
             <Text style={styles.incidentProperty}>ID:</Text>
-            <Text style={styles.incidentValue}>{tarefa.id}</Text>
+            <Text style={styles.incidentValue}>{dia.id}</Text>
 
             <Text style={styles.incidentProperty}>ID USUARIO:</Text>
-            <Text style={styles.incidentValue}>{tarefa.id_usuario}</Text>
+            <Text style={styles.incidentValue}>{dia.id_usuario}</Text>
 
-            <Text style={styles.incidentProperty}>NOME:</Text>
-            <Text style={styles.incidentValue}>{tarefa.nome}</Text>
+            <Text style={styles.incidentProperty}>ID MES:</Text>
+            <Text style={styles.incidentValue}>{dia.id_mes}</Text>
 
-            <Text style={styles.incidentProperty}>DATA CRIACAO:</Text>
-            <Text style={styles.incidentValue}>{tarefa.data_criacao}</Text>
+            <Text style={styles.incidentProperty}>DATA:</Text>
+            <Text style={styles.incidentValue}>{dia.data}</Text>
 
             <TouchableOpacity
               style={styles.detailsButton}
-             onPress={() => navigateToDetail(tarefa)}
+             onPress={() => navigateToDias(dia)}
             >
               <Text style={styles.detailsButtonText}>Ver mais detalhes</Text>
               <Feather name="arrow-right" size={16} color="#E02041"/>
