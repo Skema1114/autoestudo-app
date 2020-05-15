@@ -15,8 +15,12 @@ export default function ListUsuario(){
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
 
-  function navigateToDetail(usuario){
+  function navigateToNew(usuario){
     navigation.navigate('DetailUsuario', {usuario});
+  }
+
+  function navigateToNew(){
+    navigation.navigate('NewUsuario');
   }
 
   async function loadUsuarios(){
@@ -42,16 +46,6 @@ export default function ListUsuario(){
     loadUsuarios();
   }, []);
 
-  function checado(id){
-    if(checador===false){
-      alert("Foi checado o "+id)
-      setChecador(true)
-    }else{
-      alert("Foi deschecado o "+id)
-      setChecador(false)
-    }
-  }
-
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -61,9 +55,15 @@ export default function ListUsuario(){
         </Text>
       </View>
 
-      <Text style={styles.title}>Bem-vindo!</Text>
-      <Text style={styles.description}>Usuarios
-      </Text>
+      <Text style={styles.title}>Usuario</Text>
+
+      <View style={styles.contactBox}>
+        <View style={styles.actions}>
+          <TouchableOpacity style={styles.action} onPress={() => {navigateToNew()}}>
+            <Text style={styles.actionText}>Cadastrar</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
 
       <FlatList
         data={usuarios}
@@ -74,8 +74,7 @@ export default function ListUsuario(){
         onEndReachedThreshold={0.2}
         renderItem={({item: usuario}) => (
           <View style={styles.incident}>
-            <CheckBox id="c12"
-            value={checador} onChange={() => checado(usuario.id)}></CheckBox>
+            
             <Text style={styles.incidentProperty}>ID:</Text>
             <Text style={styles.incidentValue}>{usuario.id}</Text>
 
@@ -90,7 +89,7 @@ export default function ListUsuario(){
 
             <TouchableOpacity
               style={styles.detailsButton}
-             onPress={() => navigateToDetail(usuario)}
+             onPress={() => navigateToNew(usuario)}
             >
               <Text style={styles.detailsButtonText}>Ver mais detalhes</Text>
               <Feather name="arrow-right" size={16} color="#E02041"/>

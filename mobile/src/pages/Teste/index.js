@@ -1,11 +1,11 @@
 import React, {} from 'react';
-import {View, Image, Text, TouchableOpacity} from 'react-native';
+import {View, Image, Text, TouchableOpacity, TextInput} from 'react-native';
 import logoImg from '../../assets/logo.png';
 import styles from './styles';
 import {Feather} from '@expo/vector-icons';
 import {useNavigation} from '@react-navigation/native';
 
-export default function ListTarefa(){
+export default function Teste(){
   const navigation = useNavigation();
 
   function navigateToTela(tela){
@@ -56,7 +56,7 @@ export default function ListTarefa(){
       </Text>
 
       <View style={styles.incident}>
-
+        <View>
             <TouchableOpacity
               style={styles.detailsButton}
              onPress={() => navigateToTela(1)}
@@ -112,7 +112,9 @@ export default function ListTarefa(){
               <Text style={styles.detailsButtonText}>List Resultado Mes</Text>
               <Feather name="arrow-right" size={16} color="#E02041"/>
             </TouchableOpacity>
-          </View>
+
+        </View>
+      </View>
     </View>
   );
 }

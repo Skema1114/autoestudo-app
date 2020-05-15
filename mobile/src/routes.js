@@ -20,13 +20,20 @@ import DetailTarefaDia from './pages/Detail_TarefaDia';
 import DetailResultadoDia from './pages/Detail_ResultadoDia';
 import DetailResultadoMes from './pages/Detail_ResultadoMes';
 
+import NewUsuario from './pages/New_Usuario';
+
 const AppStack = createStackNavigator();
 
 export default function Routes(){
   return (
     <NavigationContainer>
       <AppStack.Navigator screenOptions={{headerShown: false}}>
+        
         <AppStack.Screen name="Teste" component={Teste}/>
+        
+        <AppStack.Screen name="NewUsuario" component={NewUsuario}/>
+        
+
         
         <AppStack.Screen name="ListUsuario" component={ListUsuario}/>
         <AppStack.Screen name="ListMes" component={ListMes}/>

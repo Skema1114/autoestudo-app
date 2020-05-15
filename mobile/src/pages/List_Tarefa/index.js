@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, Image, Text, TouchableOpacity, FlatList} from 'react-native';
+import {View, Image, Text, TouchableOpacity, FlatList, CheckBox} from 'react-native';
 import logoImg from '../../assets/logo.png';
 import styles from './styles';
 import {Feather} from '@expo/vector-icons';
@@ -12,6 +12,7 @@ export default function ListTarefa(){
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [checador, setChecador] = useState(false);
   const id_usuario = '1e54cc5b';
 
   function navigateToDetail(tarefa){
@@ -44,6 +45,16 @@ export default function ListTarefa(){
     loadTarefas();
   }, []);
 
+  function checado(id){
+    if(checador===false){
+      alert("Foi checado o "+id)
+      setChecador(true)
+    }else{
+      alert("Foi deschecado o "+id)
+      setChecador(false)
+    }
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -66,24 +77,19 @@ export default function ListTarefa(){
         onEndReachedThreshold={0.2}
         renderItem={({item: tarefa}) => (
           <View style={styles.incident}>
-            <Text style={styles.incidentProperty}>ID:</Text>
-            <Text style={styles.incidentValue}>{tarefa.id}</Text>
-
-            <Text style={styles.incidentProperty}>ID USUARIO:</Text>
-            <Text style={styles.incidentValue}>{tarefa.id_usuario}</Text>
+            <CheckBox id="c12"
+              value={checador} onChange={() => checado(tarefa.id)}>
+            </CheckBox>
 
             <Text style={styles.incidentProperty}>NOME:</Text>
             <Text style={styles.incidentValue}>{tarefa.nome}</Text>
-
-            <Text style={styles.incidentProperty}>DATA CRIACAO:</Text>
-            <Text style={styles.incidentValue}>{tarefa.data_criacao}</Text>
 
             <TouchableOpacity
               style={styles.detailsButton}
              onPress={() => navigateToDetail(tarefa)}
             >
               <Text style={styles.detailsButtonText}>Ver mais detalhes</Text>
-              <Feather name="arrow-right" size={16} color="#E02041"/>
+              <Feather name="arrow-left" size={16} color="#E02041"/>
             </TouchableOpacity>
           </View>
         )}
