@@ -18,6 +18,10 @@ export default function ListMes(){
     navigation.navigate('DetailMes', {mes});
   }
 
+  function navigateToNew(){
+    navigation.navigate('NewMes');
+  }
+
   async function loadMeses(){
     if(loading){
       return;
@@ -53,9 +57,15 @@ export default function ListMes(){
         </Text>
       </View>
 
-      <Text style={styles.title}>Bem-vindo!</Text>
-      <Text style={styles.description}>Meses
-      </Text>
+      <Text style={styles.title}>Mes</Text>
+
+      <View style={styles.contactBox}>
+        <View style={styles.actions}>
+          <TouchableOpacity style={styles.action} onPress={() => {navigateToNew()}}>
+            <Text style={styles.actionText}>Cadastrar</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
 
       <FlatList
         data={meses}

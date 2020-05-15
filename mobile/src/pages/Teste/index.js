@@ -37,6 +37,14 @@ export default function Teste(){
       case 7:
         navigation.navigate('ListResultadoMes');
       break;
+
+      case 8:
+        navigation.navigate('AppLogin');
+      break;
+
+      case 9:
+        navigation.navigate('AppCadastro');
+      break;
     }
     
   }
@@ -110,6 +118,22 @@ export default function Teste(){
              onPress={() => navigateToTela(7)}
             >
               <Text style={styles.detailsButtonText}>List Resultado Mes</Text>
+              <Feather name="arrow-right" size={16} color="#E02041"/>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.detailsButton}
+             onPress={() => navigateToTela(8)}
+            >
+              <Text style={styles.detailsButtonText}>Login</Text>
+              <Feather name="arrow-right" size={16} color="#E02041"/>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.detailsButton}
+             onPress={() => navigateToTela(9)}
+            >
+              <Text style={styles.detailsButtonText}>Cadastro</Text>
               <Feather name="arrow-right" size={16} color="#E02041"/>
             </TouchableOpacity>
 

@@ -53,9 +53,7 @@ export default function ListDia(){
         </Text>
       </View>
 
-      <Text style={styles.title}>Bem-vindo!</Text>
-      <Text style={styles.description}>Dias
-      </Text>
+      <Text style={styles.title}>Dia</Text>
 
       <FlatList
         data={dias}

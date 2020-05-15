@@ -53,9 +53,7 @@ export default function ListTarefaDia(){
         </Text>
       </View>
 
-      <Text style={styles.title}>Bem-vindo!</Text>
-      <Text style={styles.description}>Tarefa Dia
-      </Text>
+      <Text style={styles.title}>Tarefa Dia</Text>
 
       <FlatList
         data={tarefaDias}

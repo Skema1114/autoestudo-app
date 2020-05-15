@@ -19,6 +19,10 @@ export default function ListTarefa(){
     navigation.navigate('DetailTarefa', {tarefa});
   }
 
+  function navigateToNew(){
+    navigation.navigate('NewTarefa');
+  }
+
   async function loadTarefas(){
     if(loading){
       return;
@@ -64,9 +68,15 @@ export default function ListTarefa(){
         </Text>
       </View>
 
-      <Text style={styles.title}>Bem-vindo!</Text>
-      <Text style={styles.description}>Tarefas
-      </Text>
+      <Text style={styles.title}>Tarefa</Text>
+
+      <View style={styles.contactBox}>
+        <View style={styles.actions}>
+          <TouchableOpacity style={styles.action} onPress={() => {navigateToNew()}}>
+            <Text style={styles.actionText}>Cadastrar</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
 
       <FlatList
         data={tarefas}

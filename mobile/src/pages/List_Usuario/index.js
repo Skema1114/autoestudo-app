@@ -20,7 +20,7 @@ export default function ListUsuario(){
   }
 
   function navigateToNew(){
-    navigation.navigate('NewUsuario');
+    navigation.navigate('AppCadastro');
   }
 
   async function loadUsuarios(){

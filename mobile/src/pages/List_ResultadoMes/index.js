@@ -53,9 +53,7 @@ export default function ListResultadoMes(){
         </Text>
       </View>
 
-      <Text style={styles.title}>Bem-vindo!</Text>
-      <Text style={styles.description}>Resultado Mes
-      </Text>
+      <Text style={styles.title}>Resultado Mes</Text>
 
       <FlatList
         data={resultadoMeses}

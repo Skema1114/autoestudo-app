@@ -14,45 +14,20 @@ export default StyleSheet.create({
     alignItems: 'center'
   },
 
-  headerText: {
-    fontSize: 15,
-    color: '#737380'
-  },
-
-  headerTextBold: {
-    fontWeight: 'bold'
-  },
-
-  title: {
-    fontSize: 30,
-    marginBottom: 16,
-    marginTop: 48,
-    color: '#13131a',
-    fontWeight: 'bold'
-  },
-
-  description: {
-    fontSize: 16,
-    lineHeight: 24,
-    color: '#737380'
-  },
-
-  incidentList: {
-    marginTop: 32
-  },
-
   incident: {
     paddingTop: 24,
     borderRadius: 8,
     backgroundColor: '#FFF',
-    marginBottom: 16
+    marginBottom: 16,
+    marginTop: 48
   },
 
   incidentProperty: {
     fontSize: 14,
     color: '#41414d',
     fontWeight: 'bold',
-    paddingLeft: 25
+    paddingLeft: 25,
+    //marginTop: 24
   },
 
   incidentValue: {
@@ -62,19 +37,47 @@ export default StyleSheet.create({
     color: '#737380',
     paddingLeft: 25
   },
-  
-  detailsButton: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+
+  contactBox: {
+    paddingTop: 24,
+    borderRadius: 8,
+    backgroundColor: '#FFF',
+    paddingBottom: 24,
     paddingLeft: 25,
-    paddingBottom: 30,
     paddingRight: 25
   },
 
-  detailsButtonText: {
-    color: '#e02041',
+  heroTitle: {
+    fontWeight: 'bold',
+    fontSize: 20,
+    color: '#13131a',
+    lineHeight: 30
+  },
+
+  heroDescription: {
+    fontSize: 15,
+    color: '#737380',
+    marginTop: 16
+  },
+
+  actions: {
+    marginTop: 16,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+
+  action: {
+    backgroundColor: '#e02041',
+    borderRadius: 8,
+    height: 50,
+    width: '48%',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+
+  actionText: {
+    color: '#FFF',
     fontSize: 15,
     fontWeight: 'bold'
-  },
-}); 
+  }
+});
