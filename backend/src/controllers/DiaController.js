@@ -3,15 +3,12 @@ const connection = require('../database/connection');
 module.exports = {
     async index(request, response){
         const id_usuario = request.headers.authorization;
-        const {page = 1} = request.query;
         
         const [count] = await connection('dia')
             .count();
 
         const dias = await connection('dia')
         .select('*')
-        .limit(50)
-        .offset((page - 1) * 50) 
         
         .where('id_usuario', id_usuario);
 

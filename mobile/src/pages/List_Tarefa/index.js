@@ -10,7 +10,6 @@ export default function ListTarefa(){
   const navigation = useNavigation();
   const [tarefas, setTarefas] = useState([]);
   const [total, setTotal] = useState(0);
-  const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [checador, setChecador] = useState(false);
   const id_usuario = '1e54cc5b';
@@ -41,7 +40,6 @@ export default function ListTarefa(){
 
     setTarefas([...tarefas, ...response.data]);
     setTotal(response.headers['x-total-count']);
-    setPage(page + 1);
     setLoading(false);
   }
 
@@ -83,7 +81,6 @@ export default function ListTarefa(){
         style={styles.incidentList}
         keyExtractor={tarefa => String(tarefa.id)}
         showsVerticalScrollIndicator={false}
-        onEndReached={loadTarefas}
         onEndReachedThreshold={0.2}
         renderItem={({item: tarefa}) => (
           <View style={styles.incident}>

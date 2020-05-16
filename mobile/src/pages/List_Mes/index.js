@@ -72,7 +72,6 @@ export default function ListMes(){
         style={styles.incidentList}
         keyExtractor={mes => String(mes.id)}
         showsVerticalScrollIndicator={false}
-        onEndReached={loadMeses}
         onEndReachedThreshold={0.2}
         renderItem={({item: mes}) => (
           <View style={styles.incident}>

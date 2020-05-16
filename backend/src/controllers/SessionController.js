@@ -10,7 +10,6 @@ module.exports = {
             .first()
             .where('email', email) 
            
-
         if(!usuarios){
             return response.status(400).json({
                 error: 'No ONG found with this ID'

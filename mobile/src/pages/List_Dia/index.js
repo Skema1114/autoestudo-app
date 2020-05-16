@@ -60,7 +60,6 @@ export default function ListDia(){
         style={styles.incidentList}
         keyExtractor={dia => String(dia.id)}
         showsVerticalScrollIndicator={false}
-        onEndReached={loadDias}
         onEndReachedThreshold={0.2}
         renderItem={({item: dia}) => (
           <View style={styles.incident}>

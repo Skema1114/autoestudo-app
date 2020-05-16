@@ -2,13 +2,10 @@ const connection = require('../database/connection');
 
 module.exports = {
     async index(request, response){
-        const {page = 1} = request.query;
         const id_usuario = request.headers.authorization;
 
         const tarefas = await connection('tarefa')
         .select('*')
-        .limit(50)
-        .offset((page - 1) * 50) 
         .where('id_usuario', id_usuario);
 
         const [count] = await connection('tarefa')

@@ -12,7 +12,6 @@ export default function ListUsuario(){
   const [usuarios, setUsuarios] = useState([]);
   const [total, setTotal] = useState(0);
   const [checador, setChecador] = useState(false);
-  const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
 
   function navigateToNew(usuario){
@@ -38,7 +37,6 @@ export default function ListUsuario(){
 
     setUsuarios([...usuarios, ...response.data]);
     setTotal(response.headers['x-total-count']);
-    setPage(page + 1);
     setLoading(false);
   }
 
@@ -70,7 +68,6 @@ export default function ListUsuario(){
         style={styles.incidentList}
         keyExtractor={usuario => String(usuario.id)}
         showsVerticalScrollIndicator={false}
-        onEndReached={loadUsuarios}
         onEndReachedThreshold={0.2}
         renderItem={({item: usuario}) => (
           <View style={styles.incident}>

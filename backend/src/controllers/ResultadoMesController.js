@@ -3,15 +3,12 @@ const connection = require('../database/connection');
 module.exports = {
     async index(request, response){
         const id_usuario = request.headers.authorization;
-        const {page = 1} = request.query;
         
         const [count] = await connection('resultado_mes')
             .count();
 
         const resultado_meses = await connection('resultado_mes')
         .select('*')
-        .limit(50)
-        .offset((page - 1) * 50) 
         .where('id_usuario', id_usuario);
 
         response.header('X-Total-Count', count['count(*)']);

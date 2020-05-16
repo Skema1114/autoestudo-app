@@ -10,7 +10,6 @@ export default function ListTarefaDia(){
   const navigation = useNavigation();
   const [tarefaDias, setTarefaDias] = useState([]);
   const [total, setTotal] = useState(0);
-  const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const id_usuario = '1e54cc5b';
 
@@ -36,7 +35,6 @@ export default function ListTarefaDia(){
 
     setTarefaDias([...tarefaDias, ...response.data]);
     setTotal(response.headers['x-total-count']);
-    setPage(page + 1);
     setLoading(false);
   }
 
@@ -60,7 +58,6 @@ export default function ListTarefaDia(){
         style={styles.incidentList}
         keyExtractor={tarefaDia => String(tarefaDia.id)}
         showsVerticalScrollIndicator={false}
-        onEndReached={loadTarefaDias}
         onEndReachedThreshold={0.2}
         renderItem={({item: tarefaDia}) => (
           <View style={styles.incident}>

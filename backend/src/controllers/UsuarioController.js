@@ -4,11 +4,7 @@ const generateUniqueId = require('../util/generateUniqueId');
 module.exports = {
     async index(request, response){
 
-        const {page = 1} = request.query;
-
         const usuarios = await connection('usuario')
-        .limit(100)
-        .offset((page - 1) * 100)
         .select('*');
 
         const [count] = await connection('usuario')

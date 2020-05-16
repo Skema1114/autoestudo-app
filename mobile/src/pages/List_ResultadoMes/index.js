@@ -10,7 +10,6 @@ export default function ListResultadoMes(){
   const navigation = useNavigation();
   const [resultadoMeses, setResultadoMeses] = useState([]);
   const [total, setTotal] = useState(0);
-  const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const id_usuario = '1e54cc5b';
 
@@ -36,7 +35,6 @@ export default function ListResultadoMes(){
 
     setResultadoMeses([...resultadoMeses, ...response.data]);
     setTotal(response.headers['x-total-count']);
-    setPage(page + 1);
     setLoading(false);
   }
 
@@ -60,7 +58,6 @@ export default function ListResultadoMes(){
         style={styles.incidentList}
         keyExtractor={resultadoMes => String(resultadoMes.id)}
         showsVerticalScrollIndicator={false}
-        onEndReached={loadResultadoMes}
         onEndReachedThreshold={0.2}
         renderItem={({item: resultadoMes}) => (
           <View style={styles.incident}>

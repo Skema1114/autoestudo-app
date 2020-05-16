@@ -10,7 +10,6 @@ export default function ListResultadoDia(){
   const navigation = useNavigation();
   const [resultadoDias, setResultadoDias] = useState([]);
   const [total, setTotal] = useState(0);
-  const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const id_usuario = '1e54cc5b';
 
@@ -36,7 +35,6 @@ export default function ListResultadoDia(){
 
     setResultadoDias([...resultadoDias, ...response.data]);
     setTotal(response.headers['x-total-count']);
-    setPage(page + 1);
     setLoading(false);
   }
 
@@ -60,7 +58,6 @@ export default function ListResultadoDia(){
         style={styles.incidentList}
         keyExtractor={resultadoDia => String(resultadoDia.id)}
         showsVerticalScrollIndicator={false}
-        onEndReached={loadResultadoDias}
         onEndReachedThreshold={0.2}
         renderItem={({item: resultadoDia}) => (
           <View style={styles.incident}>

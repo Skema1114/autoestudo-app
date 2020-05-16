@@ -77,7 +77,8 @@ export default StyleSheet.create({
     fontSize: 15,
     fontWeight: 'bold'
   },
-
+  
+  //
   heroTitle: {
     fontWeight: 'bold',
     fontSize: 20,

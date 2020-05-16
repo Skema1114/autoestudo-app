@@ -8,7 +8,7 @@ import logoImg from '../../assets/logo.png';
 import {useNavigation} from '@react-navigation/native';
 import * as Yup from 'yup';
 
-export default function NewUsuario() {
+export default function AppCadastro() {
   const formRef = useRef(null);
   const navigation = useNavigation();
 
