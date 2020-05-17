@@ -29,7 +29,7 @@ export default function ListResultadoDia(){
     setLoading(true);
     const response = await api.get('resultado_dias', {
       headers: {
-        Authorization: '1e54cc5b',
+        Authorization: id_usuario.toString(),
       }
     });
 

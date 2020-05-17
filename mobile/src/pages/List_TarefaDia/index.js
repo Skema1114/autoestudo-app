@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useImperativeHandle} from 'react';
 import {View, Image, Text, TouchableOpacity, FlatList} from 'react-native';
 import logoImg from '../../assets/logo.png';
 import styles from './styles';
@@ -29,7 +29,7 @@ export default function ListTarefaDia(){
     setLoading(true);
     const response = await api.get('tarefa_dias', {
       headers: {
-        Authorization: '1e54cc5b',
+        Authorization: id_usuario.toString(),
       }
     });
 

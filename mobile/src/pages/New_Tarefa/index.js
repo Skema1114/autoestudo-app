@@ -1,16 +1,18 @@
 import React, { useRef, useEffect } from 'react';
 import { Form } from '@unform/mobile';
-import { Text, Image, View, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { Text, Image, View, TouchableOpacity, Alert, Keyboard } from 'react-native';
 import Input from '../../Components/Form/input';
 import styles from './styles';
 import {Feather} from '@expo/vector-icons';
 import logoImg from '../../assets/logo.png';
 import {useNavigation} from '@react-navigation/native';
 import * as Yup from 'yup';
+import api from '../../services/api';
 
 export default function NewTarefa() {
   const formRef = useRef(null);
   const navigation = useNavigation();
+  const id_usuario = '1e54cc5b';
 
   function navigateBack(){
     navigation.goBack();
@@ -26,7 +28,7 @@ export default function NewTarefa() {
         abortEarly: false,
       });
 
-      console.log(data);
+      handleNewTarefa(data.nome);
       Keyboard.dismiss();
       reset();
 
@@ -41,7 +43,44 @@ export default function NewTarefa() {
           formRef.current.setErrors(errorMessage);
       }
     }
+
+    async function handleNewTarefa(nome){
+      const data_criacao =new Date().getDate().toString();
+     
+      const data = {
+          nome,
+          data_criacao,
+      };
+
+      try{
+        const response = await api.post('tarefa', data, {
+              headers: {
+                  Authorization: id_usuario.toString(),
+              }
+          })
+          
+          Alert.alert(
+            "Cadastro",
+            `ID da tarefa cadastrada: ${response.data.id}`,
+            [
+              { text: "Nova tarefa", onPress: () => _reloadNewTarefa() },
+              { text: "OK", onPress: () => _reloadListTarefa() }
+            ],
+            { cancelable: false }
+          );
+      }catch(err){
+          Alert.alert('Cadastro', 'Erro ao cadastrar caso, tente novamente.')
+      }
+    }
   }
+
+  function _reloadListTarefa() {
+    navigation.replace( 'ListTarefa', null, null );
+  };
+
+  function _reloadNewTarefa() {
+    navigation.replace( 'NewTarefa', null, null );
+  };
 
   // PARA O EDITAR
   /*

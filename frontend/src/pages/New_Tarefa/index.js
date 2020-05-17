@@ -15,7 +15,6 @@ export default function NewTarefa(){
         e.preventDefault();
 
         const data = {
-            id_usuario,
             nome,
             dataCriacao
         };
@@ -23,7 +22,7 @@ export default function NewTarefa(){
         try{
             await api.post('tarefa', data, {
                 headers: {
-                    Authorization: id_usuario,
+                    Authorization: id_usuario.toString(),
                 }
             })
             history.push('/tarefas')

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, Image, Text, TouchableOpacity, FlatList, CheckBox} from 'react-native';
+import {View, Image, Text, TouchableOpacity, ListItem, FlatList, CheckBox} from 'react-native';
 import logoImg from '../../assets/logo.png';
 import styles from './styles';
 import {Feather} from '@expo/vector-icons';
@@ -34,7 +34,7 @@ export default function ListTarefa(){
     setLoading(true);
     const response = await api.get('tarefas', {
       headers: {
-        Authorization: '1e54cc5b',
+        Authorization: id_usuario.toString(),
       }
     });
 
@@ -84,12 +84,12 @@ export default function ListTarefa(){
         onEndReachedThreshold={0.2}
         renderItem={({item: tarefa}) => (
           <View style={styles.incident}>
-            <CheckBox id="c12"
-              value={checador} onChange={() => checado(tarefa.id)}>
+
+            <CheckBox
+              value={checador} id={tarefa.id} onChange={() => checado(tarefa.id)}>
             </CheckBox>
 
-            <Text style={styles.incidentProperty}>NOME:</Text>
-            <Text style={styles.incidentValue}>{tarefa.nome}</Text>
+            <Text style={styles.incidentProperty}>{tarefa.nome}</Text>
 
             <TouchableOpacity
               style={styles.detailsButton}

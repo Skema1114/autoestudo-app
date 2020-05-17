@@ -30,7 +30,7 @@ export default function ListDia(){
     setLoading(true);
     const response = await api.get('dias', {
       headers: {
-        Authorization: '1e54cc5b',
+        Authorization: id_usuario.toString(),
       }
     });
 

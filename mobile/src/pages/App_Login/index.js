@@ -19,7 +19,7 @@ export default function AppLogin() {
   async function handleSubmit(data, { reset }) {
     try{
       const schema = Yup.object().shape({
-        nome: Yup.string().required('O nome é obrigatório'),
+        email: Yup.string().required('O email é obrigatório'),
         senha: Yup.string().required('A senha é obrigatória'),
       })
 

@@ -8,10 +8,14 @@ module.exports = {
         .select('*')
         .where('id_usuario', id_usuario);
 
-        const [count] = await connection('tarefa')
+        if (tarefas.length > 0) {
+            const [count] = await connection('tarefa')
             .count();
 
-        response.header('X-Total-Count', count['count(*)']);
+            response.header('X-Total-Count', count['count(*)']);
+        } else {
+            response.header('X-Total-Count', 0);
+        }
 
         return response.json(tarefas);
     },

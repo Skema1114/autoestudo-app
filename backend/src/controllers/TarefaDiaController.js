@@ -3,15 +3,19 @@ const connection = require('../database/connection');
 module.exports = {
     async index(request, response){
         const id_usuario = request.headers.authorization;
-        
-        const [count] = await connection('tarefa_dia')
-            .count();
 
         const tarefa_dias = await connection('tarefa_dia')
         .select('*')
         .where('id_usuario', id_usuario);
 
-        response.header('X-Total-Count', count['count(*)']);
+        if (tarefa_dias.length > 0) {
+            const [count] = await connection('tarefa_dia')
+            .count();
+
+            response.header('X-Total-Count', count['count(*)']);
+        } else {
+            response.header('X-Total-Count', 0);
+        }
 
         return response.json(tarefa_dias);
     },

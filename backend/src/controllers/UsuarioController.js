@@ -6,12 +6,15 @@ module.exports = {
 
         const usuarios = await connection('usuario')
         .select('*');
-
-        const [count] = await connection('usuario')
+        
+        if (usuarios.length > 0) {
+            const [count] = await connection('usuario')
             .count();
 
-        response.header('X-Total-Count', count['count(*)']);
-        
+            response.header('X-Total-Count', count['count(*)']);
+        } else {
+            response.header('X-Total-Count', 0);
+        }
 
         return response.json(usuarios);
     },
