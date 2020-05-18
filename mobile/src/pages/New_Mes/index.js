@@ -16,7 +16,7 @@ export default function NewMes() {
   const [tarefas, setTarefas] = useState([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
-  const [checador, setChecador] = useState(false);
+  var tarefasMes = [];
 
   function navigateBack(){
     navigation.goBack();
@@ -127,13 +127,16 @@ export default function NewMes() {
     loadTarefas();
   }, []);
 
-  function checado(id){
-    if(checador===false){
-      alert("Foi checado o "+id)
-      setChecador(true)
-    }else{
-      alert("Foi deschecado o "+id)
-      setChecador(false)
+  function addTarefasMes(id){
+    tarefasMes.push(id);
+    //console.log(tarefasMes);
+
+    for(let i = 0; i < tarefasMes.length; i++){
+      console.log(tarefasMes[i]);
+      
+      if(tarefasMes[i] == 2){
+        console.log('é dois');
+      }
     }
   }
  
@@ -176,7 +179,7 @@ export default function NewMes() {
             <View>
 
               <CheckBox
-                value={checador} id={tarefa.id} onChange={() => checado(tarefa.id)}>
+                onChange={() => addTarefasMes(tarefa.id)}>
               </CheckBox>
 
               <Text style={styles.incidentProperty}>{tarefa.nome}</Text>

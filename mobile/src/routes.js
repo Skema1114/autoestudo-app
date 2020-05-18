@@ -11,6 +11,7 @@ import ListTarefa from './pages/List_Tarefa';
 import ListTarefaDia from './pages/List_TarefaDia';
 import ListResultadoDia from './pages/List_ResultadoDia';
 import ListResultadoMes from './pages/List_ResultadoMes';
+import ListTarefaMes from './pages/List_TarefaMes'
 
 import DetailUsuario from './pages/Detail_Usuario';
 import DetailMes from './pages/Detail_Mes';
@@ -50,7 +51,8 @@ export default function Routes(){
         <AppStack.Screen name="ListTarefaDia" component={ListTarefaDia}/>
         <AppStack.Screen name="ListResultadoDia" component={ListResultadoDia}/>
         <AppStack.Screen name="ListResultadoMes" component={ListResultadoMes}/>
-
+        <AppStack.Screen name="ListTarefaMes" component={ListTarefaMes}/>
+        
         <AppStack.Screen name="DetailUsuario" component={DetailUsuario}/>
         <AppStack.Screen name="DetailMes" component={DetailMes}/>
         <AppStack.Screen name="DetailDia" component={DetailDia}/>

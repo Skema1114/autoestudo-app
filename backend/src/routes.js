@@ -9,6 +9,7 @@ const TarefaDiaController = require('./controllers/TarefaDiaController');
 const ResultadoDiaController = require('./controllers/ResultadoDiaController');
 const ResultadoMesController = require('./controllers/ResultadoMesController');
 const SessionController = require('./controllers/SessionController');
+const TarefaMesController = require('./controllers/TarefaMesController');
 
 const routes = express.Router();
 
@@ -17,11 +18,7 @@ const routes = express.Router();
  * ####################  /USUARIO
  */
 
-routes.get('/usuarios', celebrate({
-          [Segments.QUERY]: Joi.object().keys({
-            page: Joi.number()
-          })  
-}), UsuarioController.index);
+routes.get('/usuarios', UsuarioController.index);
 routes.post('/usuario', celebrate({
           [Segments.BODY]: Joi.object().keys({
             nome: Joi.string().required(),
@@ -44,9 +41,6 @@ routes.get('/meses',celebrate({
           [Segments.HEADERS]: Joi.object({
             authorization: Joi.string().required()
           }).unknown(),
-          [Segments.QUERY]: Joi.object().keys({
-            page: Joi.number()
-          })  
 }), MesController.index);
 routes.post('/mes',celebrate({
           [Segments.HEADERS]: Joi.object({
@@ -77,9 +71,6 @@ routes.get('/dias',celebrate({
           [Segments.HEADERS]: Joi.object({
             authorization: Joi.string().required()
           }).unknown(),
-          [Segments.QUERY]: Joi.object().keys({
-            page: Joi.number()
-          })  
 }), DiaController.index);
 routes.post('/dia/:id_mes',celebrate({
           [Segments.HEADERS]: Joi.object({
@@ -110,10 +101,7 @@ routes.delete('/dia/:id',celebrate({
 routes.get('/tarefas',celebrate({
           [Segments.HEADERS]: Joi.object({
             authorization: Joi.string().required()
-          }).unknown(),
-          [Segments.QUERY]: Joi.object().keys({
-            page: Joi.number()
-          })     
+          }).unknown(),   
 }), TarefaController.index);
 routes.post('/tarefa',celebrate({
           [Segments.HEADERS]: Joi.object({
@@ -145,9 +133,6 @@ routes.get('/tarefa_dias',celebrate({
           [Segments.HEADERS]: Joi.object({
             authorization: Joi.string().required()
           }).unknown(),
-          [Segments.QUERY]: Joi.object().keys({
-            page: Joi.number()
-          })  
 }), TarefaDiaController.index);
 routes.post('/tarefa_dia/:id_tarefa',celebrate({
           [Segments.HEADERS]: Joi.object({
@@ -179,9 +164,6 @@ routes.get('/resultado_dias',celebrate({
           [Segments.HEADERS]: Joi.object({
             authorization: Joi.string().required()
           }).unknown(),
-          [Segments.QUERY]: Joi.object().keys({
-            page: Joi.number()
-          })  
 }), ResultadoDiaController.index);
 routes.post('/resultado_dia/:id_dia',celebrate({
           [Segments.HEADERS]: Joi.object({
@@ -214,9 +196,6 @@ routes.get('/resultado_meses',celebrate({
           [Segments.HEADERS]: Joi.object({
             authorization: Joi.string().required()
           }).unknown(),
-          [Segments.QUERY]: Joi.object().keys({
-            page: Joi.number()
-          })  
 }), ResultadoMesController.index);
 routes.post('/resultado_mes/:id_mes',celebrate({
           [Segments.HEADERS]: Joi.object({
@@ -251,3 +230,34 @@ routes.post('/sessions',celebrate({
 }), SessionController.create);
 
 module.exports = routes;
+
+
+
+/**
+ * #################### /TAREFA MES
+ */
+routes.get('/tarefa_meses',celebrate({
+         [Segments.HEADERS]: Joi.object({
+           authorization: Joi.string().required()
+         }).unknown(),
+}), TarefaMesController.index);
+routes.post('/tarefa_mes/:id_tarefa',celebrate({
+         [Segments.HEADERS]: Joi.object({
+           authorization: Joi.string().required()
+         }).unknown(),
+         [Segments.BODY]: Joi.object().keys({
+           data: Joi.string().required(),
+           id_mes: Joi.number().required(),
+         }),
+         [Segments.PARAMS]: Joi.object().keys({
+           id_tarefa: Joi.number().required()
+         })
+}), TarefaMesController.create);
+routes.delete('/tarefa_mes/:id',celebrate({
+         [Segments.HEADERS]: Joi.object({
+           authorization: Joi.string().required()
+         }).unknown(),
+         [Segments.PARAMS]: Joi.object().keys({
+           id: Joi.number().required()
+         })
+}), TarefaMesController.delete);
