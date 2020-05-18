@@ -1,16 +1,18 @@
 import React, { useRef, useEffect } from 'react';
 import { Form } from '@unform/mobile';
-import { Text, Image, View, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { Text, Image, View, TouchableOpacity, Alert, Keyboard } from 'react-native';
 import Input from '../../Components/Form/input';
 import styles from './styles';
 import {Feather} from '@expo/vector-icons';
 import logoImg from '../../assets/logo.png';
 import {useNavigation} from '@react-navigation/native';
 import * as Yup from 'yup';
+import api from '../../services/api';
 
 export default function AppCadastro() {
   const formRef = useRef(null);
   const navigation = useNavigation();
+  const id_usuario = '1e54cc5b';
 
   function navigateBack(){
     navigation.goBack();
@@ -20,15 +22,15 @@ export default function AppCadastro() {
     try{
       const schema = Yup.object().shape({
         nome: Yup.string().required('O nome é obrigatório'),
-        email: Yup.string().required('O e-mail é obrogatório'),
-        senha: Yup.string().min(6, 'No mínimo 6 caracteres').required('A senha é obrigatória')
+        email: Yup.string().required('O e-mail é obrigatório'),
+        senha: Yup.string().min(6, 'No mínimo 6 caracteres').required('A senha é obrigatória'),
       })
 
       await schema.validate(data, {
         abortEarly: false,
       });
 
-      console.log(data);
+      handleLogin(data.nome, data.email, data.senha);
       Keyboard.dismiss();
       reset();
 
@@ -43,7 +45,35 @@ export default function AppCadastro() {
           formRef.current.setErrors(errorMessage);
       }
     }
+
+    async function handleLogin(nome, email, senha){
+         
+      const data = {
+          nome,
+          email,
+          senha,
+      };
+
+      try{
+        const response = await api.post('usuario', data);
+          
+          Alert.alert(
+            "Cadastro",
+            `ID do usuario cadastrado: ${response.data.id}`,
+            [
+              { text: "OK", onPress: () => _reloadLogin() }
+            ],
+            { cancelable: false }
+          );
+      }catch(err){
+          Alert.alert('Cadastro', 'Erro ao cadastrar caso, tente novamente.')
+      }
+    }
   }
+
+  function _reloadLogin() {
+    navigation.replace( 'AppLogin', null, null );
+  };
 
   // PARA O EDITAR
   /*

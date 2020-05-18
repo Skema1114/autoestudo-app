@@ -6,9 +6,9 @@ exports.up = function(knex) {
       table.string('id_usuario').notNullable();
       table.foreign('id_usuario').references('id').inTable('usuario');
 
-      table.string('mes').notNullable();
-      table.string('ano').notNullable();
-      table.string('qtd_nao').notNullable();
+      table.integer('mes').notNullable();
+      table.integer('ano').notNullable();
+      table.integer('qtd_nao').notNullable();
   });
 };
 

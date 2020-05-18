@@ -9,7 +9,7 @@ import {useNavigation} from '@react-navigation/native';
 import * as Yup from 'yup';
 import api from '../../services/api';
 
-export default function AppLogin() {
+export default function NewTarefa2() {
   const formRef = useRef(null);
   const navigation = useNavigation();
   const id_usuario = '1e54cc5b';
@@ -21,15 +21,14 @@ export default function AppLogin() {
   async function handleSubmit(data, { reset }) {
     try{
       const schema = Yup.object().shape({
-        email: Yup.string().required('O e-mail é obrigatório'),
-        senha: Yup.string().min(6, 'No mínimo 6 caracteres').required('A senha é obrigatória'),
+        nome: Yup.string().required('O nome é obrigatório'),
       })
 
       await schema.validate(data, {
         abortEarly: false,
       });
 
-      handleLogin(data.email, data.senha);
+      handleNewTarefa(data.nome);
       Keyboard.dismiss();
       reset();
 
@@ -45,21 +44,27 @@ export default function AppLogin() {
       }
     }
 
-    async function handleLogin(email, senha){
-         
+    async function handleNewTarefa(nome){
+      const data_criacao =new Date().getDate().toString();
+     
       const data = {
-          email,
-          senha,
+          nome,
+          data_criacao,
       };
 
       try{
-        const response = await api.post('sessions', data);
+        const response = await api.post('tarefa', data, {
+              headers: {
+                  Authorization: id_usuario.toString(),
+              }
+          })
           
           Alert.alert(
             "Cadastro",
-            `Login efetuado no cadastro: ${response.data.id}`,
+            `ID da tarefa cadastrada: ${response.data.id}`,
             [
-              { text: "OK", onPress: () => _reloadLogin() }
+              { text: "Nova tarefa", onPress: () => _reloadNewTarefa() },
+              { text: "OK", onPress: () => _reloadNewMes() }
             ],
             { cancelable: false }
           );
@@ -69,8 +74,12 @@ export default function AppLogin() {
     }
   }
 
-  function _reloadLogin() {
-    navigation.replace( 'AppLogin', null, null );
+  function _reloadNewMes() {
+    navigation.replace( 'NewMes', null, null );
+  };
+
+  function _reloadNewTarefa() {
+    navigation.replace( 'NewTarefa', null, null );
   };
 
   // PARA O EDITAR
@@ -99,8 +108,7 @@ export default function AppLogin() {
 
       <View style={styles.incident}>
       
-      <Input name="email" label="Email" />
-      <Input name="senha" label="Senha" />
+      <Input name="nome" label="Nome" />
 
       <TouchableOpacity 
         style={styles.action} 

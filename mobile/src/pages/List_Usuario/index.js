@@ -14,7 +14,7 @@ export default function ListUsuario(){
   const [checador, setChecador] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  function navigateToNew(usuario){
+  function navigateToDetail(usuario){
     navigation.navigate('DetailUsuario', {usuario});
   }
 
@@ -86,7 +86,7 @@ export default function ListUsuario(){
 
             <TouchableOpacity
               style={styles.detailsButton}
-             onPress={() => navigateToNew(usuario)}
+             onPress={() => navigateToDetail(usuario)}
             >
               <Text style={styles.detailsButtonText}>Ver mais detalhes</Text>
               <Feather name="arrow-right" size={16} color="#E02041"/>

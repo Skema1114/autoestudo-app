@@ -93,7 +93,7 @@ export default function ListTarefa(){
 
             <TouchableOpacity
               style={styles.detailsButton}
-             onPress={() => navigateToDetail(tarefa)}
+              onPress={() => navigateToDetail(tarefa)}
             >
               <Text style={styles.detailsButtonText}>Ver mais detalhes</Text>
               <Feather name="arrow-left" size={16} color="#E02041"/>
