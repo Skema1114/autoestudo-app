@@ -66,7 +66,7 @@ export default function ListDia(){
                         <p>{dia.id_usuario}</p>
 
                         <strong>DATA:</strong>
-                        <p>{dia.data}</p>
+                        <p>{dia.data_cadastro}</p>
 
                         <button 
                             type="button" 

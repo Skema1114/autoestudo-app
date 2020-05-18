@@ -47,7 +47,7 @@ export default function Teste(){
       break;
 
       case 10:
-        navigation.navigate('TarefaMes');
+        navigation.navigate('ListTarefaMes');
       break;
     }
     

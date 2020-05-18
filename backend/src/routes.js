@@ -52,6 +52,15 @@ routes.post('/mes',celebrate({
             qtd_nao: Joi.string().required()
           })
 }), MesController.create);
+routes.post('/mes/search/',celebrate({
+          [Segments.HEADERS]: Joi.object({
+            authorization: Joi.string().required()
+          }).unknown(),
+          [Segments.BODY]: Joi.object().keys({
+            mes: Joi.number().required(),
+            ano: Joi.number().required(),
+          })
+}), MesController.getByMesAno);
 routes.delete('/mes/:id',celebrate({
           [Segments.HEADERS]: Joi.object({
             authorization: Joi.string().required()
@@ -77,7 +86,7 @@ routes.post('/dia/:id_mes',celebrate({
             authorization: Joi.string().required()
           }).unknown(),
           [Segments.BODY]: Joi.object().keys({
-            data: Joi.string().required(),
+            data_cadastro: Joi.string().required(),
           }),
           [Segments.PARAMS]: Joi.object().keys({
             id_mes: Joi.number().required()
@@ -241,16 +250,14 @@ routes.get('/tarefa_meses',celebrate({
            authorization: Joi.string().required()
          }).unknown(),
 }), TarefaMesController.index);
-routes.post('/tarefa_mes/:id_tarefa',celebrate({
+routes.post('/tarefa_mes/',celebrate({
          [Segments.HEADERS]: Joi.object({
            authorization: Joi.string().required()
          }).unknown(),
          [Segments.BODY]: Joi.object().keys({
-           data: Joi.string().required(),
+           data_cadastro: Joi.string().required(),
            id_mes: Joi.number().required(),
-         }),
-         [Segments.PARAMS]: Joi.object().keys({
-           id_tarefa: Joi.number().required()
+           id_tarefa: Joi.number().required(),
          })
 }), TarefaMesController.create);
 routes.delete('/tarefa_mes/:id',celebrate({

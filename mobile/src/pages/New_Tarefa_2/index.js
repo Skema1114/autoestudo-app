@@ -63,7 +63,7 @@ export default function NewTarefa2() {
             "Cadastro",
             `ID da tarefa cadastrada: ${response.data.id}`,
             [
-              { text: "Nova tarefa", onPress: () => _reloadNewTarefa() },
+              { text: "Nova tarefa", onPress: () => _reloadNewTarefa2() },
               { text: "OK", onPress: () => _reloadNewMes() }
             ],
             { cancelable: false }
@@ -78,8 +78,8 @@ export default function NewTarefa2() {
     navigation.replace( 'NewMes', null, null );
   };
 
-  function _reloadNewTarefa() {
-    navigation.replace( 'NewTarefa', null, null );
+  function _reloadNewTarefa2() {
+    navigation.replace( 'NewTarefa2', null, null );
   };
 
   // PARA O EDITAR

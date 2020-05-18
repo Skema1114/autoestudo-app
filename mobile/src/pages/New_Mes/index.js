@@ -17,6 +17,7 @@ export default function NewMes() {
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
   var tarefasMes = [];
+  var idMesCadastrado = 0;
 
   function navigateBack(){
     navigation.goBack();
@@ -32,7 +33,18 @@ export default function NewMes() {
         abortEarly: false,
       });
 
-      handleNewMes(data.qtd_nao);
+      try{
+       
+        await handleNewMes(data.qtd_nao);
+     
+        for(let i = 0; i < tarefasMes.length; i++){
+          await handleNewTarefaMes(idMesCadastrado, tarefasMes[i]);
+        }
+        
+      }catch(err){
+          console.log(err)
+      }
+
       Keyboard.dismiss();
       reset();
 
@@ -67,16 +79,49 @@ export default function NewMes() {
               }
           })
           
-          Alert.alert(
+         // Alert.alert(
+         //   "Cadastro",
+         //   `ID do mes cadastrada: ${response.data.id}`,
+          //  [
+          //    { text: "OK", onPress: () => _reloadListMes() }
+         //   ],
+        //    { cancelable: false }
+        //  );
+//
+          idMesCadastrado = response.data.id;
+      }catch(err){
+        //  Alert.alert('Cadastro', 'Erro ao cadastrar, tente novamente.')
+      }
+    }
+
+    async function handleNewTarefaMes(id_mes, id_tarefa){
+      var data_cadastro = "data criac"
+     
+      const data = {
+          id_mes,
+          id_tarefa,
+          data_cadastro,
+      };
+
+      try{
+        const response = await api.post('tarefa_mes', data, {
+              headers: {
+                  Authorization: id_usuario.toString(),
+              }
+          })
+          
+          /*Alert.alert(
             "Cadastro",
             `ID do mes cadastrada: ${response.data.id}`,
             [
               { text: "OK", onPress: () => _reloadListMes() }
             ],
             { cancelable: false }
-          );
+          );*/
+          console.log("Tarefa mes cadastrada com sucesso");
       }catch(err){
-          Alert.alert('Cadastro', 'Erro ao cadastrar, tente novamente.')
+        console.log(err)
+          Alert.alert('Cadastro', 'Erro ao cadastrar, tente novamente.');
       }
     }
   }
@@ -129,15 +174,6 @@ export default function NewMes() {
 
   function addTarefasMes(id){
     tarefasMes.push(id);
-    //console.log(tarefasMes);
-
-    for(let i = 0; i < tarefasMes.length; i++){
-      console.log(tarefasMes[i]);
-      
-      if(tarefasMes[i] == 2){
-        console.log('é dois');
-      }
-    }
   }
  
   return (

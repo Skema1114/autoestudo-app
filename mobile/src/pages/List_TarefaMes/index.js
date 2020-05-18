@@ -73,8 +73,8 @@ export default function ListTarefaMes(){
             <Text style={styles.incidentProperty}>ID USUARIO:</Text>
             <Text style={styles.incidentValue}>{tarefaMes.id_usuario}</Text>
 
-            <Text style={styles.incidentProperty}>DATA:</Text>
-            <Text style={styles.incidentValue}>{tarefaMes.data}</Text>
+            <Text style={styles.incidentProperty}>DATA CADASTRO:</Text>
+            <Text style={styles.incidentValue}>{tarefaMes.data_cadastro}</Text>
 
             <TouchableOpacity
               style={styles.detailsButton}

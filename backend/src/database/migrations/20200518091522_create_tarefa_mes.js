@@ -12,7 +12,7 @@ exports.up = function(knex) {
       table.string('id_usuario').notNullable();
       table.foreign('id_usuario').references('id').inTable('usuario');
 
-      table.string('data').notNullable();
+      table.string('data_cadastro').notNullable();
       
   });
 };

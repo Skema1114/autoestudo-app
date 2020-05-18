@@ -72,8 +72,8 @@ export default function ListDia(){
             <Text style={styles.incidentProperty}>ID MES:</Text>
             <Text style={styles.incidentValue}>{dia.id_mes}</Text>
 
-            <Text style={styles.incidentProperty}>DATA:</Text>
-            <Text style={styles.incidentValue}>{dia.data}</Text>
+            <Text style={styles.incidentProperty}>DATA CADASTRO:</Text>
+            <Text style={styles.incidentValue}>{dia.data_cadastro}</Text>
 
             <TouchableOpacity
               style={styles.detailsButton}
