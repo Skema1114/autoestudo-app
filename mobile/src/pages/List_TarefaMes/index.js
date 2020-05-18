@@ -61,20 +61,14 @@ export default function ListTarefaMes(){
         onEndReachedThreshold={0.2}
         renderItem={({item: tarefaMes}) => (
           <View style={styles.incident}>
-            <Text style={styles.incidentProperty}>ID:</Text>
-            <Text style={styles.incidentValue}>{tarefaMes.id}</Text>
+            <Text style={styles.incidentProperty}>TAREFA NOME:</Text>
+            <Text style={styles.incidentValue}>{tarefaMes.nome}</Text>
 
-            <Text style={styles.incidentProperty}>ID MES:</Text>
-            <Text style={styles.incidentValue}>{tarefaMes.id_mes}</Text>
+            <Text style={styles.incidentProperty}>TAREFA MES:</Text>
+            <Text style={styles.incidentValue}>{tarefaMes.mes}</Text>
 
-            <Text style={styles.incidentProperty}>ID TAREFA:</Text>
-            <Text style={styles.incidentValue}>{tarefaMes.id_tarefa}</Text>
-
-            <Text style={styles.incidentProperty}>ID USUARIO:</Text>
-            <Text style={styles.incidentValue}>{tarefaMes.id_usuario}</Text>
-
-            <Text style={styles.incidentProperty}>DATA CADASTRO:</Text>
-            <Text style={styles.incidentValue}>{tarefaMes.data_cadastro}</Text>
+            <Text style={styles.incidentProperty}>TAREFA ANO:</Text>
+            <Text style={styles.incidentValue}>{tarefaMes.ano}</Text>
 
             <TouchableOpacity
               style={styles.detailsButton}

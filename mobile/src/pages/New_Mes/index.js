@@ -8,12 +8,14 @@ import logoImg from '../../assets/logo.png';
 import {useNavigation} from '@react-navigation/native';
 import * as Yup from 'yup';
 import api from '../../services/api';
+import moment from 'moment';
 
 export default function NewMes() {
   const formRef = useRef(null);
   const navigation = useNavigation();
   const id_usuario = '1e54cc5b';
   const [tarefas, setTarefas] = useState([]);
+  const [meses, setMeses] = useState([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
   var tarefasMes = [];
@@ -78,24 +80,15 @@ export default function NewMes() {
                   Authorization: id_usuario.toString(),
               }
           })
-          
-         // Alert.alert(
-         //   "Cadastro",
-         //   `ID do mes cadastrada: ${response.data.id}`,
-          //  [
-          //    { text: "OK", onPress: () => _reloadListMes() }
-         //   ],
-        //    { cancelable: false }
-        //  );
-//
+  
           idMesCadastrado = response.data.id;
       }catch(err){
-        //  Alert.alert('Cadastro', 'Erro ao cadastrar, tente novamente.')
+        Alert.alert('Cadastro', 'Erro ao cadastrar, tente novamente.')
       }
     }
 
     async function handleNewTarefaMes(id_mes, id_tarefa){
-      var data_cadastro = "data criac"
+      const data_criacao = moment().utcOffset('-03:00').format("LLL");
      
       const data = {
           id_mes,
@@ -110,14 +103,6 @@ export default function NewMes() {
               }
           })
           
-          /*Alert.alert(
-            "Cadastro",
-            `ID do mes cadastrada: ${response.data.id}`,
-            [
-              { text: "OK", onPress: () => _reloadListMes() }
-            ],
-            { cancelable: false }
-          );*/
           console.log("Tarefa mes cadastrada com sucesso");
       }catch(err){
         console.log(err)
@@ -126,26 +111,9 @@ export default function NewMes() {
     }
   }
 
-  function _reloadListMes() {
-    navigation.replace( 'ListMes', null, null );
-  };
-
   function _reloadNewTarefa2() {
     navigation.replace( 'NewTarefa2', null, null );
   };
-
-  // PARA O EDITAR
-  /*
-  useEffect(() => {
-    setTimeout(() => {
-      formRef.current.setData({
-        nome: 'Rafael',
-        email: 'skema1114@hotmail.com',
-        senha: '123456'
-      })
-    }, 2000)
-  }, []);
-  */
 
   async function loadTarefas(){
     if(loading){
@@ -154,7 +122,7 @@ export default function NewMes() {
 
     if((total > 0) && (tarefas.length === total)){
       return;
-    }
+    }                                      
 
     setLoading(true);
     const response = await api.get('tarefas', {
@@ -175,7 +143,7 @@ export default function NewMes() {
   function addTarefasMes(id){
     tarefasMes.push(id);
   }
- 
+
   return (
   <View style={styles.container}>
   <Form ref={formRef} onSubmit={handleSubmit}>

@@ -85,6 +85,41 @@ export default function AppLogin() {
     }, 2000)
   }, []);
   */
+
+  async function _storeData(chave, valor){
+    try {
+      await AsyncStorage.setItem(chave, valor);
+      console.log('deu certo')
+    } catch (err) {
+      console.log(err)
+    }
+  };
+
+  async function _retrieveData(chave){
+    try {
+      const value = await AsyncStorage.getItem(chave);
+      if (value !== null) {
+        // We have data!!
+        console.log(value);
+      }
+    } catch (err) {
+      console.log(err)// Error retrieving data
+    }
+  }
+
+
+  async function _deleteData(chave){
+    try {
+      const value = await AsyncStorage.removeItem(chave);
+      if (value !== null) {
+        // We have data!!
+        console.log(value);
+      }
+    } catch (err) {
+      console.log(err)// Error retrieving data
+    }
+  }
+
  
   return (
   <View style={styles.container}>

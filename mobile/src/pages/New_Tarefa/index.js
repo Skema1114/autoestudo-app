@@ -8,6 +8,7 @@ import logoImg from '../../assets/logo.png';
 import {useNavigation} from '@react-navigation/native';
 import * as Yup from 'yup';
 import api from '../../services/api';
+import moment from 'moment';
 
 export default function NewTarefa() {
   const formRef = useRef(null);
@@ -45,7 +46,7 @@ export default function NewTarefa() {
     }
 
     async function handleNewTarefa(nome){
-      const data_criacao =new Date().getDate().toString();
+      const data_criacao = moment().utcOffset('-03:00').format("LLL");
      
       const data = {
           nome,

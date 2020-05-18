@@ -1,5 +1,5 @@
 import React, {} from 'react';
-import {View, Image, Text, TouchableOpacity, TextInput} from 'react-native';
+import {View, Image, Text, TouchableOpacity, AsyncStorage } from 'react-native';
 import logoImg from '../../assets/logo.png';
 import styles from './styles';
 import {Feather} from '@expo/vector-icons';
