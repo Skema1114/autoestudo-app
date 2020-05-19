@@ -13,13 +13,32 @@ import moment from 'moment';
 export default function NewMes() {
   const formRef = useRef(null);
   const navigation = useNavigation();
-  const id_usuario = '1e54cc5b';
   const [tarefas, setTarefas] = useState([]);
   const [meses, setMeses] = useState([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
+  //const id_usuario = _retrieveData('UsuarioIdStorage');
+  const id_usuario = '1e54cc5b';
   var tarefasMes = [];
   var idMesCadastrado = 0;
+
+  async function _retrieveData(chave){
+    try {
+      const value = await AsyncStorage.getItem(chave);
+      if (value !== null) {}
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async function _deleteData(chave){
+    try {
+      const value = await AsyncStorage.removeItem(chave);
+      if (value !== null) {}
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   function navigateBack(){
     navigation.goBack();
@@ -88,7 +107,7 @@ export default function NewMes() {
     }
 
     async function handleNewTarefaMes(id_mes, id_tarefa){
-      const data_criacao = moment().utcOffset('-03:00').format("LLL");
+      const data_cadastro = moment().utcOffset('-03:00').format("LLL");
      
       const data = {
           id_mes,

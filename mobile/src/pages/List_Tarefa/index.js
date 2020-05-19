@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, Image, Text, TouchableOpacity, ListItem, FlatList, CheckBox} from 'react-native';
+import {View, Image, Text, TouchableOpacity, AsyncStorage, FlatList, CheckBox} from 'react-native';
 import logoImg from '../../assets/logo.png';
 import styles from './styles';
 import {Feather} from '@expo/vector-icons';
@@ -12,7 +12,34 @@ export default function ListTarefa(){
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
   const [checador, setChecador] = useState(false);
+  //const id_usuario = _retrieveData('UsuarioIdStorage');
   const id_usuario = '1e54cc5b';
+
+  console.log(id_usuario)
+
+  async function _retrieveData(chave){
+    try {
+      const value = await AsyncStorage.getItem(chave);
+      if (value !== null) {
+        return value;
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async function _deleteData(chave){
+    try {
+      const value = await AsyncStorage.removeItem(chave);
+      if (value !== null) {}
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  function navigateBack(){
+    navigation.goBack();
+  }
 
   function navigateToDetail(tarefa){
     navigation.navigate('DetailTarefa', {tarefa});
@@ -61,6 +88,9 @@ export default function ListTarefa(){
     <View style={styles.container}>
       <View style={styles.header}>
         <Image source={logoImg}/>
+        <TouchableOpacity onPress={navigateBack}>
+          <Feather name="arrow-left" size={28} color="#E82041"/>
+        </TouchableOpacity>
         <Text style={styles.headerText}>
           Total de <Text style={styles.headerTextBold}>{total} casos</Text>.
         </Text>

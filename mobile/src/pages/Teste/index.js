@@ -7,6 +7,25 @@ import {useNavigation} from '@react-navigation/native';
 
 export default function Teste(){
   const navigation = useNavigation();
+  const id_usuario = _retrieveData('UsuarioIdStorage');
+
+  async function _retrieveData(chave){
+    try {
+      const value = await AsyncStorage.getItem(chave);
+      if (value !== null) {}
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async function _deleteData(chave){
+    try {
+      const value = await AsyncStorage.removeItem(chave);
+      if (value !== null) {}
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   function navigateToTela(tela){
     switch(tela){
@@ -106,22 +125,6 @@ export default function Teste(){
              onPress={() => navigateToTela(5)}
             >
               <Text style={styles.detailsButtonText}>List Tarefa Dia</Text>
-              <Feather name="arrow-right" size={16} color="#E02041"/>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={styles.detailsButton}
-             onPress={() => navigateToTela(6)}
-            >
-              <Text style={styles.detailsButtonText}>List Resultado Dia</Text>
-              <Feather name="arrow-right" size={16} color="#E02041"/>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={styles.detailsButton}
-             onPress={() => navigateToTela(7)}
-            >
-              <Text style={styles.detailsButtonText}>List Resultado Mes</Text>
               <Feather name="arrow-right" size={16} color="#E02041"/>
             </TouchableOpacity>
 

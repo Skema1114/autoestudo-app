@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { Form } from '@unform/mobile';
-import { Text, Image, View, TouchableOpacity, Alert, Keyboard } from 'react-native';
+import { Text, Image, View, TouchableOpacity, Alert, Keyboard, AsyncStorage, TextInput } from 'react-native';
 import Input from '../../Components/Form/input';
 import styles from './styles';
 import {Feather} from '@expo/vector-icons';
@@ -12,11 +12,6 @@ import api from '../../services/api';
 export default function AppLogin() {
   const formRef = useRef(null);
   const navigation = useNavigation();
-  const id_usuario = '1e54cc5b';
-
-  function navigateBack(){
-    navigation.goBack();
-  }
 
   async function handleSubmit(data, { reset }) {
     try{
@@ -54,42 +49,24 @@ export default function AppLogin() {
 
       try{
         const response = await api.post('sessions', data);
-          
-          Alert.alert(
-            "Cadastro",
-            `Login efetuado no cadastro: ${response.data.id}`,
-            [
-              { text: "OK", onPress: () => _reloadLogin() }
-            ],
-            { cancelable: false }
-          );
-      }catch(err){
-          Alert.alert('Cadastro', 'Erro ao cadastrar caso, tente novamente.')
+          _deleteData("@MySuperStore:key")
+          _storeData("@MySuperStore:key", response.data.id);
+          console.log(_retrieveData("@MySuperStore:key"))
+          _reloadTeste();
+        }catch(err){
+          Alert.alert('Login', 'Occorreu um erro ao efetuar o login, tente novamente.')
       }
     }
   }
 
-  function _reloadLogin() {
-    navigation.replace( 'AppLogin', null, null );
+  function _reloadTeste() {
+    navigation.replace( 'Teste', null, null );
   };
-
-  // PARA O EDITAR
-  /*
-  useEffect(() => {
-    setTimeout(() => {
-      formRef.current.setData({
-        nome: 'Rafael',
-        email: 'skema1114@hotmail.com',
-        senha: '123456'
-      })
-    }, 2000)
-  }, []);
-  */
 
   async function _storeData(chave, valor){
     try {
       await AsyncStorage.setItem(chave, valor);
-      console.log('deu certo')
+      
     } catch (err) {
       console.log(err)
     }
@@ -99,11 +76,10 @@ export default function AppLogin() {
     try {
       const value = await AsyncStorage.getItem(chave);
       if (value !== null) {
-        // We have data!!
-        console.log(value);
+        return value;
       }
     } catch (err) {
-      console.log(err)// Error retrieving data
+      console.log(err);
     }
   }
 
@@ -111,25 +87,22 @@ export default function AppLogin() {
   async function _deleteData(chave){
     try {
       const value = await AsyncStorage.removeItem(chave);
-      if (value !== null) {
-        // We have data!!
-        console.log(value);
-      }
+      if (value !== null) {}
     } catch (err) {
-      console.log(err)// Error retrieving data
+      console.log(err);
     }
   }
 
+  function funcaoInutil(){
+    _storeData('1e54cc5b');
+    navigation.navigate('Teste');
+  }
  
   return (
   <View style={styles.container}>
   <Form ref={formRef} onSubmit={handleSubmit}>
     <View style={styles.header}>
       <Image source={logoImg}/>
-
-      <TouchableOpacity onPress={navigateBack}>
-        <Feather name="arrow-left" size={28} color="#E82041"/>
-      </TouchableOpacity>
     </View>
 
       <View style={styles.incident}>
@@ -140,7 +113,23 @@ export default function AppLogin() {
       <TouchableOpacity 
         style={styles.action} 
         onPress={() => formRef.current.submitForm()}>
-        <Text>Enviar</Text>
+        <Text>Entrar</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.detailsButton}
+        onPress={() => funcaoInutil()}
+      >
+        <Text style={styles.detailsButtonText}>Entrar sem cadastro</Text>
+        <Feather name="arrow-right" size={16} color="#E02041"/>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.detailsButton}
+        onPress={() => navigation.navigate("AppCadastro")}
+      >
+        <Text style={styles.detailsButtonText}>Criar cadastro</Text>
+        <Feather name="arrow-right" size={16} color="#E02041"/>
       </TouchableOpacity>
     </View>
   </Form>

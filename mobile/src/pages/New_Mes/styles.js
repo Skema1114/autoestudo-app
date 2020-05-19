@@ -79,5 +79,22 @@ export default StyleSheet.create({
     color: '#FFF',
     fontSize: 15,
     fontWeight: 'bold'
+  },
+  //
+  fab: {
+    position: 'absolute',
+    width: 56,
+    height: 56,
+    alignItems: 'center',
+    justifyContent: 'center',
+    right: 20,
+    bottom: 20,
+    backgroundColor: '#03A9F4',
+    borderRadius: 30,
+    elevation: 8
+  },
+  fabIcon: {
+    fontSize: 40,
+    color: 'white'
   }
 });

@@ -12,7 +12,6 @@ import api from '../../services/api';
 export default function AppCadastro() {
   const formRef = useRef(null);
   const navigation = useNavigation();
-  const id_usuario = '1e54cc5b';
 
   function navigateBack(){
     navigation.goBack();
@@ -55,18 +54,13 @@ export default function AppCadastro() {
       };
 
       try{
-        const response = await api.post('usuario', data);
-          
-          Alert.alert(
-            "Cadastro",
-            `ID do usuario cadastrado: ${response.data.id}`,
-            [
-              { text: "OK", onPress: () => _reloadLogin() }
-            ],
-            { cancelable: false }
+        const response = await api.post('usuario', data);        
+          Alert.alert("Cadastro", `Usuário cadastrado com sucesso!`, [{ 
+              text: "OK", onPress: () => _reloadLogin() 
+            }], { cancelable: false }
           );
       }catch(err){
-          Alert.alert('Cadastro', 'Erro ao cadastrar caso, tente novamente.')
+          Alert.alert('Cadastro', 'Ocorreu um erro ao criar a conta, tente novamente.')
       }
     }
   }
@@ -74,19 +68,6 @@ export default function AppCadastro() {
   function _reloadLogin() {
     navigation.replace( 'AppLogin', null, null );
   };
-
-  // PARA O EDITAR
-  /*
-  useEffect(() => {
-    setTimeout(() => {
-      formRef.current.setData({
-        nome: 'Rafael',
-        email: 'skema1114@hotmail.com',
-        senha: '123456'
-      })
-    }, 2000)
-  }, []);
-  */
  
   return (
   <View style={styles.container}>

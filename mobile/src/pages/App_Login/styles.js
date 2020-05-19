@@ -79,5 +79,20 @@ export default StyleSheet.create({
     color: '#FFF',
     fontSize: 15,
     fontWeight: 'bold'
-  }
+  },
+  //
+  detailsButton: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingLeft: 25,
+    paddingBottom: 30,
+    paddingRight: 25
+  },
+
+  detailsButtonText: {
+    color: '#e02041',
+    fontSize: 15,
+    fontWeight: 'bold'
+  },
 });

@@ -13,7 +13,26 @@ import moment from 'moment';
 export default function NewTarefa() {
   const formRef = useRef(null);
   const navigation = useNavigation();
+  //const id_usuario = _retrieveData('UsuarioIdStorage');
   const id_usuario = '1e54cc5b';
+
+  async function _retrieveData(chave){
+    try {
+      const value = await AsyncStorage.getItem(chave);
+      if (value !== null) {}
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async function _deleteData(chave){
+    try {
+      const value = await AsyncStorage.removeItem(chave);
+      if (value !== null) {}
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   function navigateBack(){
     navigation.goBack();
