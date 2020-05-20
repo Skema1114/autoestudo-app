@@ -10,41 +10,17 @@ export default function DetailTarefa(){
   const navigation = useNavigation();
   const route = useRoute();
   const tarefa = route.params.tarefa;
-  //const id_usuario = _retrieveData('UsuarioIdStorage');
-  const id_usuario = '1e54cc5b';
-  
-  async function _retrieveData(chave){
-    try {
-      const value = await AsyncStorage.getItem(chave);
-      if (value !== null) {}
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
-  async function _deleteData(chave){
-    try {
-      const value = await AsyncStorage.removeItem(chave);
-      if (value !== null) {}
-    } catch (err) {
-      console.log(err);
-    }
-  }
 
   function navigateBack(){
     navigation.goBack();
   }
 
   function sendMail(){
-   // MailComposer.composeAsync({
-   //   subject: `Herói do caso: ${usuario.nome}`,
-    //  recipients: [usuario.email],
-    //  body: message
-   // })
+   
   }
 
   function sendWhatsapp(){
-   // Linking.openURL(`whatsapp://send?phone=${usuario.whatsapp}&text=${message}`);
+  
   }
 
   return (
@@ -72,11 +48,6 @@ export default function DetailTarefa(){
       </View>
 
       <View style={styles.contactBox}>
-        <Text style={styles.heroTitle}>Salve o dia!</Text>
-        <Text style={styles.heroTitle}>Seja o herói desse caso.</Text>
-
-        <Text style={styles.heroDescription}>Entre em contato:</Text>
-
         <View style={styles.actions}>
           <TouchableOpacity style={styles.action} onPress={sendWhatsapp}>
             <Text style={styles.actionText}>WhatsApp</Text>

@@ -12,10 +12,7 @@ export default function ListTarefa(){
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
   const [checador, setChecador] = useState(false);
-  //const id_usuario = _retrieveData('UsuarioIdStorage');
-  const id_usuario = '1e54cc5b';
-
-  console.log(id_usuario)
+  const id_usuario = _retrieveData('UsuarioIdStorage');
 
   async function _retrieveData(chave){
     try {

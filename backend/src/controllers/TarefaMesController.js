@@ -5,12 +5,20 @@ module.exports = {
         const id_usuario = request.headers.authorization;
 
         const tarefa_meses = await connection('tarefa_mes')
-        .select('*')
-        .where('id_usuario', id_usuario);
+        .join('tarefa', 'tarefa.id', '=', 'tarefa_mes.id_tarefa')
+        .join('mes', 'mes.id', '=', 'tarefa_mes.id_mes')
+        .select([
+            'tarefa_mes.*',
+            'tarefa.nome',
+            'mes.mes',
+            'mes.ano'     
+        ])
+        .where('tarefa_mes.id_usuario', id_usuario);
 
         if (tarefa_meses.length > 0) {
             const [count] = await connection('tarefa_mes')
-            .count();
+            .count()
+            .where('id_usuario', id_usuario);
 
             response.header('X-Total-Count', count['count(*)']);
         } else {

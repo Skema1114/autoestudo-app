@@ -10,7 +10,8 @@ module.exports = {
 
         if (tarefa_dias.length > 0) {
             const [count] = await connection('tarefa_dia')
-            .count();
+            .count()
+            .where('id_usuario', id_usuario);
 
             response.header('X-Total-Count', count['count(*)']);
         } else {

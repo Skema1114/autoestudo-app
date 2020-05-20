@@ -49,9 +49,8 @@ export default function AppLogin() {
 
       try{
         const response = await api.post('sessions', data);
-          _deleteData("@MySuperStore:key")
-          _storeData("@MySuperStore:key", response.data.id);
-          console.log(_retrieveData("@MySuperStore:key"))
+          _deleteData("@MyUId")
+          _storeData("@MyUId", response.data.id);
           _reloadTeste();
         }catch(err){
           Alert.alert('Login', 'Occorreu um erro ao efetuar o login, tente novamente.')
@@ -66,7 +65,6 @@ export default function AppLogin() {
   async function _storeData(chave, valor){
     try {
       await AsyncStorage.setItem(chave, valor);
-      
     } catch (err) {
       console.log(err)
     }

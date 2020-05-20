@@ -8,7 +8,8 @@ module.exports = {
         const usuarios = await connection('usuario')
             .select('id')
             .first()
-            .where('email', email) 
+            .where('email', email)
+            .andWhere('senha', senha); 
            
         if(!usuarios){
             return response.status(400).json({

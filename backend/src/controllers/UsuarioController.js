@@ -9,7 +9,7 @@ module.exports = {
         
         if (usuarios.length > 0) {
             const [count] = await connection('usuario')
-            .count();
+            .count()
 
             response.header('X-Total-Count', count['count(*)']);
         } else {

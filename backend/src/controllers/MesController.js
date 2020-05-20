@@ -10,7 +10,8 @@ module.exports = {
 
         if (meses.length > 0) {
             const [count] = await connection('mes')
-            .count();
+            .count()
+            .where('id_usuario', id_usuario);
 
             response.header('X-Total-Count', count['count(*)']);
         } else {

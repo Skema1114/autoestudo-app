@@ -4,6 +4,8 @@ import logoImg from '../../assets/logo.png';
 import styles from './styles';
 import {Feather} from '@expo/vector-icons';
 import {useNavigation} from '@react-navigation/native';
+import MaterialBasicFooter from './../../Components/MaterialBasicFooter';
+import MaterialIconTextButtonsFooter from './../../Components/MaterialIconTextButtonsFooter';
 
 export default function Teste(){
   const navigation = useNavigation();
@@ -29,16 +31,9 @@ export default function Teste(){
 
   function navigateToTela(tela){
     switch(tela){
-      case 1:
-        navigation.navigate('ListUsuario');
-      break;
 
       case 2:
         navigation.navigate('ListMes');
-      break;
-          
-      case 3:
-        navigation.navigate('ListDia');
       break;
 
       case 4:
@@ -47,22 +42,6 @@ export default function Teste(){
 
       case 5:
         navigation.navigate('ListTarefaDia');
-      break;
-
-      case 6:
-        navigation.navigate('ListResultadoDia');
-      break;
-
-      case 7:
-        navigation.navigate('ListResultadoMes');
-      break;
-
-      case 8:
-        navigation.navigate('AppLogin');
-      break;
-
-      case 9:
-        navigation.navigate('AppCadastro');
       break;
 
       case 10:
@@ -88,27 +67,12 @@ export default function Teste(){
 
       <View style={styles.incident}>
         <View>
-            <TouchableOpacity
-              style={styles.detailsButton}
-             onPress={() => navigateToTela(1)}
-            >
-              <Text style={styles.detailsButtonText}>List Usuario</Text>
-              <Feather name="arrow-right" size={16} color="#E02041"/>
-            </TouchableOpacity>
 
             <TouchableOpacity
               style={styles.detailsButton}
              onPress={() => navigateToTela(2)}
             >
               <Text style={styles.detailsButtonText}>List Mes</Text>
-              <Feather name="arrow-right" size={16} color="#E02041"/>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={styles.detailsButton}
-             onPress={() => navigateToTela(3)}
-            >
-              <Text style={styles.detailsButtonText}>List Dia</Text>
               <Feather name="arrow-right" size={16} color="#E02041"/>
             </TouchableOpacity>
 
@@ -135,25 +99,14 @@ export default function Teste(){
               <Text style={styles.detailsButtonText}>List Tarefa Mes</Text>
               <Feather name="arrow-right" size={16} color="#E02041"/>
             </TouchableOpacity>
-
-            <TouchableOpacity
-              style={styles.detailsButton}
-             onPress={() => navigateToTela(8)}
-            >
-              <Text style={styles.detailsButtonText}>Login</Text>
-              <Feather name="arrow-right" size={16} color="#E02041"/>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={styles.detailsButton}
-             onPress={() => navigateToTela(9)}
-            >
-              <Text style={styles.detailsButtonText}>Cadastro</Text>
-              <Feather name="arrow-right" size={16} color="#E02041"/>
-            </TouchableOpacity>
+            <View style={styles.container}>
+      
+            
 
         </View>
+        </View>
       </View>
+      <MaterialIconTextButtonsFooter></MaterialIconTextButtonsFooter>
     </View>
   );
 }
