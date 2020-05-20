@@ -5,8 +5,12 @@ module.exports = {
         const id_usuario = request.headers.authorization;
 
         const tarefa_dias = await connection('tarefa_dia')
-        .select('*')
-        .where('id_usuario', id_usuario);
+        .join('tarefa', 'tarefa.id', '=', 'tarefa_dia.id_tarefa')
+        .select([
+            'tarefa_dia.*',
+            'tarefa.nome',  
+        ])
+        .where('tarefa_dia.id_usuario', id_usuario);
 
         if (tarefa_dias.length > 0) {
             const [count] = await connection('tarefa_dia')

@@ -89,20 +89,6 @@ export default function ListTarefaMes(){
           <View style={styles.incident}>
             <Text style={styles.incidentProperty}>TAREFA NOME:</Text>
             <Text style={styles.incidentValue}>{tarefaMes.nome}</Text>
-
-            <Text style={styles.incidentProperty}>TAREFA MES:</Text>
-            <Text style={styles.incidentValue}>{tarefaMes.mes}</Text>
-
-            <Text style={styles.incidentProperty}>TAREFA ANO:</Text>
-            <Text style={styles.incidentValue}>{tarefaMes.ano}</Text>
-
-            <TouchableOpacity
-              style={styles.detailsButton}
-             onPress={() => navigateToTarefaDias(tarefaMes)}
-            >
-              <Text style={styles.detailsButtonText}>Ver mais detalhes</Text>
-              <Feather name="arrow-right" size={16} color="#E02041"/>
-            </TouchableOpacity>
           </View>
         )}
       />

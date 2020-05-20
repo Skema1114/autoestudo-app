@@ -4,7 +4,6 @@ import {Feather} from '@expo/vector-icons';
 import logoImg from '../../assets/logo.png';
 import styles from './styles';
 import {useNavigation, useRoute} from '@react-navigation/native';
-import * as MailComposer from 'expo-mail-composer';
 
 export default function DetailTarefa(){
   const navigation = useNavigation();
@@ -13,14 +12,6 @@ export default function DetailTarefa(){
 
   function navigateBack(){
     navigation.goBack();
-  }
-
-  function sendMail(){
-   
-  }
-
-  function sendWhatsapp(){
-  
   }
 
   return (
@@ -49,11 +40,11 @@ export default function DetailTarefa(){
 
       <View style={styles.contactBox}>
         <View style={styles.actions}>
-          <TouchableOpacity style={styles.action} onPress={sendWhatsapp}>
+          <TouchableOpacity style={styles.action} onPress={() => {}}>
             <Text style={styles.actionText}>WhatsApp</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.action} onPress={sendMail}>
+          <TouchableOpacity style={styles.action} onPress={() => {}}>
             <Text style={styles.actionText}>E-mail</Text>
           </TouchableOpacity>
         </View>

@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, TouchableWithoutFeedback} from 'react-native';
 import Constants from 'expo-constants';
 
 export default StyleSheet.create({
@@ -96,5 +96,19 @@ export default StyleSheet.create({
   fabIcon: {
     fontSize: 40,
     color: 'white'
-  }
+  },
+
+  actions2: {
+    flexDirection: 'row',
+    
+  },
+
+  incidentProperty2: {
+    backgroundColor: 'white',
+    fontSize: 14,
+    color: '#41414d',
+    fontWeight: 'bold',
+    marginBottom: 310,
+    //marginTop: 24
+  },
 });
