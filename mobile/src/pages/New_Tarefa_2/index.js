@@ -8,6 +8,7 @@ import logoImg from '../../assets/logo.png';
 import {useNavigation} from '@react-navigation/native';
 import * as Yup from 'yup';
 import api from '../../services/api';
+import MaterialFooterM3 from './../../Components/MaterialIconTextButtonsFooter/M3'
 
 export default function NewTarefa2() {
   const formRef = useRef(null);
@@ -15,23 +16,6 @@ export default function NewTarefa2() {
   //const id_usuario = _retrieveData('UsuarioIdStorage');
   const id_usuario = '1e54cc5b';
 
-  async function _retrieveData(chave){
-    try {
-      const value = await AsyncStorage.getItem(chave);
-      if (value !== null) {}
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
-  async function _deleteData(chave){
-    try {
-      const value = await AsyncStorage.removeItem(chave);
-      if (value !== null) {}
-    } catch (err) {
-      console.log(err);
-    }
-  }
 
   function navigateBack(){
     navigation.goBack();
@@ -101,41 +85,27 @@ export default function NewTarefa2() {
     navigation.replace( 'NewTarefa2', null, null );
   };
 
-  // PARA O EDITAR
-  /*
-  useEffect(() => {
-    setTimeout(() => {
-      formRef.current.setData({
-        nome: 'Rafael',
-        email: 'skema1114@hotmail.com',
-        senha: '123456'
-      })
-    }, 2000)
-  }, []);
-  */
  
   return (
   <View style={styles.container}>
-  <Form ref={formRef} onSubmit={handleSubmit}>
-    <View style={styles.header}>
-      <Image source={logoImg}/>
+    <Form ref={formRef} onSubmit={handleSubmit}>
+      <View style={styles.header}>
+        <Image source={logoImg}/>
+      </View>
 
-      <TouchableOpacity onPress={navigateBack}>
-        <Feather name="arrow-left" size={28} color="#E82041"/>
-      </TouchableOpacity>
-    </View>
+      <MaterialFooterM3></MaterialFooterM3>
 
       <View style={styles.incident}>
       
-      <Input name="nome" label="Nome" />
+        <Input name="nome" label="Nome" />
 
-      <TouchableOpacity 
-        style={styles.action} 
-        onPress={() => formRef.current.submitForm()}>
-        <Text>Enviar</Text>
-      </TouchableOpacity>
-    </View>
-  </Form>
-</View>
-);
+        <TouchableOpacity 
+          style={styles.action} 
+          onPress={() => formRef.current.submitForm()}>
+          <Text>Enviar</Text>
+        </TouchableOpacity>
+      </View>
+    </Form>
+  </View>
+  );
 }

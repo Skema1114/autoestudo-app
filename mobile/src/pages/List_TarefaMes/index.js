@@ -5,6 +5,7 @@ import styles from './styles';
 import {Feather} from '@expo/vector-icons';
 import {useNavigation} from '@react-navigation/native';
 import api from '../../services/api';
+import MaterialFooterM3 from './../../Components/MaterialIconTextButtonsFooter/M3'
 
 export default function ListTarefaMes(){
   const navigation = useNavigation();
@@ -14,17 +15,8 @@ export default function ListTarefaMes(){
   //const id_usuario = _retrieveData('UsuarioIdStorage');
   const id_usuario = '1e54cc5b';
 
-  async function _retrieveData(chave){
-    try {
-      const value = await AsyncStorage.getItem(chave);
-      if (value !== null) {}
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
-  function navigateBack(){
-    navigation.goBack();
+  function navigateToNew(){
+    navigation.navigate('NewMes');
   }
 
   async function _deleteData(chave){
@@ -69,19 +61,25 @@ export default function ListTarefaMes(){
     <View style={styles.container}>
       <View style={styles.header}>
         <Image source={logoImg}/>
-        <TouchableOpacity onPress={navigateBack}>
-          <Feather name="arrow-left" size={28} color="#E82041"/>
-        </TouchableOpacity>
         <Text style={styles.headerText}>
           Total de <Text style={styles.headerTextBold}>{total} casos</Text>.
         </Text>
       </View>
 
-      <Text style={styles.title}>Tarefa Mes</Text>
+      <MaterialFooterM3></MaterialFooterM3>
+
+      <View style={styles.contactBox}>
+        <View style={styles.actions}>
+          <TouchableOpacity style={styles.action} onPress={() => {navigateToNew()}}>
+            <Text style={styles.actionText}>Cadastrar</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+
 
       <FlatList
         data={tarefaMeses}
-        style={styles.incidentList}
+        style={styles.incidentProperty2}
         keyExtractor={tarefaMes => String(tarefaMes.id)}
         showsVerticalScrollIndicator={false}
         onEndReachedThreshold={0.2}

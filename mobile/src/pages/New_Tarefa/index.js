@@ -9,30 +9,13 @@ import {useNavigation} from '@react-navigation/native';
 import * as Yup from 'yup';
 import api from '../../services/api';
 import moment from 'moment';
+import MaterialFooterM1 from './../../Components/MaterialIconTextButtonsFooter/M1'
 
 export default function NewTarefa() {
   const formRef = useRef(null);
   const navigation = useNavigation();
   //const id_usuario = _retrieveData('UsuarioIdStorage');
   const id_usuario = '1e54cc5b';
-
-  async function _retrieveData(chave){
-    try {
-      const value = await AsyncStorage.getItem(chave);
-      if (value !== null) {}
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
-  async function _deleteData(chave){
-    try {
-      const value = await AsyncStorage.removeItem(chave);
-      if (value !== null) {}
-    } catch (err) {
-      console.log(err);
-    }
-  }
 
   function navigateBack(){
     navigation.goBack();
@@ -101,19 +84,6 @@ export default function NewTarefa() {
   function _reloadNewTarefa() {
     navigation.replace( 'NewTarefa', null, null );
   };
-
-  // PARA O EDITAR
-  /*
-  useEffect(() => {
-    setTimeout(() => {
-      formRef.current.setData({
-        nome: 'Rafael',
-        email: 'skema1114@hotmail.com',
-        senha: '123456'
-      })
-    }, 2000)
-  }, []);
-  */
  
   return (
   <View style={styles.container}>
@@ -126,8 +96,9 @@ export default function NewTarefa() {
       </TouchableOpacity>
     </View>
 
-      <View style={styles.incident}>
-      
+    <MaterialFooterM1></MaterialFooterM1>
+
+    <View style={styles.incident}>
       <Input name="nome" label="Nome" />
 
       <TouchableOpacity 
@@ -137,6 +108,6 @@ export default function NewTarefa() {
       </TouchableOpacity>
     </View>
   </Form>
-</View>
-);
+  </View>
+  );
 }

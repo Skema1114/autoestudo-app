@@ -3,8 +3,6 @@ import Constants from 'expo-constants';
 
 export default StyleSheet.create({
   container: {
-    flex: 1,
-    paddingHorizontal: 24,
     paddingTop: Constants.statusBarHeight + 20
   },
 
@@ -53,6 +51,15 @@ export default StyleSheet.create({
     color: '#41414d',
     fontWeight: 'bold',
     paddingLeft: 25
+  },
+
+  incidentProperty2: {
+    fontSize: 12,
+    color: '#41414d',
+    paddingLeft: 25,
+    justifyContent: 'space-between',
+
+
   },
 
   incidentValue: {
@@ -110,5 +117,5 @@ export default StyleSheet.create({
     color: '#FFF',
     fontSize: 15,
     fontWeight: 'bold'
-  }
+  },
 }); 

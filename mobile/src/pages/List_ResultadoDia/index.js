@@ -36,10 +36,6 @@ export default function ListResultadoDia(){
     navigation.goBack();
   }
 
-  function navigateToResultadoDias(resultadoDia){
-    navigation.navigate('DetailResultadoDia', {resultadoDia});
-  }
-
   async function loadResultadoDias(){
     if(loading){
       return;
@@ -101,14 +97,6 @@ export default function ListResultadoDia(){
 
             <Text style={styles.incidentProperty}>QTD NAO:</Text>
             <Text style={styles.incidentValue}>{resultadoDia.qtd_nao}</Text>
-
-            <TouchableOpacity
-              style={styles.detailsButton}
-             onPress={() => navigateToResultadoDias(resultadoDia)}
-            >
-              <Text style={styles.detailsButtonText}>Ver mais detalhes</Text>
-              <Feather name="arrow-right" size={16} color="#E02041"/>
-            </TouchableOpacity>
           </View>
         )}
       />

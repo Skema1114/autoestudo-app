@@ -5,42 +5,15 @@ import styles from './styles';
 import {Feather} from '@expo/vector-icons';
 import {useNavigation} from '@react-navigation/native';
 import api from '../../services/api';
+import MaterialFooterM1 from './../../Components/MaterialIconTextButtonsFooter/M1'
 
 export default function ListTarefa(){
   const navigation = useNavigation();
   const [tarefas, setTarefas] = useState([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
-  const [checador, setChecador] = useState(false);
-  const id_usuario = _retrieveData('UsuarioIdStorage');
+  const id_usuario = '1e54cc5b';
 
-  async function _retrieveData(chave){
-    try {
-      const value = await AsyncStorage.getItem(chave);
-      if (value !== null) {
-        return value;
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
-  async function _deleteData(chave){
-    try {
-      const value = await AsyncStorage.removeItem(chave);
-      if (value !== null) {}
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
-  function navigateBack(){
-    navigation.goBack();
-  }
-
-  function navigateToDetail(tarefa){
-    navigation.navigate('DetailTarefa', {tarefa});
-  }
 
   function navigateToNew(){
     navigation.navigate('NewTarefa');
@@ -71,63 +44,42 @@ export default function ListTarefa(){
     loadTarefas();
   }, []);
 
-  function checado(id){
-    if(checador===false){
-      alert("Foi checado o "+id)
-      setChecador(true)
-    }else{
-      alert("Foi deschecado o "+id)
-      setChecador(false)
-    }
-  }
-
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Image source={logoImg}/>
-        <TouchableOpacity onPress={navigateBack}>
-          <Feather name="arrow-left" size={28} color="#E82041"/>
-        </TouchableOpacity>
-        <Text style={styles.headerText}>
-          Total de <Text style={styles.headerTextBold}>{total} casos</Text>.
-        </Text>
-      </View>
-
-      <Text style={styles.title}>Tarefa</Text>
-
-      <View style={styles.contactBox}>
-        <View style={styles.actions}>
-          <TouchableOpacity style={styles.action} onPress={() => {navigateToNew()}}>
-            <Text style={styles.actionText}>Cadastrar</Text>
-          </TouchableOpacity>
+    <View>
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <Image source={logoImg}/>
+          <Text style={styles.headerText}>
+            Total de <Text style={styles.headerTextBold}>{total} casos</Text>.
+          </Text>
         </View>
-      </View>
 
-      <FlatList
-        data={tarefas}
-        style={styles.incidentList}
-        keyExtractor={tarefa => String(tarefa.id)}
-        showsVerticalScrollIndicator={false}
-        onEndReachedThreshold={0.2}
-        renderItem={({item: tarefa}) => (
-          <View style={styles.incident}>
+        <MaterialFooterM1></MaterialFooterM1>
 
-            <CheckBox
-              value={checador} id={tarefa.id} onChange={() => checado(tarefa.id)}>
-            </CheckBox>
-
-            <Text style={styles.incidentProperty}>{tarefa.nome}</Text>
-
-            <TouchableOpacity
-              style={styles.detailsButton}
-              onPress={() => navigateToDetail(tarefa)}
-            >
-              <Text style={styles.detailsButtonText}>Ver mais detalhes</Text>
-              <Feather name="arrow-left" size={16} color="#E02041"/>
+        <View style={styles.contactBox}>
+          <View style={styles.actions}>
+            <TouchableOpacity style={styles.action} onPress={() => {navigateToNew()}}>
+              <Text style={styles.actionText}>Nova tarefa</Text>
             </TouchableOpacity>
           </View>
-        )}
-      />
+        </View>
+
+        <FlatList
+          data={tarefas}
+          style={styles.incidentList}
+          keyExtractor={tarefa => String(tarefa.id)}
+          showsVerticalScrollIndicator={false}
+          onEndReachedThreshold={0.2}
+          renderItem={({item: tarefa}) => (
+            <View style={styles.incident}>
+
+              <Text style={styles.incidentProperty}>{tarefa.nome}</Text>
+              <Text style={styles.incidentProperty2}>{tarefa.data_criacao}</Text>
+
+            </View>
+          )}
+        />
+      </View>
     </View>
   );
 }

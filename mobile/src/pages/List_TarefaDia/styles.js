@@ -3,8 +3,6 @@ import Constants from 'expo-constants';
 
 export default StyleSheet.create({
   container: {
-    flex: 1,
-    paddingHorizontal: 24,
     paddingTop: Constants.statusBarHeight + 20
   },
 
@@ -76,5 +74,19 @@ export default StyleSheet.create({
     color: '#e02041',
     fontSize: 15,
     fontWeight: 'bold'
+  },
+
+  incidentProperty2: {
+    backgroundColor: 'white',
+    fontSize: 14,
+    color: '#41414d',
+    fontWeight: 'bold',
+    marginBottom: 310,
+    //marginTop: 24
+  },
+
+  actions2: {
+    flexDirection: 'row',
+    
   },
 }); 

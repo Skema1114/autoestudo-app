@@ -9,6 +9,7 @@ import {useNavigation} from '@react-navigation/native';
 import * as Yup from 'yup';
 import api from '../../services/api';
 import moment from 'moment';
+import MaterialFooterM3 from './../../Components/MaterialIconTextButtonsFooter/M3'
 
 export default function NewMes() {
   const formRef = useRef(null);
@@ -134,14 +135,16 @@ export default function NewMes() {
 
   return (
   <View style={styles.container}>
-  <Form ref={formRef} onSubmit={handleSubmit}>
-    <View style={styles.header}>
-      <Image source={logoImg}/>
+    <Form ref={formRef} onSubmit={handleSubmit}>
+      <View style={styles.header}>
+        <Image source={logoImg}/>
+        <TouchableOpacity onPress={navigateBack}>
+          <Feather name="arrow-left" size={28} color="#E82041"/>
+        </TouchableOpacity>
+      </View>
 
-      <TouchableOpacity onPress={navigateBack}>
-        <Feather name="arrow-left" size={28} color="#E82041"/>
-      </TouchableOpacity>
-    </View>
+      <MaterialFooterM3></MaterialFooterM3>
+        
       <View style={styles.incident}>
       
         <Input name="qtd_nao" label="Quantidade de não" />
@@ -152,7 +155,6 @@ export default function NewMes() {
             onPress={() => formRef.current.submitForm()}>
             <Text style={styles.actionText}>Cadastrar</Text>
           </TouchableOpacity>
-
           <TouchableOpacity 
             style={styles.action} 
             onPress={() => _reloadNewTarefa2()}>
@@ -160,28 +162,26 @@ export default function NewMes() {
           </TouchableOpacity>
         </View>
       </View>
-
       <View>
-          <FlatList
+        <FlatList
           style={styles.incidentProperty2}
           data={tarefas}
           keyExtractor={tarefa => String(tarefa.id)}
           showsVerticalScrollIndicator={false}
           onEndReachedThreshold={0.2}
           renderItem={({item: tarefa}) => (
-            <View style={styles.actions2}>
-
-              <CheckBox
+          
+          <View style={styles.actions2}>
+            <CheckBox
               style={styles.incidentProperty}
-                onChange={() => addTarefasMes(tarefa.id)}>
-              </CheckBox>
-
-              <Text style={styles.incidentProperty}>{tarefa.nome}</Text>
-            </View>
+              onChange={() => addTarefasMes(tarefa.id)}>
+            </CheckBox>
+            <Text style={styles.incidentProperty}>{tarefa.nome}</Text>
+          </View>
           )}
-          />
-        </View>
+        />
+      </View>
   </Form>
-</View>
-);
+  </View>
+  );
 }

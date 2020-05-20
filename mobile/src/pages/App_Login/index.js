@@ -59,7 +59,7 @@ export default function AppLogin() {
   }
 
   function _reloadTeste() {
-    navigation.replace( 'Teste', null, null );
+    navigation.replace('ListTarefaDia', null, null);
   };
 
   async function _storeData(chave, valor){
@@ -93,7 +93,7 @@ export default function AppLogin() {
 
   function funcaoInutil(){
     _storeData('1e54cc5b');
-    navigation.navigate('Teste');
+    navigation.navigate('ListTarefaDia');
   }
  
   return (
