@@ -28,6 +28,10 @@ export default function NewMes() {
     navigation.goBack();
   }
 
+  function _reloadListTarefaMes(){
+    navigation.replace('ListTarefaMes', null, null);
+  }
+
   async function handleSubmit(data, { reset }) {
     try{
       const schema = Yup.object().shape({
@@ -93,7 +97,14 @@ export default function NewMes() {
                   Authorization: id_usuario.toString(),
               }
           })   
-          console.log("Tarefa mes cadastrada com sucesso");
+          Alert.alert(
+            "Cadastro",
+            `Mês cadastrado com sucesso!`,
+            [
+              { text: "OK", onPress: () => _reloadListTarefaMes() }
+            ],
+            { cancelable: false }
+          );
       }catch(err){
         console.log(err)
           Alert.alert('Cadastro', 'Erro ao cadastrar, tente novamente.');

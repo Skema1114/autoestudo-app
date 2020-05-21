@@ -87,6 +87,6 @@ export default StyleSheet.create({
 
   actions2: {
     flexDirection: 'row',
-    
+    backgroundColor: 'white'
   },
 }); 

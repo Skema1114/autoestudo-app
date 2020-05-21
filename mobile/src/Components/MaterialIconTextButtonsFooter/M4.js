@@ -10,15 +10,15 @@ function M1() {
     switch(tela){
 
       case 1:
-        navigation.navigate('ListTarefaDia')
+        navigation.replace('ListTarefaDia', null, null)
       break;
 
       case 2:
-        navigation.navigate('ListTarefa')
+        navigation.replace('ListTarefa', null, null)
       break;
 
       case 3:
-        navigation.navigate('ListTarefaMes')
+        navigation.replace('ListTarefaMes', null, null)
       break;
 
       case 3:

@@ -19,18 +19,6 @@ export default function ListTarefaMes(){
     navigation.navigate('NewMes');
   }
 
-  async function _deleteData(chave){
-    try {
-      const value = await AsyncStorage.removeItem(chave);
-      if (value !== null) {}
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
-  function navigateToTarefaDias(tarefaMes){
-    navigation.navigate('DetailTarefaDia', {tarefaMes});
-  }
 
   async function loadTarefaMeses(){
     if(loading){
