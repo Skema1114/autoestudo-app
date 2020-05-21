@@ -20,7 +20,7 @@ module.exports = {
     },
 
     async create(request, response){
-        const {nome, email, senha} = request.body;
+        const {nome, email, senha, data_cadastro} = request.body;
 
         const id = generateUniqueId();
      
@@ -29,6 +29,7 @@ module.exports = {
             nome,
             email,
             senha,
+            data_cadastro
         });
         
         return response.json({id});

@@ -11,6 +11,7 @@ exports.up = function(knex) {
 
       table.string('resultado').notNullable();
       table.string('qtd_nao').notNullable();
+      table.string('data_cadastro').notNullable();
   });
 };
 

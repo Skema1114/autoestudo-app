@@ -7,9 +7,7 @@ exports.up = function(knex) {
         table.foreign('id_usuario').references('id').inTable('usuario');
 
         table.string('nome').notNullable();
-        table.string('data_criacao').notNullable();
-
-        
+        table.string('data_cadastro').notNullable();     
     });
 };
 

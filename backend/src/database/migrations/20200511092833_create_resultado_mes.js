@@ -10,6 +10,7 @@ exports.up = function(knex) {
       table.foreign('id_usuario').references('id').inTable('usuario');
 
       table.string('resultado').notNullable();
+      table.string('data_cadastro').notNullable();
   });
 };
 
