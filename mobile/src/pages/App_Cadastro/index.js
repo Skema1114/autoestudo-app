@@ -8,6 +8,7 @@ import logoImg from '../../assets/logo.png';
 import {useNavigation} from '@react-navigation/native';
 import * as Yup from 'yup';
 import api from '../../services/api';
+import moment from 'moment';
 
 export default function AppCadastro() {
   const formRef = useRef(null);
@@ -44,13 +45,14 @@ export default function AppCadastro() {
           formRef.current.setErrors(errorMessage);
       }
     }
-
+    
     async function handleLogin(nome, email, senha){
-         
+      const data_cadastro = moment().utcOffset('-03:00').format("LLL");
       const data = {
           nome,
           email,
           senha,
+          data_cadastro
       };
 
       try{

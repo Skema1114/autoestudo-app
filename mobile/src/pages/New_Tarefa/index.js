@@ -48,11 +48,11 @@ export default function NewTarefa() {
     }
 
     async function handleNewTarefa(nome){
-      const data_criacao = moment().utcOffset('-03:00').format("LLL");
+      const data_cadastro = moment().utcOffset('-03:00').format("LLL");
      
       const data = {
           nome,
-          data_criacao,
+          data_cadastro,
       };
 
       try{

@@ -11,7 +11,6 @@ export default function ListResultadoMes(){
   const [resultadoMeses, setResultadoMeses] = useState([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
-  //const id_usuario = _retrieveData('UsuarioIdStorage');
   const id_usuario = '1e54cc5b';
   
 

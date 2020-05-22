@@ -114,7 +114,7 @@ routes.get('/tarefas',celebrate({
           [Segments.HEADERS]: Joi.object({
             authorization: Joi.string().required()
           }).unknown(),   
-}), TarefaController.index);
+}), TarefaController.get);
 routes.post('/tarefa',celebrate({
           [Segments.HEADERS]: Joi.object({
             authorization: Joi.string().required()
@@ -123,7 +123,23 @@ routes.post('/tarefa',celebrate({
             nome: Joi.string().required(),
             data_cadastro: Joi.string().required()
           })
-}), TarefaController.create);
+}), TarefaController.post);
+routes.patch('/tarefa/:id',celebrate({
+          [Segments.HEADERS]: Joi.object({
+            authorization: Joi.string().required()
+          }).unknown(),
+          [Segments.PARAMS]: Joi.object().keys({
+            id: Joi.number().required()
+          })
+}), TarefaController.patch);
+routes.put('/tarefa/:id',celebrate({
+          [Segments.HEADERS]: Joi.object({
+            authorization: Joi.string().required()
+          }).unknown(),
+          [Segments.PARAMS]: Joi.object().keys({
+            id: Joi.number().required()
+          })
+}), TarefaController.put);
 routes.delete('/tarefa/:id',celebrate({
           [Segments.HEADERS]: Joi.object({
             authorization: Joi.string().required()

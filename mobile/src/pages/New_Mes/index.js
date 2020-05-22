@@ -18,11 +18,9 @@ export default function NewMes() {
   const [meses, setMeses] = useState([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
-  //const id_usuario = _retrieveData('UsuarioIdStorage');
   const id_usuario = '1e54cc5b';
   var tarefasMes = [];
   var idMesCadastrado = 0;
-
 
   function navigateBack(){
     navigation.goBack();
@@ -60,16 +58,17 @@ export default function NewMes() {
       }
     }
 
-
     async function handleNewMes(qtd_nao){
-      var mes = new Date().getMonth();
-      mes = mes + 1
-      mes = mes.toString()
-      const ano = new Date().getFullYear().toString();
+      const agora = moment();
+      const mes = agora.format('M');
+      const ano = agora.format('YYYY');
+      const data_cadastro = moment().utcOffset('-03:00').format("LLL");
+      
       const data = {
           mes,
           ano,
           qtd_nao,
+          data_cadastro
       };
       try{
         const response = await api.post('mes', data, {
@@ -83,9 +82,9 @@ export default function NewMes() {
       }
     }
 
-
     async function handleNewTarefaMes(id_mes, id_tarefa){
       const data_cadastro = moment().utcOffset('-03:00').format("LLL");
+
       const data = {
           id_mes,
           id_tarefa,

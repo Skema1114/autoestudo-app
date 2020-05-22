@@ -3,17 +3,17 @@ import { Form } from '@unform/mobile';
 import { Text, Image, View, TouchableOpacity, Alert, Keyboard } from 'react-native';
 import Input from '../../Components/Form/input';
 import styles from './styles';
-import {Feather} from '@expo/vector-icons';
+//import {Feather} from '@expo/vector-icons';
 import logoImg from '../../assets/logo.png';
 import {useNavigation} from '@react-navigation/native';
 import * as Yup from 'yup';
 import api from '../../services/api';
 import MaterialFooterM3 from './../../Components/MaterialIconTextButtonsFooter/M3'
+import moment from 'moment';
 
 export default function NewTarefa2() {
   const formRef = useRef(null);
   const navigation = useNavigation();
-  //const id_usuario = _retrieveData('UsuarioIdStorage');
   const id_usuario = '1e54cc5b';
 
 
@@ -48,11 +48,11 @@ export default function NewTarefa2() {
     }
 
     async function handleNewTarefa(nome){
-      const data_criacao =new Date().getDate().toString();
+      const data_cadastro = moment().utcOffset('-03:00').format("LLL");
      
       const data = {
           nome,
-          data_criacao,
+          data_cadastro,
       };
 
       try{

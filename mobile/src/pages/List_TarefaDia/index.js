@@ -60,6 +60,7 @@ export default function ListTarefaDia(){
 
   async function handleNewDia(id_mes){
     const data_cadastro = moment().utcOffset('-03:00').format("LLL");
+    
     const data = {
         id_mes,
         data_cadastro,
