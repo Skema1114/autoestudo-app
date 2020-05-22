@@ -14,7 +14,7 @@ import moment from 'moment';
 export default function NewTarefa2() {
   const formRef = useRef(null);
   const navigation = useNavigation();
-  const id_usuario = '1e54cc5b';
+  const id_usuario = '1';
 
 
   function navigateBack(){
@@ -58,7 +58,7 @@ export default function NewTarefa2() {
       try{
         const response = await api.post('tarefa', data, {
               headers: {
-                  Authorization: id_usuario.toString(),
+                  Authorization: id_usuario,
               }
           })
           

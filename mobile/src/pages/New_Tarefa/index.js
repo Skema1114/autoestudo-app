@@ -15,7 +15,7 @@ export default function NewTarefa() {
   const formRef = useRef(null);
   const navigation = useNavigation();
   //const id_usuario = _retrieveData('UsuarioIdStorage');
-  const id_usuario = '1e54cc5b';
+  const id_usuario = '1';
 
   function navigateBack(){
     navigation.goBack();
@@ -58,7 +58,7 @@ export default function NewTarefa() {
       try{
         const response = await api.post('tarefa', data, {
               headers: {
-                  Authorization: id_usuario.toString(),
+                  Authorization: id_usuario,
               }
           })
           

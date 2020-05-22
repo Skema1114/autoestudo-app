@@ -11,7 +11,7 @@ export default function ListResultadoMes(){
   const [resultadoMeses, setResultadoMeses] = useState([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
-  const id_usuario = '1e54cc5b';
+  const id_usuario = '1';
   
 
   function navigateBack(){
@@ -30,7 +30,7 @@ export default function ListResultadoMes(){
     setLoading(true);
     const response = await api.get('resultado_meses', {
       headers: {
-        Authorization: id_usuario.toString(),
+        Authorization: id_usuario,
       }
     });
 

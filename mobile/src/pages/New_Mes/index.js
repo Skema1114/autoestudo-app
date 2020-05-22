@@ -18,7 +18,7 @@ export default function NewMes() {
   const [meses, setMeses] = useState([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
-  const id_usuario = '1e54cc5b';
+  const id_usuario = '1';
   var tarefasMes = [];
   var idMesCadastrado = 0;
 
@@ -73,7 +73,7 @@ export default function NewMes() {
       try{
         const response = await api.post('mes', data, {
               headers: {
-                  Authorization: id_usuario.toString(),
+                  Authorization: id_usuario,
               }
           })  
           idMesCadastrado = response.data.id;
@@ -93,7 +93,7 @@ export default function NewMes() {
       try{
         const response = await api.post('tarefa_mes', data, {
               headers: {
-                  Authorization: id_usuario.toString(),
+                  Authorization: id_usuario,
               }
           })   
           Alert.alert(
@@ -129,7 +129,7 @@ export default function NewMes() {
     setLoading(true);
     const response = await api.get('tarefas', {
       headers: {
-        Authorization: id_usuario.toString(),
+        Authorization: id_usuario,
       }
     });
     setTarefas([...tarefas, ...response.data]);

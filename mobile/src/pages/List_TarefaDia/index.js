@@ -14,7 +14,7 @@ export default function ListTarefaDia(){
   const [loading, setLoading] = useState(false);
   const [checador, setChecador] = useState(false);
   //const id_usuario = _retrieveData('UsuarioIdStorage');
-  const id_usuario = '1e54cc5b';
+  const id_usuario = '1';
 
 
  // #######################################################################
@@ -68,7 +68,7 @@ export default function ListTarefaDia(){
     try{
       const response = await api.post('dia', data, {
             headers: {
-                Authorization: id_usuario.toString(),
+                Authorization: id_usuario,
             }
         })   
         Alert.alert(
@@ -104,7 +104,7 @@ export default function ListTarefaDia(){
     setLoading(true);
     const response = await api.get('tarefa_dias', {
       headers: {
-        Authorization: id_usuario.toString(),
+        Authorization: id_usuario,
       }
     });
 

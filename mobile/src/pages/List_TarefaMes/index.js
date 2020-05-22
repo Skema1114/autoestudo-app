@@ -12,7 +12,7 @@ export default function ListTarefaMes(){
   const [tarefaMeses, setTarefaMeses] = useState([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
-  const id_usuario = '1e54cc5b';
+  const id_usuario = '1';
 
   function navigateToNew(){
     navigation.navigate('NewMes');
@@ -31,7 +31,7 @@ export default function ListTarefaMes(){
     setLoading(true);
     const response = await api.get('tarefa_meses', {
       headers: {
-        Authorization: id_usuario.toString(),
+        Authorization: id_usuario,
       }
     });
 
