@@ -59,9 +59,9 @@ routes.post('/mes',celebrate({
             authorization: Joi.number().required()
           }).unknown(),
           [Segments.BODY]: Joi.object().keys({
-            mes: Joi.string().required(),
-            ano: Joi.string().required(),
-            qtd_nao: Joi.string().required(),
+            mes: Joi.number().required(),
+            ano: Joi.number().required(),
+            qtd_nao: Joi.number().required(),
             data_cadastro: Joi.string().required(),
             bloq: Joi.string(),
           })
@@ -281,7 +281,7 @@ routes.post('/resultado_dia',celebrate({
           [Segments.BODY]: Joi.object().keys({
             id_dia: Joi.number().required(),
             resultado: Joi.string().required(),
-            qtd_nao: Joi.string().required(),
+            qtd_nao: Joi.number().required(),
             data_cadastro: Joi.string().required(),
           }),
 }), ResultadoDiaController.post);

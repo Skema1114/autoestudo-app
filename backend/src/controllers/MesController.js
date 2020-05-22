@@ -2,7 +2,7 @@ const connection = require('../database/connection');
 
 module.exports = {
     async get(request, response){
-        const id_usuario = request.headers.authorization;
+        const id_usuario = parseInt(request.headers.authorization);
 
         const meses = await connection('mes')
         .select('*')
@@ -23,7 +23,7 @@ module.exports = {
 
     async post(request, response){
         const {mes, ano, qtd_nao, data_cadastro, bloq} = request.body;
-        const id_usuario = request.headers.authorization;
+        const id_usuario = parseInt(request.headers.authorization);
 
         const [id] = await connection("mes").insert({
             id_usuario,
@@ -39,7 +39,7 @@ module.exports = {
 
     async patch(request, response) {
         const {id} = request.params;
-        const id_usuario = request.headers.authorization;
+        const id_usuario = parseInt(request.headers.authorization);
         const mesBody = request.body;
 
         const mesTeste = await connection('mes')
@@ -49,7 +49,7 @@ module.exports = {
 
         if(mesTeste.id_usuario !== id_usuario){
             return response.status(401).json({
-                error: 'Sem permissões.'
+                error: 'Sem permissões'
             });
         }
               
@@ -65,7 +65,7 @@ module.exports = {
 
     async delete(request, response){
         const {id} = request.params;
-        const id_usuario = request.headers.authorization;
+        const id_usuario = parseInt(request.headers.authorization);
 
         const tarefas = await connection('mes')
             .where('id', id)
@@ -74,7 +74,7 @@ module.exports = {
 
         if(tarefas.id_usuario !== id_usuario){
             return response.status(401).json({
-                error: 'Operation not permitted.'
+                error: 'Sem permissões'
             });
         }
         await connection('mes').where('id', id).delete();
@@ -84,7 +84,7 @@ module.exports = {
 
     async getByMesAno(request, response){
         const {mes, ano} = request.body;
-        const id_usuario = request.headers.authorization;
+        const id_usuario = parseInt(request.headers.authorization);
 
         const meses = await connection('mes')
         .select('*')

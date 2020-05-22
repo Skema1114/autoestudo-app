@@ -48,7 +48,7 @@ module.exports = {
 
         if(resultadoDiaTeste.id_usuario !== id_usuario){
             return response.status(401).json({
-                error: 'Sem permissões.'
+                error: 'Sem permissões'
             });
         }
               
@@ -73,7 +73,7 @@ module.exports = {
 
     if((resultado_dias.id_usuario !== id_usuario)&&(resultado_dias.id !== id)){
             return response.status(401).json({
-                error: 'Operation not permitted.'
+                error: 'Sem permissões'
             });
         }
         await connection('resultado_dia').where('id', id).delete();

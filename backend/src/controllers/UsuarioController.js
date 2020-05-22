@@ -21,7 +21,6 @@ module.exports = {
 
     async post(request, response){
         const {nome, email, senha, data_cadastro} = request.body;
-
         //const id = generateUniqueId();
      
         const usuario = await connection('usuario').insert({
@@ -46,7 +45,7 @@ module.exports = {
 
         if(usuarioTeste.id !== id_usuario){
             return response.status(401).json({
-                error: 'Sem permissões.'
+                error: 'Sem permissões'
             });
         }
               

@@ -69,7 +69,7 @@ module.exports = {
 
     if((tarefa_meses.id_usuario !== id_usuario)&&(tarefa_meses.id_tarefa !== id)){
             return response.status(401).json({
-                error: 'Operation not permitted.'
+                error: 'Sem permissões'
             });
         }
         await connection('tarefa_mes').where('id', id).delete();

@@ -33,7 +33,7 @@ module.exports = {
 
         if(tarefasTeste.id_usuario !== id_usuario){
             return response.status(401).json({
-                error: 'Sem permissões.'
+                error: 'Sem permissões'
             });
         }
               
@@ -99,7 +99,7 @@ module.exports = {
 
         if(tarefas.id_usuario !== id_usuario){
             return response.status(401).json({
-                error: 'Operation not permitted.'
+                error: 'Sem permissões'
             });
         }
         await connection('tarefa').where('id', id).delete();
