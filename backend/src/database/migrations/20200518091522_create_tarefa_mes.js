@@ -3,10 +3,10 @@ exports.up = function(knex) {
   return knex.schema.createTable('tarefa_mes', function (table) {
       table.increments();
 
-      table.string('id_mes').notNullable();
+      table.integer('id_mes').notNullable();
       table.foreign('id_mes').references('id').inTable('mes');
       
-      table.string('id_tarefa').notNullable();
+      table.integer('id_tarefa').notNullable();
       table.foreign('id_tarefa').references('id').inTable('tarefa');
 
       table.string('id_usuario').notNullable();

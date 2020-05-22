@@ -6,10 +6,10 @@ exports.up = function(knex) {
       table.string('id_usuario').notNullable();
       table.foreign('id_usuario').references('id').inTable('usuario');
 
-      table.string('id_mes').notNullable();
+      table.integer('id_mes').notNullable();
       table.foreign('id_mes').references('id').inTable('mes');
 
-      table.string('dia').notNullable();
+      table.integer('dia').notNullable();
       table.string('data_cadastro').notNullable();
 
       table.string('bloq');

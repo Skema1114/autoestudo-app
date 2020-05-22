@@ -22,17 +22,16 @@ module.exports = {
     async post(request, response){
         const {nome, email, senha, data_cadastro} = request.body;
 
-        const id = generateUniqueId();
+        //const id = generateUniqueId();
      
-        await connection('usuario').insert({
-            id,
+        const usuario = await connection('usuario').insert({
             nome,
             email,
             senha,
             data_cadastro
         });
         
-        return response.json({id});
+        return response.sendStatus(200);
     },
 
     async patch(request, response) {
@@ -42,9 +41,10 @@ module.exports = {
 
         const usuarioTeste = await connection('usuario')
             .where('id', id)
+            .select('id')
             .first()
 
-        if(usuarioTeste.id_usuario !== id_usuario){
+        if(usuarioTeste.id !== id_usuario){
             return response.status(401).json({
                 error: 'Sem permissões.'
             });
@@ -58,22 +58,4 @@ module.exports = {
                 response.status(412).json({msg: error.message})
             })
     },
-
-    async delete(request, response){
-        const {id} = request.params;
-
-        const usuarios = await connection('usuario')
-            .where('id', id)
-            .select('id ')
-            .first()
-
-    if(usuarios.id !== id){
-            return response.status(401).json({
-                error: 'Operation not permitted.'
-            });
-        }  
-        await connection('usuario').where('id', id).delete();
-
-        return response.status(204).send();
-    }
 }
