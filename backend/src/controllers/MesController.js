@@ -1,7 +1,7 @@
 const connection = require('../database/connection');
 
 module.exports = {
-    async index(request, response){
+    async get(request, response){
         const id_usuario = request.headers.authorization;
 
         const meses = await connection('mes')
@@ -21,7 +21,7 @@ module.exports = {
         return response.json(meses);
     },
 
-    async create(request, response){
+    async post(request, response){
         const {mes, ano, qtd_nao, data_cadastro, bloq} = request.body;
         const id_usuario = request.headers.authorization;
 
@@ -35,6 +35,32 @@ module.exports = {
         });
 
         return response.json({id});
+    },
+
+    async patch(request, response) {
+        const {id} = request.params;
+        const id_usuario = request.headers.authorization;
+        const mesBody = request.body;
+
+        const mesTeste = await connection('mes')
+            .where('id', id)
+            .select('id_usuario')
+            .first()
+
+        if(mesTeste.id_usuario !== id_usuario){
+            return response.status(401).json({
+                error: 'Sem permissões.'
+            });
+        }
+              
+        const mes = await connection('mes')
+            .where('id', id)
+            .andWhere('id_usuario', id_usuario)
+            .update(mesBody)
+            .then(result => response.sendStatus(204))
+            .catch(error => {
+                response.status(412).json({msg: error.message})
+            })
     },
 
     async delete(request, response){

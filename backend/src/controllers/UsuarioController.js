@@ -2,7 +2,7 @@ const connection = require('../database/connection');
 const generateUniqueId = require('../util/generateUniqueId');
 
 module.exports = {
-    async index(request, response){
+    async get(request, response){
 
         const usuarios = await connection('usuario')
         .select('*');
@@ -19,7 +19,7 @@ module.exports = {
         return response.json(usuarios);
     },
 
-    async create(request, response){
+    async post(request, response){
         const {nome, email, senha, data_cadastro} = request.body;
 
         const id = generateUniqueId();
@@ -33,6 +33,30 @@ module.exports = {
         });
         
         return response.json({id});
+    },
+
+    async patch(request, response) {
+        const {id} = request.params;
+        const id_usuario = request.headers.authorization;
+        const usuarioBody = request.body;
+
+        const usuarioTeste = await connection('usuario')
+            .where('id', id)
+            .first()
+
+        if(usuarioTeste.id_usuario !== id_usuario){
+            return response.status(401).json({
+                error: 'Sem permissões.'
+            });
+        }
+              
+        const usuario = await connection('usuario')
+            .where('id', id)
+            .update(usuarioBody)
+            .then(result => response.sendStatus(204))
+            .catch(error => {
+                response.status(412).json({msg: error.message})
+            })
     },
 
     async delete(request, response){

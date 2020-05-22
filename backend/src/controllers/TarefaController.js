@@ -33,7 +33,7 @@ module.exports = {
 
         if(tarefasTeste.id_usuario !== id_usuario){
             return response.status(401).json({
-                error: 'Operation not permitted.'
+                error: 'Sem permissões.'
             });
         }
               
@@ -46,7 +46,7 @@ module.exports = {
                 response.status(412).json({msg: error.message})
             })
     },
-
+/*
     async put(request, response) {
         const {id} = request.params;
         const id_usuario = request.headers.authorization;
@@ -59,7 +59,7 @@ module.exports = {
 
         if(tarefasTeste.id_usuario !== id_usuario){
             return response.status(401).json({
-                error: 'Operation not permitted.'
+                error: 'Sem permissões.'
             });
         }
               
@@ -74,7 +74,7 @@ module.exports = {
                 response.status(412).json({msg: error.message})
             })
     },
-      
+*/    
     async post(request, response){
         const {nome, data_cadastro} = request.body;
         const id_usuario = request.headers.authorization;

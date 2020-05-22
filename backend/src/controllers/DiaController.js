@@ -1,7 +1,7 @@
 const connection = require('../database/connection');
 
 module.exports = {
-    async index(request, response){
+    async get(request, response){
         const id_usuario = request.headers.authorization;
 
         const dias = await connection('dia')
@@ -21,7 +21,7 @@ module.exports = {
         return response.json(dias);
     },
 
-    async create(request, response){
+    async post(request, response){
         const {id_mes, dia, data_cadastro, bloq} = request.body;
         const id_usuario = request.headers.authorization;
 
@@ -36,6 +36,32 @@ module.exports = {
         return response.json({id});
     },
 
+    async patch(request, response) {
+        const {id} = request.params;
+        const id_usuario = request.headers.authorization;
+        const diaBody = request.body;
+
+        const diaTeste = await connection('dia')
+            .where('id', id)
+            .select('id_usuario')
+            .first()
+
+        if(diaTeste.id_usuario !== id_usuario){
+            return response.status(401).json({
+                error: 'Sem permissões.'
+            });
+        }
+              
+        const dia = await connection('dia')
+            .where('id', id)
+            .andWhere('id_usuario', id_usuario)
+            .update(diaBody)
+            .then(result => response.sendStatus(204))
+            .catch(error => {
+                response.status(412).json({msg: error.message})
+            })
+    },
+
     async delete(request, response){
         const {id} = request.params;
         const id_usuario = request.headers.authorization;
@@ -47,7 +73,7 @@ module.exports = {
 
     if(dias.id_usuario !== id_usuario){
             return response.status(401).json({
-                error: 'Operation not permitted.'
+                error: 'Sem permissões.'
             });
         }
         await connection('dia').where('id', id).delete();

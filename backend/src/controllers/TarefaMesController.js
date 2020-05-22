@@ -1,7 +1,7 @@
 const connection = require('../database/connection');
 
 module.exports = {
-    async index(request, response){
+    async get(request, response){
         const id_usuario = request.headers.authorization;
 
         const tarefa_meses = await connection('tarefa_mes')
@@ -28,7 +28,7 @@ module.exports = {
         return response.json(tarefa_meses);
     },
 
-    async create(request, response){
+    async post(request, response){
         const {id_mes, id_tarefa, data_cadastro, bloq} = request.body;
         const id_usuario = request.headers.authorization;
 
@@ -41,6 +41,21 @@ module.exports = {
         });
 
         return response.json({id});
+    },
+
+    async patch(request, response) {
+        const {id} = request.params;
+        const id_usuario = request.headers.authorization;
+        const tarefaMesBody = request.body;
+              
+        const tarefaMes = await connection('tarefa_mes')
+            .where('id', id)
+            .andWhere('id_usuario', id_usuario)
+            .update(tarefaMesBody)
+            .then(result => response.sendStatus(204))
+            .catch(error => {
+                response.status(412).json({msg: error.message})
+            })
     },
 
     async delete(request, response){
