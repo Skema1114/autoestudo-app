@@ -1,5 +1,5 @@
-import React, { useRef, useEffect }  from 'react';
 import { Text, TextInput, StyleSheet } from 'react-native';
+import React, { useRef, useEffect }  from 'react';
 import { useField } from '@unform/core';
 
 function Input({ name, label, ...rest }) {

@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from 'react';
-import {View, Image, Text, TouchableOpacity, AsyncStorage, FlatList, CheckBox} from 'react-native';
-import logoImg from '../../assets/logo.png';
-import styles from './styles';
-import {Feather} from '@expo/vector-icons';
+import {View, Image, Text, TouchableOpacity, FlatList, Alert} from 'react-native';
+import MaterialFooterM1 from './../../Components/MaterialIconTextButtonsFooter/M2'
 import {useNavigation} from '@react-navigation/native';
+import React, {useEffect, useState} from 'react';
+import logoImg from '../../assets/logo.png';
+import {Feather} from '@expo/vector-icons';
 import api from '../../services/api';
-import MaterialFooterM1 from './../../Components/MaterialIconTextButtonsFooter/M1'
+import styles from './styles';
 
 export default function ListTarefa(){
   const navigation = useNavigation();

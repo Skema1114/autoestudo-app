@@ -1,7 +1,7 @@
-import React, {} from "react";
-import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
+import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
 import { useNavigation } from '@react-navigation/native';
+import React, {} from "react";
 
 function M1() {
   const navigation = useNavigation();
@@ -10,7 +10,7 @@ function M1() {
     switch(tela){
 
       case 1:
-        navigation.replace('ListTarefaDia', null, null)
+        navigation.replace('ListTarefaDia', null, null)        
       break;
 
       case 2:
@@ -25,31 +25,51 @@ function M1() {
         console.log('ListTarefaMes')
       break;
     }
-    
   }
+/*
+  function navigateToTela(tela){
+    switch(tela){
 
+      case 1:
+        navigation.navigate('ListTarefaDia')        
+      break;
+
+      case 2:
+        navigation.navigate('ListTarefa')
+      break;
+
+      case 3:
+        navigation.navigate('ListTarefaMes')
+      break;
+
+      case 3:
+        console.log('ListTarefaMes')
+      break;
+    }
+  }
+*/
 
   return (
     <View style={[styles.containerNormalFooter]}>
         
         <TouchableOpacity 
-          style={styles.buttonNormalFooter}
+          style={styles.buttonSelectFooter}
           onPress={() => navigateToTela(1)}>
           <MaterialCommunityIconsIcon
             name="heart"
-            style={styles.iconNormalFooter}>
+            style={styles.iconSelectFooter}>
           </MaterialCommunityIconsIcon>
-          <Text style={styles.textNormalFooter}>Hoje</Text>
+          <Text style={styles.textSelectFooter}>Hoje</Text>
         </TouchableOpacity>
 
         <TouchableOpacity 
-          style={styles.buttonSelectFooter}
+          style={styles.buttonNormalFooter}
           onPress={() => navigateToTela(2)}>
           <MaterialCommunityIconsIcon
             name="timer"
-            style={styles.iconSelectFooter}>
+            style={styles.iconNormalFooter}>
           </MaterialCommunityIconsIcon>
-          <Text style={styles.textSelectFooter}>Tarefa</Text>
+          <Text style={styles.textNormalFooter}>Tarefa</Text>
         </TouchableOpacity>
         
         <TouchableOpacity 

@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from 'react';
 import {View, Image, Text, TouchableOpacity, FlatList} from 'react-native';
-import logoImg from '../../assets/logo.png';
-import styles from './styles';
-import {Feather} from '@expo/vector-icons';
 import {useNavigation} from '@react-navigation/native';
+import React, {useEffect, useState} from 'react';
+import logoImg from '../../assets/logo.png';
+import {Feather} from '@expo/vector-icons';
 import api from '../../services/api';
+import styles from './styles';
 
 export default function ListResultadoMes(){
   const navigation = useNavigation();

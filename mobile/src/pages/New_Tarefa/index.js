@@ -1,15 +1,15 @@
-import React, { useRef, useEffect } from 'react';
-import { Form } from '@unform/mobile';
 import { Text, Image, View, TouchableOpacity, Alert, Keyboard } from 'react-native';
-import Input from '../../Components/Form/input';
-import styles from './styles';
-import {Feather} from '@expo/vector-icons';
-import logoImg from '../../assets/logo.png';
-import {useNavigation} from '@react-navigation/native';
-import * as Yup from 'yup';
-import api from '../../services/api';
-import moment from 'moment';
 import MaterialFooterM1 from './../../Components/MaterialIconTextButtonsFooter/M1'
+import {useNavigation} from '@react-navigation/native';
+import React, { useRef, useEffect } from 'react';
+import Input from '../../Components/Form/input';
+import logoImg from '../../assets/logo.png';
+import {Feather} from '@expo/vector-icons';
+import { Form } from '@unform/mobile';
+import api from '../../services/api';
+import styles from './styles';
+import moment from 'moment';
+import * as Yup from 'yup';
 
 export default function NewTarefa() {
   const formRef = useRef(null);
@@ -59,6 +59,7 @@ export default function NewTarefa() {
         const response = await api.post('tarefa', data, {
               headers: {
                   Authorization: id_usuario,
+                  'Content-Type': 'application/json',
               }
           })
           

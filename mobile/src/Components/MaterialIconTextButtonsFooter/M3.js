@@ -1,9 +1,9 @@
-import React, {} from "react";
-import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
+import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
 import { useNavigation } from '@react-navigation/native';
+import React, {} from "react";
 
-function M1() {
+function M3() {
   const navigation = useNavigation();
 
   function navigateToTela(tela){
@@ -25,9 +25,30 @@ function M1() {
         console.log('ListTarefaMes')
       break;
     }
-    
   }
 
+/*
+function navigateToTela(tela){
+  switch(tela){
+
+    case 1:
+      navigation.navigate('ListTarefaDia')        
+    break;
+
+    case 2:
+      navigation.navigate('ListTarefa')
+    break;
+
+    case 3:
+      navigation.navigate('ListTarefaMes')
+    break;
+
+    case 3:
+      console.log('ListTarefaMes')
+    break;
+  }
+}
+*/
 
   return (
     <View style={[styles.containerNormalFooter]}>
@@ -140,4 +161,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default M1;
+export default M3;

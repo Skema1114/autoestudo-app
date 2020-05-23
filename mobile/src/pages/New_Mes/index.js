@@ -1,15 +1,15 @@
-import React, { useRef, useEffect, useState } from 'react';
-import { Form } from '@unform/mobile';
 import { Text, Image, View, TouchableOpacity, Alert, Keyboard, FlatList, CheckBox } from 'react-native';
-import Input from '../../Components/Form/input';
-import styles from './styles';
-import {Feather} from '@expo/vector-icons';
-import logoImg from '../../assets/logo.png';
-import {useNavigation} from '@react-navigation/native';
-import * as Yup from 'yup';
-import api from '../../services/api';
-import moment from 'moment';
 import MaterialFooterM3 from './../../Components/MaterialIconTextButtonsFooter/M3'
+import React, { useRef, useEffect, useState } from 'react';
+import {useNavigation} from '@react-navigation/native';
+import Input from '../../Components/Form/input';
+import logoImg from '../../assets/logo.png';
+import {Feather} from '@expo/vector-icons';
+import { Form } from '@unform/mobile';
+import api from '../../services/api';
+import styles from './styles';
+import moment from 'moment';
+import * as Yup from 'yup';
 
 export default function NewMes() {
   const formRef = useRef(null);
@@ -74,6 +74,7 @@ export default function NewMes() {
         const response = await api.post('mes', data, {
               headers: {
                   Authorization: id_usuario,
+                  'Content-Type': 'application/json',
               }
           })  
           idMesCadastrado = response.data.id;
@@ -94,6 +95,7 @@ export default function NewMes() {
         const response = await api.post('tarefa_mes', data, {
               headers: {
                   Authorization: id_usuario,
+                  'Content-Type': 'application/json',
               }
           })   
           Alert.alert(

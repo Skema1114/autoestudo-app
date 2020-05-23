@@ -89,4 +89,26 @@ export default StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: 'white'
   },
+
+  //
+  actions: {
+    marginTop: 16,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+
+  action: {
+    backgroundColor: '#e02041',
+    borderRadius: 8,
+    height: 50,
+    width: '48%',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+
+  actionText: {
+    color: '#FFF',
+    fontSize: 15,
+    fontWeight: 'bold'
+  },
 }); 

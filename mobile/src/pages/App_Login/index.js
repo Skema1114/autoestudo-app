@@ -1,13 +1,13 @@
-import React, { useRef, useEffect } from 'react';
-import { Form } from '@unform/mobile';
 import { Text, Image, View, TouchableOpacity, Alert, Keyboard, AsyncStorage, TextInput } from 'react-native';
-import Input from '../../Components/Form/input';
-import styles from './styles';
-import {Feather} from '@expo/vector-icons';
-import logoImg from '../../assets/logo.png';
 import {useNavigation} from '@react-navigation/native';
-import * as Yup from 'yup';
+import React, { useRef, useEffect } from 'react';
+import Input from '../../Components/Form/input';
+import logoImg from '../../assets/logo.png';
+import {Feather} from '@expo/vector-icons';
+import { Form } from '@unform/mobile';
 import api from '../../services/api';
+import styles from './styles';
+import * as Yup from 'yup';
 
 export default function AppLogin() {
   const formRef = useRef(null);

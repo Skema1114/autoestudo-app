@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
+import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
+import React, { Component } from "react";
 
 function MaterialBasicFooter(props) {
   return (

@@ -1,11 +1,11 @@
-import React, {useEffect, useState, useImperativeHandle} from 'react';
-import {View, Image, Text, TouchableOpacity, FlatList} from 'react-native';
-import logoImg from '../../assets/logo.png';
-import styles from './styles';
-import {Feather} from '@expo/vector-icons';
-import {useNavigation} from '@react-navigation/native';
-import api from '../../services/api';
 import MaterialFooterM3 from './../../Components/MaterialIconTextButtonsFooter/M3'
+import {View, Image, Text, TouchableOpacity, FlatList} from 'react-native';
+import React, {useEffect, useState, useImperativeHandle} from 'react';
+import {useNavigation} from '@react-navigation/native';
+import logoImg from '../../assets/logo.png';
+import {Feather} from '@expo/vector-icons';
+import api from '../../services/api';
+import styles from './styles';
 
 export default function ListTarefaMes(){
   const navigation = useNavigation();

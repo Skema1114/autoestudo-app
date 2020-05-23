@@ -1,15 +1,15 @@
 const express = require('express');
 const {celebrate, Segments, Joi} = require('celebrate');
 
-const UsuarioController = require('./controllers/UsuarioController');
-const MesController = require('./controllers/MesController');
-const DiaController = require('./controllers/DiaController');
-const TarefaController = require('./controllers/TarefaController');
-const TarefaDiaController = require('./controllers/TarefaDiaController');
 const ResultadoDiaController = require('./controllers/ResultadoDiaController');
 const ResultadoMesController = require('./controllers/ResultadoMesController');
-const SessionController = require('./controllers/SessionController');
+const TarefaDiaController = require('./controllers/TarefaDiaController');
 const TarefaMesController = require('./controllers/TarefaMesController');
+const UsuarioController = require('./controllers/UsuarioController');
+const SessionController = require('./controllers/SessionController');
+const TarefaController = require('./controllers/TarefaController');
+const DiaController = require('./controllers/DiaController');
+const MesController = require('./controllers/MesController');
 
 const routes = express.Router();
 

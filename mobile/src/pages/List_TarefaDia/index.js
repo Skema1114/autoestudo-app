@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { View, Image, Text, TouchableOpacity, FlatList, CheckBox } from 'react-native';
-import logoImg from '../../assets/logo.png';
-import styles from './styles';
+import { View, Image, Text, TouchableOpacity, FlatList, CheckBox, Alert } from 'react-native';
+import MaterialFooterM2 from './../../Components/MaterialIconTextButtonsFooter/M1'
 import { useNavigation } from '@react-navigation/native';
+import React, { useEffect, useState } from 'react';
+import logoImg from '../../assets/logo.png';
 import api from '../../services/api';
-import MaterialFooterM2 from './../../Components/MaterialIconTextButtonsFooter/M2'
+import styles from './styles';
 import moment from 'moment';
 
 export default function ListTarefaDia(){
@@ -14,77 +14,109 @@ export default function ListTarefaDia(){
   const [loading, setLoading] = useState(false);
   const [checador, setChecador] = useState(false);
   //const id_usuario = _retrieveData('UsuarioIdStorage');
-  const id_usuario = '1';
+  const id_usuario = 1;
 
 
  // #######################################################################
 
-  var tarefasMes = [];
+                      var tarefasMes = [];
 
-  var date = new Date();
-  var primeiroDia = new Date(date.getFullYear(), date.getMonth(), 1);
-  var ultimoDia = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-
-
-  var agora = moment();
-  var finalMes = moment().endOf('month').set({
-      'hour' : agora.get('hour'),
-      'minute' : agora.get('minute'),
-      'second' : agora.get('second'),
-      'millisecond' : agora.get('millisecond')
-  });
-  //console.log(finalMes.format('DD'));
-  //console.log(finalMes.format('MM'))
-  var inicioMes = moment().startOf('month').set({
-    'hour' : agora.get('hour'),
-    'minute' : agora.get('minute'),
-    'second' : agora.get('second'),
-    'millisecond' : agora.get('millisecond')
-  });
-  //console.log(inicioMes.format('DD'));
-  //console.log(inicioMes.format('MM'))
+                      var date = new Date();
+                      var primeiroDia = new Date(date.getFullYear(), date.getMonth(), 1);
+                      var ultimoDia = new Date(date.getFullYear(), date.getMonth() + 1, 0);
 
 
-  function sla(){
-    for (let dia = 1; dia <= finalMes.format('DD'); dia++) {
-      //console.log('DIA = '+dia+' | MES = '+finalMes.format('MM'));
-      addTarefasMes(dia);
-    }
+                      var agora = moment();
+                      var finalMes = moment().endOf('month').set({
+                          'hour' : agora.get('hour'),
+                          'minute' : agora.get('minute'),
+                          'second' : agora.get('second'),
+                          'millisecond' : agora.get('millisecond')
+                      });
+                      //console.log(finalMes.format('DD'));
+                      //console.log(finalMes.format('MM'))
+                      var inicioMes = moment().startOf('month').set({
+                        'hour' : agora.get('hour'),
+                        'minute' : agora.get('minute'),
+                        'second' : agora.get('second'),
+                        'millisecond' : agora.get('millisecond')
+                      });
+                      //console.log(inicioMes.format('DD'));
+                      //console.log(inicioMes.format('MM'))
 
-    for(let teste = 0; teste <= tarefasMes.length; teste++){
-      console.log(tarefasMes);
-      handleNewDia()
-      
-    }
-  }
 
-  async function handleNewDia(id_mes){
-    const data_cadastro = moment().utcOffset('-03:00').format("LLL");
+                      function sla(){
+                        for (let dia = 1; dia <= finalMes.format('DD'); dia++) {
+                          //console.log('DIA = '+dia+' | MES = '+finalMes.format('MM'));
+                          addTarefasMes(dia);
+                        }
+
+                        for(let teste = 0; teste <= tarefasMes.length; teste++){
+                          console.log(tarefasMes);
+                          handleNewDia()
+                          
+                        }
+                      }
+
+                      async function handleNewDia(id_mes){
+                        const data_cadastro = moment().utcOffset('-03:00').format("LLL");
+                        
+                        const data = {
+                            id_mes,
+                            data_cadastro,
+                        };
+                        try{
+                          const response = await api.post('dia', data, {
+                                headers: {
+                                    Authorization: id_usuario,
+                                }
+                            })   
+                            Alert.alert(
+                              "Cadastro",
+                              `Dia cadastrado com sucesso!`,
+                              [
+                                { text: "OK", onPress: () => _reloadListTarefaMes() }
+                              ],
+                              { cancelable: false }
+                            );
+                        }catch(err){
+                          console.log(err)
+                            Alert.alert('Cadastro', 'Erro ao cadastrar, tente novamente.');
+                        }
+                      }
+  // /////////////////////////////////////////////                    
+
+  async function handleEditTarefaDia(id_tarefa){
+    const status = 'checkado';
     
     const data = {
-        id_mes,
-        data_cadastro,
+        status,
     };
+
     try{
-      const response = await api.post('dia', data, {
+      const response = await api.patch(`tarefa_dia/${id_tarefa}`, data, {
             headers: {
-                Authorization: id_usuario,
-            }
+              Authorization: id_usuario,
+            },
         })   
         Alert.alert(
-          "Cadastro",
-          `Dia cadastrado com sucesso!`,
+          "Tarefa",
+          `Parabéns, tarefa concluída!`,
           [
-            { text: "OK", onPress: () => _reloadListTarefaMes() }
+            { text: "OK", onPress: () => _reloadListTarefaDia() }
           ],
           { cancelable: false }
         );
     }catch(err){
       console.log(err)
-        Alert.alert('Cadastro', 'Erro ao cadastrar, tente novamente.');
     }
   }
 
+  async function _reloadListTarefaDia(){
+    await navigation.replace('ListTarefaDia', null, null)
+  }
+
+  
 // ##########################################################################
 
   function addTarefasMes(dia){
@@ -119,11 +151,10 @@ export default function ListTarefaDia(){
 
   function checado(id){
     if(checador===false){
-      alert("Foi checado o "+id)
-      setChecador(true)
+      //alert("Foi checado o "+id)
+      handleEditTarefaDia(id);
     }else{
-      alert("Foi deschecado o "+id)
-      setChecador(false)
+      //alert("Foi deschecado o "+id)
     }
   }
 
@@ -136,11 +167,11 @@ export default function ListTarefaDia(){
         </Text>
       </View>
 
-      <TouchableOpacity style={styles.action} onPress={() => sla()}>
-            <Text style={styles.actionText}>Cadastrar</Text>
-          </TouchableOpacity>
-
       <MaterialFooterM2></MaterialFooterM2>
+
+      <TouchableOpacity style={styles.action} onPress={() => sla()}>
+        <Text style={styles.actionText}>Cadastrar</Text>
+      </TouchableOpacity>
 
       <FlatList
         data={tarefaDias}
