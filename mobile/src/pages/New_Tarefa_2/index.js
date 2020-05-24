@@ -15,11 +15,7 @@ export default function NewTarefa2() {
   const formRef = useRef(null);
   const navigation = useNavigation();
   const id_usuario = '1';
-
-
-  function navigateBack(){
-    navigation.goBack();
-  }
+  
 
   async function handleSubmit(data, { reset }) {
     try{

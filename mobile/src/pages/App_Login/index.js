@@ -90,7 +90,6 @@ export default function AppLogin() {
       console.log(err);
     }
   }
-
   function funcaoInutil(){
     _storeData('1e54cc5b');
     navigation.navigate('ListTarefaDia');
@@ -103,8 +102,7 @@ export default function AppLogin() {
       <Image source={logoImg}/>
     </View>
 
-      <View style={styles.incident}>
-      
+    <View style={styles.incident}>
       <Input name="email" label="Email" />
       <Input name="senha" label="Senha" />
 

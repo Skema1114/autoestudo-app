@@ -89,7 +89,7 @@ module.exports = {
     },
 
     async getByDia(request, response){
-        const {dia} = request.body;
+        const {dia} = request.params;
         const id_usuario = parseInt(request.headers.authorization);
 
         const tarefa_dia = await connection('tarefa_dia')

@@ -204,13 +204,13 @@ routes.post('/tarefa_dia',celebrate({
           }),
 }), TarefaDiaController.post);
 
-routes.post('/tarefa_dia/pesquisar',celebrate({
+routes.get('/tarefa_dia/pesquisar/:dia',celebrate({
           [Segments.HEADERS]: Joi.object({
             authorization: Joi.number().required()
           }).unknown(),
-          [Segments.BODY]: Joi.object().keys({
-            dia: Joi.number().required(),
-          }),
+          [Segments.PARAMS]: Joi.object().keys({
+            dia: Joi.number().required()
+          })
 }), TarefaDiaController.getByDia);
 
 routes.patch('/tarefa_dia/:id',celebrate({

@@ -15,76 +15,11 @@ export default function ListTarefaDia(){
   const [checador, setChecador] = useState(false);
   //const id_usuario = _retrieveData('UsuarioIdStorage');
   const id_usuario = 1;
+  var essaData = moment().utcOffset('-03:00').format('DD/MM/YYYY')
+  var [essaDataShow, setEssaDataShow] = useState(essaData)
+  var contadorDia = 0;
+  const diaHoje = 23;
 
-
- // #######################################################################
-
-                      var tarefasMes = [];
-
-                      var date = new Date();
-                      var primeiroDia = new Date(date.getFullYear(), date.getMonth(), 1);
-                      var ultimoDia = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-
-
-                      var agora = moment();
-                      var finalMes = moment().endOf('month').set({
-                          'hour' : agora.get('hour'),
-                          'minute' : agora.get('minute'),
-                          'second' : agora.get('second'),
-                          'millisecond' : agora.get('millisecond')
-                      });
-                      //console.log(finalMes.format('DD'));
-                      //console.log(finalMes.format('MM'))
-                      var inicioMes = moment().startOf('month').set({
-                        'hour' : agora.get('hour'),
-                        'minute' : agora.get('minute'),
-                        'second' : agora.get('second'),
-                        'millisecond' : agora.get('millisecond')
-                      });
-                      //console.log(inicioMes.format('DD'));
-                      //console.log(inicioMes.format('MM'))
-
-
-                      function sla(){
-                        for (let dia = 1; dia <= finalMes.format('DD'); dia++) {
-                          //console.log('DIA = '+dia+' | MES = '+finalMes.format('MM'));
-                          addTarefasMes(dia);
-                        }
-
-                        for(let teste = 0; teste <= tarefasMes.length; teste++){
-                          console.log(tarefasMes);
-                          handleNewDia()
-                          
-                        }
-                      }
-
-                      async function handleNewDia(id_mes){
-                        const data_cadastro = moment().utcOffset('-03:00').format("LLL");
-                        
-                        const data = {
-                            id_mes,
-                            data_cadastro,
-                        };
-                        try{
-                          const response = await api.post('dia', data, {
-                                headers: {
-                                    Authorization: id_usuario,
-                                }
-                            })   
-                            Alert.alert(
-                              "Cadastro",
-                              `Dia cadastrado com sucesso!`,
-                              [
-                                { text: "OK", onPress: () => _reloadListTarefaMes() }
-                              ],
-                              { cancelable: false }
-                            );
-                        }catch(err){
-                          console.log(err)
-                            Alert.alert('Cadastro', 'Erro ao cadastrar, tente novamente.');
-                        }
-                      }
-  // /////////////////////////////////////////////                    
 
   async function handleEditTarefaDia(id_tarefa){
     const status = 'checkado';
@@ -116,15 +51,9 @@ export default function ListTarefaDia(){
     await navigation.replace('ListTarefaDia', null, null)
   }
 
-  
-// ##########################################################################
 
-  function addTarefasMes(dia){
-    tarefasMes.push(dia);
-  }
-
-
-  async function loadTarefaDias(){
+  async function loadTarefaDias(dia){
+    
     if(loading){
       return;
     }
@@ -134,19 +63,24 @@ export default function ListTarefaDia(){
     }
 
     setLoading(true);
-    const response = await api.get('tarefa_dias', {
-      headers: {
-        Authorization: id_usuario,
-      }
-    });
-
-    setTarefaDias([...tarefaDias, ...response.data]);
-    setTotal(response.headers['x-total-count']);
-    setLoading(false);
+    try{
+      const response = await api.get(`tarefa_dia/pesquisar/${dia}`, {
+        headers: {
+          Authorization: id_usuario,
+          'Content-Type': 'application/json',
+        }
+      });
+      
+      setTarefaDias([...tarefaDias, ...response.data]);
+      setTotal(response.headers['x-total-count']);
+      setLoading(false);
+    }catch(err){
+      console.log(err)
+    }
   }
 
   useEffect(() => {
-    loadTarefaDias();
+    loadTarefaDias(diaHoje);
   }, []);
 
   function checado(id){
@@ -156,6 +90,25 @@ export default function ListTarefaDia(){
     }else{
       //alert("Foi deschecado o "+id)
     }
+  }
+
+  function _adicionaDia(){
+    contadorDia += 1;
+    essaData = moment().add(contadorDia, 'd').utcOffset('-03:00').format('DD/MM/YYYY');
+    setEssaDataShow(essaData);
+    console.log(contadorDia);
+    console.log(essaData);
+    console.log(essaDataShow);
+
+  }
+
+  function _removeDia(){
+    contadorDia -= 1;
+    essaData = moment().add(contadorDia, 'd').utcOffset('-03:00').format('DD/MM/YYYY');
+    setEssaDataShow(essaData);
+    console.log(contadorDia);
+    console.log(essaData);
+    console.log(essaDataShow);
   }
 
   return (
@@ -169,9 +122,17 @@ export default function ListTarefaDia(){
 
       <MaterialFooterM2></MaterialFooterM2>
 
-      <TouchableOpacity style={styles.action} onPress={() => sla()}>
-        <Text style={styles.actionText}>Cadastrar</Text>
-      </TouchableOpacity>
+      <View style={styles.actions}>
+        <TouchableOpacity style={styles.action} onPress={() => _removeDia()}>
+          <Text style={styles.actionText}> pra esquerda </Text>
+        </TouchableOpacity>
+
+        <Text style={styles.action2}> {essaDataShow} </Text>
+
+        <TouchableOpacity style={styles.action} onPress={() => _adicionaDia()}>
+          <Text style={styles.actionText}> pra direita </Text>
+        </TouchableOpacity>
+      </View>
 
       <FlatList
         data={tarefaDias}

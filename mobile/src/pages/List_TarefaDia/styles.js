@@ -92,7 +92,7 @@ export default StyleSheet.create({
 
   //
   actions: {
-    marginTop: 16,
+    marginTop: 5,
     flexDirection: 'row',
     justifyContent: 'space-between'
   },
@@ -101,9 +101,21 @@ export default StyleSheet.create({
     backgroundColor: '#e02041',
     borderRadius: 8,
     height: 50,
-    width: '48%',
+    width: '30%',
     justifyContent: 'center',
     alignItems: 'center'
+  },
+
+  action2: {
+    backgroundColor: '#e02041',
+    borderRadius: 8,
+    height: 50,
+    width: '30%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: '#FFF',
+    fontSize: 15,
+    fontWeight: 'bold'
   },
 
   actionText: {
