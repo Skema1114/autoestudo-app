@@ -6,9 +6,11 @@ module.exports = {
 
         const tarefa_dias = await connection('tarefa_dia')
         .join('tarefa', 'tarefa.id', '=', 'tarefa_dia.id_tarefa')
+        .join('dia', 'dia.id', '=', 'tarefa_dia.id_dia')
         .select([
             'tarefa_dia.*',
-            'tarefa.nome',  
+            'tarefa.nome',
+            'dia.dia', 
         ])
         .where('tarefa_dia.id_usuario', id_usuario);
 
@@ -26,11 +28,12 @@ module.exports = {
     },
 
     async post(request, response){
-        const {id_tarefa, status, data_cadastro, bloq} = request.body;
+        const {id_tarefa, id_dia, status, data_cadastro, bloq} = request.body;
         const id_usuario = request.headers.authorization;
 
         const [id] = await connection("tarefa_dia").insert({
             id_tarefa,
+            id_dia,
             id_usuario,
             status,
             data_cadastro,
@@ -83,5 +86,42 @@ module.exports = {
         await connection('tarefa_dia').where('id', id).delete();
 
         return response.status(204).send();
-    }
+    },
+
+    async getByDia(request, response){
+        const {dia} = request.body;
+        const id_usuario = parseInt(request.headers.authorization);
+
+        const tarefa_dia = await connection('tarefa_dia')
+        .join('tarefa', 'tarefa.id', '=', 'tarefa_dia.id_tarefa')
+        .join('dia', 'dia.id', '=', 'tarefa_dia.id_dia')
+        .select([
+            'tarefa_dia.*',
+            'tarefa.nome',
+            'dia.dia', 
+        ])
+        .where('tarefa_dia.id_usuario', id_usuario)
+        .andWhere('dia.dia', dia);
+
+        if (tarefa_dia.length > 0) {
+            const [count] = await connection('tarefa_dia')
+            .join('tarefa', 'tarefa.id', '=', 'tarefa_dia.id_tarefa')
+            .join('dia', 'dia.id', '=', 'tarefa_dia.id_dia')
+            .count()
+            .where('tarefa_dia.id_usuario', id_usuario)
+            .andWhere('dia.dia', dia);
+
+            response.header('X-Total-Count', count['count(*)']);
+        } else {
+            response.header('X-Total-Count', 0);
+        }
+
+        if (tarefa_dia.length > 0) {
+            return response.json(tarefa_dia);
+        } else {
+            return response.status(401).json({
+                error: 'Não há dia cadastrado.'
+            });
+        }
+    },
 };

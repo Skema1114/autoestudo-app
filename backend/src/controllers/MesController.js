@@ -87,10 +87,10 @@ module.exports = {
         const id_usuario = parseInt(request.headers.authorization);
 
         const meses = await connection('mes')
-        .select('*')
-        .where('mes', mes)
-        .andWhere('ano', ano)
-        .andWhere('id_usuario', id_usuario)
+            .select('*')
+            .where('mes', mes)
+            .andWhere('ano', ano)
+            .andWhere('id_usuario', id_usuario)
 
         if (meses.length > 0) {
             const [count] = await connection('mes')

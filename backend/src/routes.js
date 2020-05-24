@@ -67,7 +67,7 @@ routes.post('/mes',celebrate({
           })
 }), MesController.post);
 
-routes.post('/mes/search/',celebrate({
+routes.post('/mes/pesquisar/',celebrate({
           [Segments.HEADERS]: Joi.object({
             authorization: Joi.number().required()
           }).unknown(),
@@ -197,11 +197,21 @@ routes.post('/tarefa_dia',celebrate({
           }).unknown(),
           [Segments.BODY]: Joi.object().keys({
             id_tarefa: Joi.number().required(),
+            id_dia: Joi.number().required(),
             status: Joi.string().required(),
             data_cadastro: Joi.string().required(),
             bloq: Joi.string(),
           }),
 }), TarefaDiaController.post);
+
+routes.post('/tarefa_dia/pesquisar',celebrate({
+          [Segments.HEADERS]: Joi.object({
+            authorization: Joi.number().required()
+          }).unknown(),
+          [Segments.BODY]: Joi.object().keys({
+            dia: Joi.number().required(),
+          }),
+}), TarefaDiaController.getByDia);
 
 routes.patch('/tarefa_dia/:id',celebrate({
           [Segments.HEADERS]: Joi.object({
