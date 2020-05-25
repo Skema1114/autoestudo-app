@@ -15,6 +15,8 @@ import NewMes from './pages/New_Mes';
 import AppCadastro from './pages/App_Cadastro';
 import AppLogin from './pages/App_Login';
 
+import Teste from './pages/Teste'
+
 const AppStack = createStackNavigator();
 
 export default function Routes(){

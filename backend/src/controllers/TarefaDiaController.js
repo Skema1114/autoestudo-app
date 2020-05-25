@@ -88,7 +88,7 @@ module.exports = {
         return response.status(204).send();
     },
 
-    async getByDia(request, response){
+    async getTarefaDiaByDia(request, response){
         const {dia} = request.params;
         const id_usuario = parseInt(request.headers.authorization);
 
@@ -112,13 +112,11 @@ module.exports = {
             .andWhere('dia.dia', dia);
 
             response.header('X-Total-Count', count['count(*)']);
-        } else {
-            response.header('X-Total-Count', 0);
-        }
-
-        if (tarefa_dia.length > 0) {
+        
             return response.json(tarefa_dia);
         } else {
+            response.header('X-Total-Count', 0);
+        
             return response.status(401).json({
                 error: 'Não há dia cadastrado.'
             });

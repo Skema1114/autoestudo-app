@@ -20,17 +20,66 @@ export default function NewMes() {
   const [loading, setLoading] = useState(false);
   const id_usuario = '1';
   var tarefasMes = [];
-  var idMesCadastrado = 0;
+
+  var date = new Date();
+  var primeiroDia = new Date(date.getFullYear(), date.getMonth(), 1);
+  var ultimoDia = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+
+  var agora = moment().utcOffset('-03:00');
+  var finalMes = moment().utcOffset('-03:00').endOf('month').set({
+      'hour' : agora.get('hour'),
+      'minute' : agora.get('minute'),
+      'second' : agora.get('second'),
+      'millisecond' : agora.get('millisecond')
+  });
+  //console.log(finalMes.format('DD'));
+  //console.log(finalMes.format('MM'))
+  var inicioMes = moment().utcOffset('-03:00').startOf('month').set({
+    'hour' : agora.get('hour'),
+    'minute' : agora.get('minute'),
+    'second' : agora.get('second'),
+    'millisecond' : agora.get('millisecond')
+  });
+  //console.log(inicioMes.format('DD'));
+  //console.log(inicioMes.format('MM'))
+  
+  
+  
+  function addTarefasMes(dia){
+    tarefasMes.push(dia);
+  }
+
+
+
+  function _reloadNewTarefa2() {
+    navigation.replace( 'NewTarefa2', null, null );
+  };
+
+
+
+  function addTarefasMes(id){
+    tarefasMes.push(id);
+  }
+  
+
 
   function navigateBack(){
     navigation.goBack();
   }
 
+
+
   function _reloadListTarefaMes(){
     navigation.replace('ListTarefaMes', null, null);
   }
 
-  async function handleSubmit(data, { reset }) {
+
+
+  async function submit(data, { reset }) {
+    var idMesCadastrado;
+    var idDiaCadastrado;
+    var idsDiasCadastrados = [];
+
     try{
       const schema = Yup.object().shape({
         qtd_nao: Yup.number("Precisa ser um número válido").required('A quantidade é obrigatória'),
@@ -38,16 +87,47 @@ export default function NewMes() {
       await schema.validate(data, {
         abortEarly: false,
       });
+      
       try{
-        await handleNewMes(data.qtd_nao);
-        for(let i = 0; i < tarefasMes.length; i++){
-          await handleNewTarefaMes(idMesCadastrado, tarefasMes[i]);
+        await newMes(data.qtd_nao);
+        
+        try{
+          for(let i = 0; i < tarefasMes.length; i++){
+            await newTarefaMes(idMesCadastrado, tarefasMes[i]);
+          }
+
+          try{
+            for(let dia = 1; dia <= finalMes.format('DD'); dia++) {
+              await newDia(idMesCadastrado, dia)
+                .then(resp => {
+                  console.log("resp data id" + resp.data.id)
+                  idsDiasCadastrados.push(resp.data.id);
+                })
+            }
+
+            console.log(idsDiasCadastrados);
+
+            try{
+              const dia = moment().utcOffset('-03:00').format("D");
+              //await getIdDia(dia, idMesCadastrado);
+            
+            }catch(err){
+              console.log('deu erro no try do get id dia')
+            }
+          }catch(err){
+            console.log('deu erro no try do new dia')
+          }
+        }catch(err){
+          console.log('deu erro no try do new tarefa mes')
         }
+
       }catch(err){
           console.log(err)
       }
+
       Keyboard.dismiss();
       reset();
+
     }catch(err){
       if(err instanceof Yup.ValidationError){
           const errorMessage = {};
@@ -58,7 +138,7 @@ export default function NewMes() {
       }
     }
 
-    async function handleNewMes(qtd_nao){
+    async function newMes(qtd_nao){
       const agora = moment();
       const mes = agora.format('M');
       const ano = agora.format('YYYY');
@@ -78,12 +158,13 @@ export default function NewMes() {
               }
           })  
           idMesCadastrado = response.data.id;
+          console.log('Cadastrou mes...')
       }catch(err){
-        Alert.alert('Cadastro', 'Erro ao cadastrar, tente novamente.')
+        Alert.alert('Cadastro', 'Ocorreu um erro inesperado (newMes), tente novamente.')
       }
     }
 
-    async function handleNewTarefaMes(id_mes, id_tarefa){
+    async function newTarefaMes(id_mes, id_tarefa){
       const data_cadastro = moment().utcOffset('-03:00').format("LLL");
 
       const data = {
@@ -107,19 +188,34 @@ export default function NewMes() {
             { cancelable: false }
           );
       }catch(err){
-        console.log(err)
-          Alert.alert('Cadastro', 'Erro ao cadastrar, tente novamente.');
+        Alert.alert('Cadastro', 'Ocorreu um erro inesperado (newTarefaMes), tente novamente.')
+      }
+    }
+
+    async function newDia(id_mes, dia){
+      const data_cadastro = moment().utcOffset('-03:00').format("LLL");
+
+      const data = {
+          id_mes,
+          dia,
+          data_cadastro,
+      };
+      try{
+        const response = await api.post('dia', data, {
+              headers: {
+                  Authorization: id_usuario,
+                  'Content-Type': 'application/json',
+              }
+          })   
+
+          console.log('Cadastrou dia...')
+      }catch(err){
+        Alert.alert('Cadastro', 'Ocorreu um erro inesperado (newDia), tente novamente.')
       }
     }
   }
 
-  function _reloadNewTarefa2() {
-    navigation.replace( 'NewTarefa2', null, null );
-  };
 
-  function addTarefasMes(id){
-    tarefasMes.push(id);
-  }
 
   async function loadTarefas(){
     if(loading){
@@ -140,14 +236,31 @@ export default function NewMes() {
   }
 
 
+
+  function sla(){
+    for (let dia = 1; dia <= finalMes.format('DD'); dia++) {
+      //console.log('DIA = '+dia+' | MES = '+finalMes.format('MM'));
+      addTarefasMes(dia);
+    }
+  
+    for(let teste = 0; teste <= tarefasMes.length; teste++){
+      console.log(tarefasMes);
+      newDia()
+      
+    }
+  }
+
+
+
   useEffect(() => {
     loadTarefas();
   }, []);
 
 
+
   return (
   <View style={styles.container}>
-    <Form ref={formRef} onSubmit={handleSubmit}>
+    <Form ref={formRef} onSubmit={submit}>
       <View style={styles.header}>
         <Image source={logoImg}/>
         <TouchableOpacity onPress={navigateBack}>

@@ -21,7 +21,7 @@ export default function ListTarefaDia(){
   const diaHoje = 23;
 
 
-  async function handleEditTarefaDia(id_tarefa){
+  async function editTarefaDia(id_tarefa){
     const status = 'checkado';
     
     const data = {
@@ -53,7 +53,6 @@ export default function ListTarefaDia(){
 
 
   async function loadTarefaDias(dia){
-    
     if(loading){
       return;
     }
@@ -70,12 +69,13 @@ export default function ListTarefaDia(){
           'Content-Type': 'application/json',
         }
       });
-      
       setTarefaDias([...tarefaDias, ...response.data]);
       setTotal(response.headers['x-total-count']);
       setLoading(false);
     }catch(err){
-      console.log(err)
+      Alert.alert(
+        "Tarefa",
+        `Sem tarefas para o dia ${diaHoje}!`);
     }
   }
 
@@ -86,7 +86,7 @@ export default function ListTarefaDia(){
   function checado(id){
     if(checador===false){
       //alert("Foi checado o "+id)
-      handleEditTarefaDia(id);
+      editTarefaDia(id);
     }else{
       //alert("Foi deschecado o "+id)
     }

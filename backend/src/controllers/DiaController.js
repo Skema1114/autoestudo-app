@@ -79,5 +79,34 @@ module.exports = {
         await connection('dia').where('id', id).delete();
 
         return response.status(204).send();
-    }
+    },
+
+    async getDiaByDiaMes(request, response){
+        const {dia, id_mes} = request.params;
+        const id_usuario = parseInt(request.headers.authorization);
+
+        const dias = await connection('dia')
+            .select('*')
+            .where('dia', dia)
+            .andWhere('id_mes', id_mes)
+            .andWhere('id_usuario', id_usuario)
+
+        if (dias.length > 0) {
+            const [count] = await connection('dia')
+            .count()
+            .where('dia', dia)
+            .andWhere('id_mes', id_mes)
+            .andWhere('id_usuario', id_usuario)
+
+            response.header('X-Total-Count', count['count(*)']);
+        
+            return response.json(dias);
+        } else {
+            response.header('X-Total-Count', 0);
+
+            return response.status(401).json({
+                error: 'Não há dia cadastrado.'
+            });
+        }
+    },
 };

@@ -67,15 +67,15 @@ routes.post('/mes',celebrate({
           })
 }), MesController.post);
 
-routes.post('/mes/pesquisar/',celebrate({
+routes.get('/mes/pesquisar/:mes/:ano',celebrate({
           [Segments.HEADERS]: Joi.object({
             authorization: Joi.number().required()
           }).unknown(),
-          [Segments.BODY]: Joi.object().keys({
+          [Segments.PARAMS]: Joi.object().keys({
             mes: Joi.number().required(),
             ano: Joi.number().required(),
           })
-}), MesController.getByMesAno);
+}), MesController.getMesByMesAno);
 
 routes.patch('/mes/:id',celebrate({
           [Segments.HEADERS]: Joi.object({
@@ -106,6 +106,16 @@ routes.get('/dias',celebrate({
             authorization: Joi.number().required()
           }).unknown(),
 }), DiaController.get);
+
+routes.get('/dia/pesquisar/:dia/:id_mes',celebrate({
+          [Segments.HEADERS]: Joi.object({
+            authorization: Joi.number().required()
+          }).unknown(),
+          [Segments.PARAMS]: Joi.object().keys({
+            dia: Joi.number().required(),
+            id_mes: Joi.number().required(),
+          }),
+}), DiaController.getDiaByDiaMes);
 
 routes.post('/dia',celebrate({
           [Segments.HEADERS]: Joi.object({
@@ -211,7 +221,7 @@ routes.get('/tarefa_dia/pesquisar/:dia',celebrate({
           [Segments.PARAMS]: Joi.object().keys({
             dia: Joi.number().required()
           })
-}), TarefaDiaController.getByDia);
+}), TarefaDiaController.getTarefaDiaByDia);
 
 routes.patch('/tarefa_dia/:id',celebrate({
           [Segments.HEADERS]: Joi.object({

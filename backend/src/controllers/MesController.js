@@ -82,8 +82,8 @@ module.exports = {
         return response.status(204).send();
     },
 
-    async getByMesAno(request, response){
-        const {mes, ano} = request.body;
+    async getMesByMesAno(request, response){
+        const {mes, ano} = request.params;
         const id_usuario = parseInt(request.headers.authorization);
 
         const meses = await connection('mes')
@@ -99,16 +99,15 @@ module.exports = {
             .andWhere('ano', ano)
 
             response.header('X-Total-Count', count['count(*)']);
-        } else {
-            response.header('X-Total-Count', 0);
-        }
-
-        if (meses.length > 0) {
+        
             return response.json(meses);
         } else {
+            response.header('X-Total-Count', 0);
+        
             return response.status(401).json({
                 error: 'Não há mes cadastrado.'
             });
         }
+
     },
 };
