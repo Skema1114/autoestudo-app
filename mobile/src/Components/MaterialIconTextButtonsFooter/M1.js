@@ -21,8 +21,8 @@ function M1() {
         navigation.replace('ListTarefaMes', null, null)
       break;
 
-      case 3:
-        console.log('ListTarefaMes')
+      case 4:
+        navigation.replace('ListResultadoDia', null, null)
       break;
     }
   }
@@ -42,8 +42,8 @@ function M1() {
         navigation.navigate('ListTarefaMes')
       break;
 
-      case 3:
-        console.log('ListTarefaMes')
+      case 4:
+        navigation.navigate('ListResultadoDia')
       break;
     }
   }
@@ -59,7 +59,7 @@ function M1() {
             name="heart"
             style={styles.iconSelectFooter}>
           </MaterialCommunityIconsIcon>
-          <Text style={styles.textSelectFooter}>Hoje</Text>
+          <Text style={styles.textSelectFooter}>Tarefas dia</Text>
         </TouchableOpacity>
 
         <TouchableOpacity 
@@ -69,7 +69,7 @@ function M1() {
             name="timer"
             style={styles.iconNormalFooter}>
           </MaterialCommunityIconsIcon>
-          <Text style={styles.textNormalFooter}>Tarefa</Text>
+          <Text style={styles.textNormalFooter}>Tarefas</Text>
         </TouchableOpacity>
         
         <TouchableOpacity 
@@ -79,7 +79,7 @@ function M1() {
             name="map-marker-radius"
             style={styles.iconNormalFooter}>
           </MaterialCommunityIconsIcon>
-          <Text style={styles.textNormalFooter}>Histórico</Text>
+          <Text style={styles.textNormalFooter}>Tarefas mes</Text>
         </TouchableOpacity>
         
         <TouchableOpacity 
@@ -89,7 +89,7 @@ function M1() {
             name="map-marker-radius"
             style={styles.iconNormalFooter}>
           </MaterialCommunityIconsIcon>
-          <Text style={styles.textNormalFooter}>Resultado</Text>
+          <Text style={styles.textNormalFooter}>Resultados</Text>
         </TouchableOpacity>
       </View>
   );
@@ -119,7 +119,9 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: "#3f51b5",
     backgroundColor: "transparent",
-    paddingTop: 4
+    paddingTop: 4,
+    textAlign: 'center',
+    fontWeight: 'bold',
   },
 
   containerNormalFooter: {
@@ -156,7 +158,8 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: "#9E9E9E",
     backgroundColor: "transparent",
-    paddingTop: 4
+    paddingTop: 4,
+    textAlign: 'center'
   },
 });
 
