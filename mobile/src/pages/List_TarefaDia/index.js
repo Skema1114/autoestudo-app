@@ -19,7 +19,7 @@ export default function ListTarefaDia(){
   var [essaDataShow, setEssaDataShow] = useState(essaData)
   var contadorDia = 0;
   const diaHoje = 23;
-
+  const mesHoje = 5;
 
   async function editTarefaDia(id_tarefa){
     const status = 'checkado';
@@ -52,7 +52,7 @@ export default function ListTarefaDia(){
   }
 
 
-  async function loadTarefaDias(dia){
+  async function loadTarefaDias(dia, mes){
     if(loading){
       return;
     }
@@ -63,7 +63,7 @@ export default function ListTarefaDia(){
 
     setLoading(true);
     try{
-      const response = await api.get(`tarefa_dia/pesquisar/${dia}`, {
+      const response = await api.get(`tarefa_dia/pesquisar/${dia}/${mes}`, {
         headers: {
           Authorization: id_usuario,
           'Content-Type': 'application/json',
@@ -80,7 +80,7 @@ export default function ListTarefaDia(){
   }
 
   useEffect(() => {
-    loadTarefaDias(diaHoje);
+    loadTarefaDias(diaHoje, mesHoje);
   }, []);
 
   function checado(id){

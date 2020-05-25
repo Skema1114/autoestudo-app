@@ -26,13 +26,14 @@ module.exports = {
     },
 
     async post(request, response){
-        const {id_tarefa, dia, status, data_cadastro, bloq} = request.body;
+        const {id_tarefa, dia, mes, status, data_cadastro, bloq} = request.body;
         const id_usuario = request.headers.authorization;
 
         const [id] = await connection("tarefa_dia").insert({
             id_tarefa,
             id_usuario,
             dia,
+            mes,
             status,
             data_cadastro,
             bloq
@@ -86,8 +87,8 @@ module.exports = {
         return response.status(204).send();
     },
 
-    async getTarefaDiaByDia(request, response){
-        const {dia} = request.params;
+    async getTarefaDiaByDiaMes(request, response){
+        const {dia, mes} = request.params;
         const id_usuario = parseInt(request.headers.authorization);
 
         const tarefa_dia = await connection('tarefa_dia')
@@ -97,14 +98,16 @@ module.exports = {
             'tarefa.nome',
         ])
         .where('tarefa_dia.id_usuario', id_usuario)
-        .andWhere('tarefa_dia.dia', dia);
+        .andWhere('tarefa_dia.dia', dia)
+        .andWhere('tarefa_dia.mes', mes);
 
         if (tarefa_dia.length > 0) {
             const [count] = await connection('tarefa_dia')
             .join('tarefa', 'tarefa.id', '=', 'tarefa_dia.id_tarefa')
             .count()
             .where('tarefa_dia.id_usuario', id_usuario)
-            .andWhere('tarefa_dia.dia', dia);
+            .andWhere('tarefa_dia.dia', dia)
+            .andWhere('tarefa_dia.mes', mes);
 
             response.header('X-Total-Count', count['count(*)']);
         

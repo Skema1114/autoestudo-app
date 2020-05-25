@@ -1,5 +1,5 @@
 import { Text, Image, View, TouchableOpacity, Alert, Keyboard, FlatList, CheckBox } from 'react-native';
-import MaterialFooterM3 from './../../Components/MaterialIconTextButtonsFooter/M3'
+import MaterialFooterM3 from '../../Components/MaterialIconTextButtonsFooter/M3'
 import React, { useRef, useEffect, useState } from 'react';
 import {useNavigation} from '@react-navigation/native';
 import Input from '../../Components/Form/input';
@@ -11,11 +11,10 @@ import styles from './styles';
 import moment from 'moment';
 import * as Yup from 'yup';
 
-export default function NewMes() {
+export default function NewTarefaMes() {
   const formRef = useRef(null);
   const navigation = useNavigation();
   const [tarefas, setTarefas] = useState([]);
-  const [meses, setMeses] = useState([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
   const id_usuario = '1';
@@ -84,9 +83,11 @@ export default function NewMes() {
 
 
   async function submit(data, { reset }) {
-    var idMesCadastrado;
-    var idDiaCadastrado;
-    var idsDiasCadastrados = [];
+      const agora = moment().utcOffset('-03:00');
+      const mes = agora.format('M');
+      const ano = agora.format('YYYY');
+      const data_cadastro = moment().utcOffset('-03:00').format("LLL");
+
 
     try{
       const schema = Yup.object().shape({
@@ -95,7 +96,26 @@ export default function NewMes() {
       await schema.validate(data, {
         abortEarly: false,
       });
+
+      try{
+        for(let i = 0; i < tarefasMes.length; i++){
+          await newTarefaMes(tarefasMes[i], mes, ano, data.qtd_nao);
+        }
+        try{
+          for(let dia = 1; dia <= finalMes.format('DD'); dia++) {
+            for(let i = 0; i < tarefasMes.length; i++){
+              await newTarefaDia(tarefasMes[i], dia, mes);
+            }
+          }
+        }catch(err){
+          console.log('DEU ERRO NO TRY DO NEW TAREFA DIA')
+        }
+      }catch(err){
+        console.log('DEU ERRO NO TRY DO NEW TAREFA MES')
+      }
       
+      
+      /*
       try{
         // CADASTRA O MES
         await newMes(data.qtd_nao);
@@ -127,7 +147,7 @@ export default function NewMes() {
         // CATCH DO CADASTRO DO MES
         console.log('deu erro no try do new mes')
       }
-
+      */
       Keyboard.dismiss();
       reset();
 
@@ -142,39 +162,15 @@ export default function NewMes() {
       }
     }
 
-    async function newMes(qtd_nao){
-      const agora = moment();
-      const mes = agora.format('M');
-      const ano = agora.format('YYYY');
-      const data_cadastro = moment().utcOffset('-03:00').format("LLL");
-      
-      const data = {
-          mes,
-          ano,
-          qtd_nao,
-          data_cadastro
-      };
-      try{
-        const response = await api.post('mes', data, {
-              headers: {
-                  Authorization: id_usuario,
-                  'Content-Type': 'application/json',
-              }
-          })  
-          idMesCadastrado = response.data.id;
-          console.log('Cadastrou mes...')
-      }catch(err){
-        Alert.alert('Cadastro', 'Ocorreu um erro inesperado (newMes), tente novamente.')
-      }
-    }
-
-    async function newTarefaMes(id_mes, id_tarefa){
+    async function newTarefaMes(id_tarefa, mes, ano, qtd_nao){
       const data_cadastro = moment().utcOffset('-03:00').format("LLL");
 
       const data = {
-          id_mes,
-          id_tarefa,
-          data_cadastro,
+        id_tarefa,
+        mes,
+        ano,
+        qtd_nao,
+        data_cadastro,
       };
       try{
         const response = await api.post('tarefa_mes', data, {
@@ -196,25 +192,27 @@ export default function NewMes() {
       }
     }
 
-    async function newDia(id_mes, dia){
+    async function newTarefaDia(id_tarefa, dia, mes){
       const data_cadastro = moment().utcOffset('-03:00').format("LLL");
+      const status = 'aguardando';
 
       const data = {
-          id_mes,
-          dia,
-          data_cadastro,
+        id_tarefa,
+        dia,
+        mes,
+        status,
+        data_cadastro,
       };
       try{
-        const response = await api.post('dia', data, {
+        const response = await api.post('tarefa_dia', data, {
               headers: {
                   Authorization: id_usuario,
                   'Content-Type': 'application/json',
               }
           })   
-
-          console.log('Cadastrou dia...')
+          console.log('Tarefas do dia cadastrado com sucesso')
       }catch(err){
-        Alert.alert('Cadastro', 'Ocorreu um erro inesperado (newDia), tente novamente.')
+        Alert.alert('Cadastro', 'Ocorreu um erro inesperado (newTarefaDia), tente novamente')
       }
     }
   }
@@ -237,21 +235,6 @@ export default function NewMes() {
     setTarefas([...tarefas, ...response.data]);
     setTotal(response.headers['x-total-count']);
     setLoading(false);
-  }
-
-
-
-  function sla(){
-    for (let dia = 1; dia <= finalMes.format('DD'); dia++) {
-      //console.log('DIA = '+dia+' | MES = '+finalMes.format('MM'));
-      addIdTarefasMes(dia);
-    }
-  
-    for(let teste = 0; teste <= tarefasMes.length; teste++){
-      console.log(tarefasMes);
-      newDia()
-      
-    }
   }
 
 

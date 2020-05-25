@@ -99,20 +99,22 @@ routes.post('/tarefa_dia',celebrate({
           [Segments.BODY]: Joi.object().keys({
             id_tarefa: Joi.number().required(),
             dia: Joi.number().required(),
+            mes: Joi.number().required(),
             status: Joi.string().required(),
             data_cadastro: Joi.string().required(),
             bloq: Joi.string(),
           }),
 }), TarefaDiaController.post);
 
-routes.get('/tarefa_dia/pesquisar/:dia',celebrate({
+routes.get('/tarefa_dia/pesquisar/:dia/:mes',celebrate({
           [Segments.HEADERS]: Joi.object({
             authorization: Joi.number().required()
           }).unknown(),
           [Segments.PARAMS]: Joi.object().keys({
-            dia: Joi.number().required()
+            dia: Joi.number().required(),
+            mes: Joi.number().required(),
           })
-}), TarefaDiaController.getTarefaDiaByDia);
+}), TarefaDiaController.getTarefaDiaByDiaMes);
 
 routes.patch('/tarefa_dia/:id',celebrate({
           [Segments.HEADERS]: Joi.object({

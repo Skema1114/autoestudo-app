@@ -15,7 +15,7 @@ export default function ListTarefaMes(){
   const id_usuario = '1';
 
   function navigateToNew(){
-    navigation.navigate('NewMes');
+    navigation.navigate('NewTarefaMes');
   }
 
 

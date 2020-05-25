@@ -10,7 +10,7 @@ import ListResultadoMes from './pages/List_ResultadoMes';
 
 import NewTarefa from './pages/New_Tarefa';
 import NewTarefa2 from './pages/New_Tarefa_2';
-import NewMes from './pages/New_Mes';
+import NewTarefaMes from './pages/New_TarefaMes';
 
 import AppCadastro from './pages/App_Cadastro';
 import AppLogin from './pages/App_Login';
@@ -29,7 +29,7 @@ export default function Routes(){
 
         <AppStack.Screen name="NewTarefa" component={NewTarefa}/>
         <AppStack.Screen name="NewTarefa2" component={NewTarefa2}/>
-        <AppStack.Screen name="NewMes" component={NewMes}/>
+        <AppStack.Screen name="NewTarefaMes" component={NewTarefaMes}/>
 
         <AppStack.Screen name="ListTarefa" component={ListTarefa}/>
         <AppStack.Screen name="ListTarefaDia" component={ListTarefaDia}/>
