@@ -21,9 +21,16 @@ export default function ListTarefaDia(){
   const diaHoje = 23;
   const mesHoje = 5;
 
+
+
+  async function _reloadListTarefaDia(){
+    await navigation.replace('ListTarefaDia', null, null)
+  }
+
+
+  
   async function editTarefaDia(id_tarefa){
     const status = 'checkado';
-    
     const data = {
         status,
     };
@@ -47,9 +54,6 @@ export default function ListTarefaDia(){
     }
   }
 
-  async function _reloadListTarefaDia(){
-    await navigation.replace('ListTarefaDia', null, null)
-  }
 
 
   async function loadTarefaDias(dia, mes){
@@ -79,9 +83,13 @@ export default function ListTarefaDia(){
     }
   }
 
+
+
   useEffect(() => {
     loadTarefaDias(diaHoje, mesHoje);
   }, []);
+
+
 
   function checado(id){
     if(checador===false){
@@ -92,6 +100,8 @@ export default function ListTarefaDia(){
     }
   }
 
+
+
   function _adicionaDia(){
     contadorDia += 1;
     essaData = moment().add(contadorDia, 'd').utcOffset('-03:00').format('DD/MM/YYYY');
@@ -99,8 +109,9 @@ export default function ListTarefaDia(){
     console.log(contadorDia);
     console.log(essaData);
     console.log(essaDataShow);
-
   }
+
+
 
   function _removeDia(){
     contadorDia -= 1;
@@ -110,6 +121,8 @@ export default function ListTarefaDia(){
     console.log(essaData);
     console.log(essaDataShow);
   }
+
+
 
   return (
     <View style={styles.container}>

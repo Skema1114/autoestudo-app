@@ -15,9 +15,12 @@ export default function ListTarefa(){
   const id_usuario = '1';
 
 
+
   function navigateToNew(){
     navigation.navigate('NewTarefa');
   }
+
+
 
   async function loadTarefas(){
     if(loading){
@@ -40,10 +43,14 @@ export default function ListTarefa(){
     setLoading(false);
   }
 
+
+
   useEffect(() => {
     loadTarefas();
   }, []);
 
+
+  
   return (
     <View>
       <View style={styles.container}>

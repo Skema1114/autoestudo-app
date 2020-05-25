@@ -13,6 +13,14 @@ export default function AppLogin() {
   const formRef = useRef(null);
   const navigation = useNavigation();
 
+
+
+  function _reloadTeste() {
+    navigation.replace('ListTarefaDia', null, null);
+  };
+
+
+
   async function handleSubmit(data, { reset }) {
     try{
       const schema = Yup.object().shape({
@@ -40,8 +48,7 @@ export default function AppLogin() {
       }
     }
 
-    async function handleLogin(email, senha){
-         
+    async function handleLogin(email, senha){     
       const data = {
           email,
           senha,
@@ -58,9 +65,7 @@ export default function AppLogin() {
     }
   }
 
-  function _reloadTeste() {
-    navigation.replace('ListTarefaDia', null, null);
-  };
+
 
   async function _storeData(chave, valor){
     try {
@@ -69,6 +74,8 @@ export default function AppLogin() {
       console.log(err)
     }
   };
+
+
 
   async function _retrieveData(chave){
     try {
@@ -82,6 +89,7 @@ export default function AppLogin() {
   }
 
 
+
   async function _deleteData(chave){
     try {
       const value = await AsyncStorage.removeItem(chave);
@@ -90,45 +98,50 @@ export default function AppLogin() {
       console.log(err);
     }
   }
+
+
+
   function funcaoInutil(){
     _storeData('1e54cc5b');
     navigation.navigate('ListTarefaDia');
   }
  
+
+
   return (
   <View style={styles.container}>
-  <Form ref={formRef} onSubmit={handleSubmit}>
-    <View style={styles.header}>
-      <Image source={logoImg}/>
-    </View>
+    <Form ref={formRef} onSubmit={handleSubmit}>
+      <View style={styles.header}>
+        <Image source={logoImg}/>
+      </View>
 
-    <View style={styles.incident}>
-      <Input name="email" label="Email" />
-      <Input name="senha" label="Senha" />
+      <View style={styles.incident}>
+        <Input name="email" label="Email" />
+        <Input name="senha" label="Senha" />
 
-      <TouchableOpacity 
-        style={styles.action} 
-        onPress={() => formRef.current.submitForm()}>
-        <Text>Entrar</Text>
-      </TouchableOpacity>
+        <TouchableOpacity 
+          style={styles.action} 
+          onPress={() => formRef.current.submitForm()}>
+          <Text>Entrar</Text>
+        </TouchableOpacity>
 
-      <TouchableOpacity
-        style={styles.detailsButton}
-        onPress={() => funcaoInutil()}
-      >
-        <Text style={styles.detailsButtonText}>Entrar sem cadastro</Text>
-        <Feather name="arrow-right" size={16} color="#E02041"/>
-      </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.detailsButton}
+          onPress={() => funcaoInutil()}
+        >
+          <Text style={styles.detailsButtonText}>Entrar sem cadastro</Text>
+          <Feather name="arrow-right" size={16} color="#E02041"/>
+        </TouchableOpacity>
 
-      <TouchableOpacity
-        style={styles.detailsButton}
-        onPress={() => navigation.navigate("AppCadastro")}
-      >
-        <Text style={styles.detailsButtonText}>Criar cadastro</Text>
-        <Feather name="arrow-right" size={16} color="#E02041"/>
-      </TouchableOpacity>
-    </View>
-  </Form>
-</View>
-);
+        <TouchableOpacity
+          style={styles.detailsButton}
+          onPress={() => navigation.navigate("AppCadastro")}
+        >
+          <Text style={styles.detailsButtonText}>Criar cadastro</Text>
+          <Feather name="arrow-right" size={16} color="#E02041"/>
+        </TouchableOpacity>
+      </View>
+    </Form>
+  </View>
+  );
 }

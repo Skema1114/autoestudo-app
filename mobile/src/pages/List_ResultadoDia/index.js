@@ -15,9 +15,6 @@ export default function ListResultadoDia(){
   const id_usuario = '1';
 
 
-  function navigateBack(){
-    navigation.goBack();
-  }
 
   async function loadResultadoDias(){
     if(loading){
@@ -40,9 +37,13 @@ export default function ListResultadoDia(){
     setLoading(false);
   }
 
+
+
   useEffect(() => {
     loadResultadoDias();
   }, []);
+
+
 
   return (
     <View>

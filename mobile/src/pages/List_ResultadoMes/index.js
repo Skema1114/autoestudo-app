@@ -14,9 +14,6 @@ export default function ListResultadoMes(){
   const id_usuario = '1';
   
 
-  function navigateBack(){
-    navigation.goBack();
-  }
 
   async function loadResultadoMes(){
     if(loading){
@@ -39,17 +36,18 @@ export default function ListResultadoMes(){
     setLoading(false);
   }
 
+
+
   useEffect(() => {
     loadResultadoMes();
   }, []);
+
+
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Image source={logoImg}/>
-        <TouchableOpacity onPress={navigateBack}>
-          <Feather name="arrow-left" size={28} color="#E82041"/>
-        </TouchableOpacity>
         <Text style={styles.headerText}>
           Total de <Text style={styles.headerTextBold}>{total} casos</Text>.
         </Text>

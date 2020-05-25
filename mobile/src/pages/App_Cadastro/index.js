@@ -14,9 +14,19 @@ export default function AppCadastro() {
   const formRef = useRef(null);
   const navigation = useNavigation();
 
+
+  
   function navigateBack(){
     navigation.goBack();
   }
+
+
+
+  function _reloadLogin() {
+    navigation.replace( 'AppLogin', null, null );
+  };
+
+
 
   async function handleSubmit(data, { reset }) {
     try{
@@ -67,9 +77,7 @@ export default function AppCadastro() {
     }
   }
 
-  function _reloadLogin() {
-    navigation.replace( 'AppLogin', null, null );
-  };
+
  
   return (
   <View style={styles.container}>

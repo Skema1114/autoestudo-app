@@ -16,10 +16,26 @@ export default function NewTarefa() {
   const navigation = useNavigation();
   //const id_usuario = _retrieveData('UsuarioIdStorage');
   const id_usuario = '1';
+  
+  
+  
+  function _reloadListTarefa() {
+    navigation.replace( 'ListTarefa', null, null );
+  };
+
+
+
+  function _reloadNewTarefa() {
+    navigation.replace( 'NewTarefa', null, null );
+  };
+
+
 
   function navigateBack(){
     navigation.goBack();
   }
+
+
 
   async function handleSubmit(data, { reset }) {
     try{
@@ -77,15 +93,9 @@ export default function NewTarefa() {
       }
     }
   }
-
-  function _reloadListTarefa() {
-    navigation.replace( 'ListTarefa', null, null );
-  };
-
-  function _reloadNewTarefa() {
-    navigation.replace( 'NewTarefa', null, null );
-  };
  
+
+
   return (
   <View style={styles.container}>
   <Form ref={formRef} onSubmit={handleSubmit}>

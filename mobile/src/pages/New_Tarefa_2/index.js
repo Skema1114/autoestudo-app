@@ -15,8 +15,21 @@ export default function NewTarefa2() {
   const formRef = useRef(null);
   const navigation = useNavigation();
   const id_usuario = '1';
-  
 
+
+
+  function _reloadNewTarefaMes() {
+    navigation.replace( 'NewTarefaMes', null, null );
+  };
+
+
+
+  function _reloadNewTarefa2() {
+    navigation.replace( 'NewTarefa2', null, null );
+  };
+
+
+  
   async function handleSubmit(data, { reset }) {
     try{
       const schema = Yup.object().shape({
@@ -74,13 +87,6 @@ export default function NewTarefa2() {
     }
   }
 
-  function _reloadNewTarefaMes() {
-    navigation.replace( 'NewTarefaMes', null, null );
-  };
-
-  function _reloadNewTarefa2() {
-    navigation.replace( 'NewTarefa2', null, null );
-  };
 
  
   return (

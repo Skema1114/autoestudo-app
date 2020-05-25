@@ -16,9 +16,12 @@ export default function ListTarefaMes(){
   const mesHoje = 5;
   const anoHoje = 2020;
 
+
+
   function navigateToNew(){
     navigation.navigate('NewTarefaMes');
   }
+
 
 
   async function loadTarefaMeses(){
@@ -43,10 +46,14 @@ export default function ListTarefaMes(){
     setLoading(false);
   }
 
+
+
   useEffect(() => {
     loadTarefaMeses();
   }, []);
 
+
+  
   return (
     <View style={styles.container}>
       <View style={styles.header}>
