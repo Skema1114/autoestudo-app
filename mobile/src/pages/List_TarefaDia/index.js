@@ -63,7 +63,7 @@ export default function ListTarefaDia(){
 
     setLoading(true);
     try{
-      const response = await api.get(`tarefa_dia/pesquisar/${dia}/${mes}`, {
+      const response = await api.get(`tarefa_dias/pesquisar/${dia}/${mes}`, {
         headers: {
           Authorization: id_usuario,
           'Content-Type': 'application/json',

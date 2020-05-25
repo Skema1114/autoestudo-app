@@ -92,6 +92,44 @@ routes.get('/tarefa_dias',celebrate({
           }).unknown(),
 }), TarefaDiaController.get);
 
+routes.get('/tarefa_dias/pesquisar/:dia/:mes',celebrate({
+          [Segments.HEADERS]: Joi.object({
+            authorization: Joi.number().required()
+          }).unknown(),
+          [Segments.PARAMS]: Joi.object().keys({
+            dia: Joi.number().required(),
+            mes: Joi.number().required(),
+          })
+}), TarefaDiaController.getTarefaDiaByDiaMes);
+
+routes.get('/tarefa_dias/checar/:dia/:mes',celebrate({
+          [Segments.HEADERS]: Joi.object({
+            authorization: Joi.number().required()
+          }).unknown(),
+          [Segments.PARAMS]: Joi.object().keys({
+            dia: Joi.number().required(),
+            mes: Joi.number().required(),
+          })
+}), TarefaDiaController.getTarefaDiaBloqByDiaMes);
+
+routes.get('/tarefa_dia/pesquisar/:id',celebrate({
+  [Segments.HEADERS]: Joi.object({
+    authorization: Joi.number().required()
+  }).unknown(),
+  [Segments.PARAMS]: Joi.object().keys({
+    id: Joi.number().required(),
+  })
+}), TarefaDiaController.getTarefaDiaById);
+
+routes.get('/tarefa_dia/checar/:id',celebrate({
+  [Segments.HEADERS]: Joi.object({
+    authorization: Joi.number().required()
+  }).unknown(),
+  [Segments.PARAMS]: Joi.object().keys({
+    id: Joi.number().required(),
+  })
+}), TarefaDiaController.getTarefaDiaBloqById);
+
 routes.post('/tarefa_dia',celebrate({
           [Segments.HEADERS]: Joi.object({
             authorization: Joi.number().required()
@@ -105,16 +143,6 @@ routes.post('/tarefa_dia',celebrate({
             bloq: Joi.string(),
           }),
 }), TarefaDiaController.post);
-
-routes.get('/tarefa_dia/pesquisar/:dia/:mes',celebrate({
-          [Segments.HEADERS]: Joi.object({
-            authorization: Joi.number().required()
-          }).unknown(),
-          [Segments.PARAMS]: Joi.object().keys({
-            dia: Joi.number().required(),
-            mes: Joi.number().required(),
-          })
-}), TarefaDiaController.getTarefaDiaByDiaMes);
 
 routes.patch('/tarefa_dia/:id',celebrate({
           [Segments.HEADERS]: Joi.object({
@@ -144,6 +172,44 @@ routes.get('/tarefa_meses',celebrate({
             authorization: Joi.number().required()
           }).unknown(),
 }), TarefaMesController.get);
+
+routes.get('/tarefa_meses/pesquisar/:mes/:ano',celebrate({
+          [Segments.HEADERS]: Joi.object({
+            authorization: Joi.number().required()
+          }).unknown(),
+          [Segments.PARAMS]: Joi.object().keys({
+            mes: Joi.number().required(),
+            ano: Joi.number().required(),
+          })
+}), TarefaMesController.getTarefaMesByMesAno);
+
+routes.get('/tarefa_meses/checar/:mes/:ano',celebrate({
+          [Segments.HEADERS]: Joi.object({
+            authorization: Joi.number().required()
+          }).unknown(),
+          [Segments.PARAMS]: Joi.object().keys({
+            mes: Joi.number().required(),
+            ano: Joi.number().required(),
+          })
+}), TarefaMesController.getTarefaMesBloqByMesAno);
+
+routes.get('/tarefa_mes/pesquisar/:id',celebrate({
+          [Segments.HEADERS]: Joi.object({
+            authorization: Joi.number().required()
+          }).unknown(),
+          [Segments.PARAMS]: Joi.object().keys({
+            id: Joi.number().required(),
+          })
+}), TarefaMesController.getTarefaMesById);
+
+routes.get('/tarefa_mes/checar/:id',celebrate({
+          [Segments.HEADERS]: Joi.object({
+            authorization: Joi.number().required()
+          }).unknown(),
+          [Segments.PARAMS]: Joi.object().keys({
+            id: Joi.number().required(),
+          })
+}), TarefaMesController.getTarefaMesBloqById);
 
 routes.post('/tarefa_mes',celebrate({
           [Segments.HEADERS]: Joi.object({

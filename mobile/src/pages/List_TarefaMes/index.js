@@ -13,6 +13,8 @@ export default function ListTarefaMes(){
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
   const id_usuario = '1';
+  const mesHoje = 5;
+  const anoHoje = 2020;
 
   function navigateToNew(){
     navigation.navigate('NewTarefaMes');
@@ -29,7 +31,8 @@ export default function ListTarefaMes(){
     }
 
     setLoading(true);
-    const response = await api.get('tarefa_meses', {
+//    const response = await api.get(`tarefa_meses/pesquisar/${mes}/${ano}`, {
+    const response = await api.get(`tarefa_meses`, {
       headers: {
         Authorization: id_usuario,
       }

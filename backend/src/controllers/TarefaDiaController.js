@@ -54,7 +54,7 @@ module.exports = {
 
         if(tarefaDiaTeste.id_usuario !== id_usuario){
             return response.status(401).json({
-                error: 'Sem permissões.'
+                error: 'Sem permissões'
             });
         }
               
@@ -116,7 +116,99 @@ module.exports = {
             response.header('X-Total-Count', 0);
         
             return response.status(401).json({
-                error: 'Não há dia cadastrado.'
+                error: 'Não dados associados à esta data'
+            });
+        }
+    },
+
+    async getTarefaDiaBloqByDiaMes(request, response){
+        const {dia, mes} = request.params;
+        const id_usuario = parseInt(request.headers.authorization);
+
+        const tarefa_dia = await connection('tarefa_dia')
+        .select([
+            'tarefa_dia.bloq',
+        ])
+        .where('tarefa_dia.id_usuario', id_usuario)
+        .andWhere('tarefa_dia.dia', dia)
+        .andWhere('tarefa_dia.mes', mes);
+
+        if (tarefa_dia.length > 0) {
+            const [count] = await connection('tarefa_dia')
+            .count()
+            .where('tarefa_dia.id_usuario', id_usuario)
+            .andWhere('tarefa_dia.dia', dia)
+            .andWhere('tarefa_dia.mes', mes);
+
+            response.header('X-Total-Count', count['count(*)']);
+        
+            return response.json(tarefa_dia);
+        } else {
+            response.header('X-Total-Count', 0);
+        
+            return response.status(401).json({
+                error: 'Sem permissão'
+            });
+        }
+    },
+
+    async getTarefaDiaById(request, response){
+        const {id} = request.params;
+        const id_usuario = parseInt(request.headers.authorization);
+
+        const tarefa_dia = await connection('tarefa_dia')
+        .join('tarefa', 'tarefa.id', '=', 'tarefa_dia.id_tarefa')
+        .select([
+            'tarefa_dia.*',
+            'tarefa.nome',
+        ])
+        .where('tarefa_dia.id_usuario', id_usuario)
+        .andWhere('tarefa_dia.id', id);
+
+        if (tarefa_dia.length > 0) {
+            const [count] = await connection('tarefa_dia')
+            .join('tarefa', 'tarefa.id', '=', 'tarefa_dia.id_tarefa')
+            .count()
+            .where('tarefa_dia.id_usuario', id_usuario)
+            .andWhere('tarefa_dia.id', id);
+
+            response.header('X-Total-Count', count['count(*)']);
+        
+            return response.json(tarefa_dia);
+        } else {
+            response.header('X-Total-Count', 0);
+        
+            return response.status(401).json({
+                error: 'Sem permissões'
+            });
+        }
+    },
+
+    async getTarefaDiaBloqById(request, response){
+        const {id} = request.params;
+        const id_usuario = parseInt(request.headers.authorization);
+
+        const tarefa_dia = await connection('tarefa_dia')
+        .select([
+            'tarefa_dia.bloq',
+        ])
+        .where('tarefa_dia.id_usuario', id_usuario)
+        .andWhere('tarefa_dia.id', id);
+
+        if (tarefa_dia.length > 0) {
+            const [count] = await connection('tarefa_dia')
+            .count()
+            .where('tarefa_dia.id_usuario', id_usuario)
+            .andWhere('tarefa_dia.id', id);
+
+            response.header('X-Total-Count', count['count(*)']);
+        
+            return response.json(tarefa_dia);
+        } else {
+            response.header('X-Total-Count', 0);
+        
+            return response.status(401).json({
+                error: 'Sem permissão'
             });
         }
     },
