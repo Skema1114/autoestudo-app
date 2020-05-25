@@ -22,12 +22,12 @@ module.exports = {
     },
 
     async post(request, response){
-        const {id_mes, resultado, data_cadastro} = request.body;
+        const {mes, resultado, data_cadastro} = request.body;
         const id_usuario = request.headers.authorization;
 
         const [id] = await connection("resultado_mes").insert({
-            id_mes,
             id_usuario,
+            mes,
             resultado,
             data_cadastro
         });

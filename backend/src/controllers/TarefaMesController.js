@@ -6,12 +6,9 @@ module.exports = {
 
         const tarefa_meses = await connection('tarefa_mes')
         .join('tarefa', 'tarefa.id', '=', 'tarefa_mes.id_tarefa')
-        .join('mes', 'mes.id', '=', 'tarefa_mes.id_mes')
         .select([
             'tarefa_mes.*',
-            'tarefa.nome',
-            'mes.mes',
-            'mes.ano'     
+            'tarefa.nome',   
         ])
         .where('tarefa_mes.id_usuario', id_usuario);
 
@@ -29,13 +26,15 @@ module.exports = {
     },
 
     async post(request, response){
-        const {id_mes, id_tarefa, data_cadastro, bloq} = request.body;
+        const {id_tarefa, mes, ano, qtd_nao, data_cadastro, bloq} = request.body;
         const id_usuario = request.headers.authorization;
 
         const [id] = await connection("tarefa_mes").insert({
-            id_mes,
-            id_tarefa,
             id_usuario,
+            id_tarefa,
+            mes,
+            ano,
+            qtd_nao,
             data_cadastro,
             bloq
         });

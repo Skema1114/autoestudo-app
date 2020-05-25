@@ -20,6 +20,7 @@ export default function NewMes() {
   const [loading, setLoading] = useState(false);
   const id_usuario = '1';
   var tarefasMes = [];
+  var idsDiasCadastrados = [];
 
   var date = new Date();
   var primeiroDia = new Date(date.getFullYear(), date.getMonth(), 1);
@@ -45,8 +46,15 @@ export default function NewMes() {
   
   
   
-  function addTarefasMes(dia){
+  function addIdTarefasMes(dia){
     tarefasMes.push(dia);
+  }
+
+
+
+  function addIdDiasCadastrados(id){
+    console.log('id dia recebido '+id)
+    idsDiasCadastrados.push(id);
   }
 
 
@@ -57,7 +65,7 @@ export default function NewMes() {
 
 
 
-  function addTarefasMes(id){
+  function addIdTarefasMes(id){
     tarefasMes.push(id);
   }
   
@@ -89,46 +97,42 @@ export default function NewMes() {
       });
       
       try{
+        // CADASTRA O MES
         await newMes(data.qtd_nao);
         
         try{
+          // CADASTRA AS TAREFAS NO MES
           for(let i = 0; i < tarefasMes.length; i++){
             await newTarefaMes(idMesCadastrado, tarefasMes[i]);
           }
 
           try{
+            // CADASTRA TODOS OS DIAS DO MES
             for(let dia = 1; dia <= finalMes.format('DD'); dia++) {
               await newDia(idMesCadastrado, dia)
-                .then(resp => {
-                  console.log("resp data id" + resp.data.id)
-                  idsDiasCadastrados.push(resp.data.id);
-                })
+                .then(resp => addIdDiasCadastrados(resp.data.id))
             }
 
             console.log(idsDiasCadastrados);
 
-            try{
-              const dia = moment().utcOffset('-03:00').format("D");
-              //await getIdDia(dia, idMesCadastrado);
-            
-            }catch(err){
-              console.log('deu erro no try do get id dia')
-            }
           }catch(err){
+            // CATCH DO CADASTRO DO DIA
             console.log('deu erro no try do new dia')
           }
         }catch(err){
+          // CATCH DO CADASTRO DA TAREFA DO MES
           console.log('deu erro no try do new tarefa mes')
         }
-
       }catch(err){
-          console.log(err)
+        // CATCH DO CADASTRO DO MES
+        console.log('deu erro no try do new mes')
       }
 
       Keyboard.dismiss();
       reset();
 
     }catch(err){
+      // CATCH DO SUBMIT
       if(err instanceof Yup.ValidationError){
           const errorMessage = {};
           err.inner.forEach(error => {
@@ -240,7 +244,7 @@ export default function NewMes() {
   function sla(){
     for (let dia = 1; dia <= finalMes.format('DD'); dia++) {
       //console.log('DIA = '+dia+' | MES = '+finalMes.format('MM'));
-      addTarefasMes(dia);
+      addIdTarefasMes(dia);
     }
   
     for(let teste = 0; teste <= tarefasMes.length; teste++){
@@ -299,7 +303,7 @@ export default function NewMes() {
           <View style={styles.actions2}>
             <CheckBox
               style={styles.incidentProperty}
-              onChange={() => addTarefasMes(tarefa.id)}>
+              onChange={() => addIdTarefasMes(tarefa.id)}>
             </CheckBox>
             <Text style={styles.incidentProperty}>{tarefa.nome}</Text>
           </View>
