@@ -1,13 +1,11 @@
 {
   "expo": {
-    "name": "Be The Hero",
-    "slug": "bethehero",
+    "name": "Autoestudo",
+    "slug": "autoestudo",
     "privacy": "public",
     "sdkVersion": "36.0.0",
     "platforms": [
-      "ios",
-      "android",
-      "web"
+      "android"
     ],
     "version": "1.0.0",
     "orientation": "portrait",
@@ -24,7 +22,11 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "br.com.gruposcalco.autoestudo"
+    },
+    "android": {
+      "package": "br.com.gruposcalco.autoestudo"
     }
   }
 }
