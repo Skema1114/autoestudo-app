@@ -1,11 +1,10 @@
-import { Text, Image, View, TouchableOpacity, Alert, Keyboard, AsyncStorage } from 'react-native';
+import {Text, Image, View, TouchableOpacity, Alert, Keyboard, AsyncStorage} from 'react-native';
 import MaterialFooterM3 from './../../Components/MaterialIconTextButtonsFooter/M3'
 import {useNavigation} from '@react-navigation/native';
-import React, { useRef, useEffect, useState } from 'react';
+import React, {useRef, useEffect, useState} from 'react';
 import Input from '../../Components/Form/input';
-//import {Feather} from '@expo/vector-icons';
 import logoImg from '../../assets/logo.png';
-import { Form } from '@unform/mobile';
+import {Form} from '@unform/mobile';
 import api from '../../services/api';
 import styles from './styles';
 import moment from 'moment';

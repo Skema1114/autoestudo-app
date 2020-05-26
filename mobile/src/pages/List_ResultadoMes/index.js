@@ -1,5 +1,5 @@
-import {View, Image, Text, TouchableOpacity, FlatList, AsyncStorage} from 'react-native';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import {View, Image, Text, TouchableOpacity, FlatList, AsyncStorage, Alert} from 'react-native';
+import {MaterialCommunityIcons} from '@expo/vector-icons';
 import {useNavigation} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import logoImg from '../../assets/logo.png';
@@ -64,9 +64,15 @@ export default function ListResultadoMes(){
 
 
   function logoutAndDeleteToken(){
-    _deleteToken('@tokenUsuario')
-      .then(resp => navigateLogin())
-      .catch(err => console.log('Deu erro no delete token + '+err))
+    Alert.alert("Sair", `Deseja realmente sair?`,
+      [
+        { text: "VOLTAR", onPress: () => {navigation.replace('ListTarefaDia', null, null)}},
+        { text: "OK", onPress: () => {
+          _deleteToken('@tokenUsuario')
+          .then(resp => navigateLogin())
+          .catch(err => console.log('Deu erro no delete token + '+err))
+        }},
+      ], { cancelable: false });
   }
 
 

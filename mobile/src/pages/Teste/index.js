@@ -1,4 +1,4 @@
-import {View, Image, Text, TouchableOpacity, AsyncStorage } from 'react-native';
+import {View, Image, Text, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import logoImg from '../../assets/logo.png';
 import {Feather} from '@expo/vector-icons';

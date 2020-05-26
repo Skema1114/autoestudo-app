@@ -1,10 +1,9 @@
 import {View, Image, Text, TouchableOpacity, FlatList, AsyncStorage} from 'react-native';
 import MaterialFooterM3 from './../../Components/MaterialIconTextButtonsFooter/M3';
-import React, {useEffect, useState, useImperativeHandle} from 'react';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import React, {useEffect, useState} from 'react';
+import {MaterialCommunityIcons } from '@expo/vector-icons';
 import {useNavigation} from '@react-navigation/native';
 import logoImg from '../../assets/logo.png';
-import {Feather} from '@expo/vector-icons';
 import api from '../../services/api';
 import styles from './styles';
 
@@ -57,9 +56,15 @@ export default function ListTarefaMes(){
 
 
   function logoutAndDeleteToken(){
-    _deleteToken('@tokenUsuario')
-      .then(resp => navigateLogin())
-      .catch(err => console.log('Deu erro no delete token + '+err))
+    Alert.alert("Sair", `Deseja realmente sair?`,
+      [
+        { text: "VOLTAR", onPress: () => {navigation.replace('ListTarefaDia', null, null)}},
+        { text: "OK", onPress: () => {
+          _deleteToken('@tokenUsuario')
+          .then(resp => navigateLogin())
+          .catch(err => console.log('Deu erro no delete token + '+err))
+        }},
+      ], { cancelable: false });
   }
 
 

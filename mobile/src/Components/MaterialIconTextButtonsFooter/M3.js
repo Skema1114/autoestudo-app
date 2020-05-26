@@ -1,6 +1,6 @@
-import { MaterialIcons, Entypo, Foundation, MaterialCommunityIcons } from '@expo/vector-icons';
-import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
-import { useNavigation } from '@react-navigation/native';
+import {MaterialIcons, Entypo, Foundation, MaterialCommunityIcons} from '@expo/vector-icons';
+import {StyleSheet, View, TouchableOpacity, Text} from "react-native";
+import {useNavigation} from '@react-navigation/native';
 import React, {} from "react";
 
 function M3() {

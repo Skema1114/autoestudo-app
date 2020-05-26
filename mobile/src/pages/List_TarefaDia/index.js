@@ -1,8 +1,8 @@
-import { View, Image, Text, TouchableOpacity, FlatList, CheckBox, Alert, AsyncStorage } from 'react-native';
+import {View, Image, Text, TouchableOpacity, FlatList, CheckBox, Alert, AsyncStorage} from 'react-native';
 import MaterialFooterM2 from './../../Components/MaterialIconTextButtonsFooter/M1';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
-import React, { useEffect, useState } from 'react';
+import {MaterialCommunityIcons} from '@expo/vector-icons';
+import {useNavigation} from '@react-navigation/native';
+import React, {useEffect, useState} from 'react';
 import logoImg from '../../assets/logo.png';
 import api from '../../services/api';
 import styles from './styles';
@@ -81,9 +81,15 @@ export default function ListTarefaDia(){
 
 
   function logoutAndDeleteToken(){
-    _deleteToken('@tokenUsuario')
-      .then(resp => navigateLogin())
-      .catch(err => console.log('Deu erro no delete token + '+err))
+    Alert.alert("Sair", `Deseja realmente sair?`,
+      [
+        { text: "VOLTAR", onPress: () => {navigation.replace('ListTarefaDia', null, null)}},
+        { text: "OK", onPress: () => {
+          _deleteToken('@tokenUsuario')
+          .then(resp => navigateLogin())
+          .catch(err => console.log('Deu erro no delete token + '+err))
+        }},
+      ], { cancelable: false });
   }
 
 
