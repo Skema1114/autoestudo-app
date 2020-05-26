@@ -11,12 +11,6 @@ export default function ListResultadoMes(){
   const [resultadoMeses, setResultadoMeses] = useState([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
- 
-
-
-  function navigateLogin(){
-    navigation.replace('AppLogin', null, null);
-  }
 
 
 
@@ -66,10 +60,10 @@ export default function ListResultadoMes(){
   function logoutAndDeleteToken(){
     Alert.alert("Sair", `Deseja realmente sair?`,
       [
-        { text: "VOLTAR", onPress: () => {navigation.replace('ListTarefaDia', null, null)}},
+        { text: "VOLTAR", onPress: () => {navigation.replace('ListResultadoMes', null, null)}},
         { text: "OK", onPress: () => {
           _deleteToken('@tokenUsuario')
-          .then(resp => navigateLogin())
+          .then(resp => navigation.replace('AppLogin', null, null))
           .catch(err => console.log('Deu erro no delete token + '+err))
         }},
       ], { cancelable: false });

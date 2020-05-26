@@ -47,29 +47,11 @@ export default function NewTarefaMes() {
   function addIdTarefasMes(dia){
     tarefasMes.push(dia);
   }
-
-
-
-  function _reloadNewTarefa2() {
-    navigation.replace( 'NewTarefa2', null, null );
-  };
-
-
-
-  function addIdTarefasMes(id){
-    tarefasMes.push(id);
-  }
   
 
 
   function navigateBack(){
     navigation.goBack();
-  }
-
-
-
-  function _reloadListTarefaMes(){
-    navigation.replace('ListTarefaMes', null, null);
   }
 
 
@@ -173,7 +155,7 @@ export default function NewTarefaMes() {
             "Cadastro",
             `Mês cadastrado com sucesso!`,
             [
-              { text: "OK", onPress: () => _reloadListTarefaMes() }
+              { text: "OK", onPress: () => navigation.replace('ListTarefaMes', null, null)}
             ],
             { cancelable: false }
           );
@@ -260,7 +242,7 @@ export default function NewTarefaMes() {
           </TouchableOpacity>
           <TouchableOpacity 
             style={styles.action} 
-            onPress={() => _reloadNewTarefa2()}>
+            onPress={() => navigation.replace( 'NewTarefa2', null, null )}>
             <Text style={styles.actionText}>Nova tarefa</Text>
           </TouchableOpacity>
         </View>

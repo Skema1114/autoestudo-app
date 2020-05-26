@@ -24,12 +24,6 @@ export default function ListTarefaDia(){
 
 
 
-  function navigateLogin(){
-    navigation.replace('AppLogin', null, null);
-  }
-
-
-
   async function _reloadListTarefaDia(){
     await navigation.replace('ListTarefaDia', null, null)
   }
@@ -86,7 +80,7 @@ export default function ListTarefaDia(){
         { text: "VOLTAR", onPress: () => {navigation.replace('ListTarefaDia', null, null)}},
         { text: "OK", onPress: () => {
           _deleteToken('@tokenUsuario')
-          .then(resp => navigateLogin())
+          .then(resp => navigation.replace('AppLogin', null, null))
           .catch(err => console.log('Deu erro no delete token + '+err))
         }},
       ], { cancelable: false });

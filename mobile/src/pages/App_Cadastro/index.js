@@ -22,12 +22,6 @@ export default function AppCadastro() {
 
 
 
-  function _reloadLogin() {
-    navigation.replace( 'AppLogin', null, null );
-  };
-
-
-
   async function handleSubmit(data, { reset }) {
     try{
       const schema = Yup.object().shape({
@@ -69,7 +63,7 @@ export default function AppCadastro() {
       try{
         const response = await api.post('usuario', data);        
           Alert.alert("Cadastro", `Usuário cadastrado com sucesso!`, [{ 
-              text: "OK", onPress: () => _reloadLogin() 
+              text: "OK", onPress: () => navigation.replace( 'AppLogin', null, null ) 
             }], { cancelable: false }
           );
       }catch(err){

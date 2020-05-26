@@ -16,18 +16,6 @@ export default function NewTarefa2() {
   const [idUsuario, setIdUsuario] = useState();
 
 
-
-  function _reloadNewTarefaMes() {
-    navigation.replace( 'NewTarefaMes', null, null );
-  };
-
-
-
-  function _reloadNewTarefa2() {
-    navigation.replace( 'NewTarefa2', null, null );
-  };
-
-
   
   async function _retrieveToken(storageChave){
     try {
@@ -107,8 +95,8 @@ export default function NewTarefa2() {
             "Cadastro",
             `ID da tarefa cadastrada: ${response.data.id}`,
             [
-              { text: "Nova tarefa", onPress: () => _reloadNewTarefa2() },
-              { text: "OK", onPress: () => _reloadNewTarefaMes() }
+              { text: "Nova tarefa", onPress: () => navigation.replace( 'NewTarefa2', null, null )},
+              { text: "OK", onPress: () => navigation.replace( 'NewTarefaMes', null, null )}
             ],
             { cancelable: false }
           );

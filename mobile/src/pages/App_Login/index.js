@@ -12,12 +12,6 @@ import * as Yup from 'yup';
 export default function AppLogin() {
   const formRef = useRef(null);
   const navigation = useNavigation();
-
-
-
-  function _reloadTeste() {
-    navigation.replace('ListTarefaDia', null, null);
-  };
   
   
   
@@ -68,7 +62,7 @@ export default function AppLogin() {
           const responseString = response.data.id;
           _salvarToken("@tokenUsuario", responseString.toString())
           console.log(response.data.id)
-          _reloadTeste();
+          navigation.replace('ListTarefaDia', null, null);
         }catch(err){
           Alert.alert('Login', 'Usuário e/ou senha não encontrados')
       }

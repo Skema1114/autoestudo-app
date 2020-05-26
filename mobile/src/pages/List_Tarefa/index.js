@@ -15,18 +15,6 @@ export default function ListTarefa(){
 
 
 
-  function navigateLogin(){
-    navigation.replace('AppLogin', null, null);
-  }
-
-
-
-  function navigateToNew(){
-    navigation.navigate('NewTarefa');
-  }
-
-
-
   async function _retrieveToken(storageChave){
     try {
       const value = await AsyncStorage.getItem(storageChave);
@@ -54,10 +42,10 @@ export default function ListTarefa(){
   function logoutAndDeleteToken(){
     Alert.alert("Sair", `Deseja realmente sair?`,
       [
-        { text: "VOLTAR", onPress: () => {navigation.replace('ListTarefaDia', null, null)}},
+        { text: "VOLTAR", onPress: () => {navigation.replace('ListTarefa', null, null)}},
         { text: "OK", onPress: () => {
           _deleteToken('@tokenUsuario')
-          .then(resp => navigateLogin())
+          .then(resp => navigation.replace('AppLogin', null, null))
           .catch(err => console.log('Deu erro no delete token + '+err))
         }},
       ], { cancelable: false });
@@ -127,7 +115,7 @@ export default function ListTarefa(){
 
         <View style={styles.contactBox}>
           <View style={styles.actions}>
-            <TouchableOpacity style={styles.action} onPress={() => {navigateToNew()}}>
+            <TouchableOpacity style={styles.action} onPress={() => {navigation.navigate('NewTarefa')}}>
               <Text style={styles.actionText}>Nova tarefa</Text>
             </TouchableOpacity>
           </View>

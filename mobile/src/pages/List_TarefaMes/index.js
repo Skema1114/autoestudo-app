@@ -1,4 +1,4 @@
-import {View, Image, Text, TouchableOpacity, FlatList, AsyncStorage} from 'react-native';
+import {View, Image, Text, TouchableOpacity, FlatList, AsyncStorage, Alert} from 'react-native';
 import MaterialFooterM3 from './../../Components/MaterialIconTextButtonsFooter/M3';
 import React, {useEffect, useState} from 'react';
 import {MaterialCommunityIcons } from '@expo/vector-icons';
@@ -16,12 +16,6 @@ export default function ListTarefaMes(){
   
   const mesHoje = 5;
   const anoHoje = 2020;
-
-
-
-  function navigateLogin(){
-    navigation.replace('AppLogin', null, null);
-  }
 
 
 
@@ -58,10 +52,10 @@ export default function ListTarefaMes(){
   function logoutAndDeleteToken(){
     Alert.alert("Sair", `Deseja realmente sair?`,
       [
-        { text: "VOLTAR", onPress: () => {navigation.replace('ListTarefaDia', null, null)}},
+        { text: "VOLTAR", onPress: () => {navigation.replace('ListTarefaMes', null, null)}},
         { text: "OK", onPress: () => {
           _deleteToken('@tokenUsuario')
-          .then(resp => navigateLogin())
+          .then(resp => navigation.replace('AppLogin', null, null))
           .catch(err => console.log('Deu erro no delete token + '+err))
         }},
       ], { cancelable: false });

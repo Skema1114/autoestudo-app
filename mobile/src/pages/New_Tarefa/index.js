@@ -16,18 +16,6 @@ export default function NewTarefa() {
   const navigation = useNavigation();
   const [idUsuario, setIdUsuario] = useState();
 
-  
-  
-  function _reloadListTarefa() {
-    navigation.replace( 'ListTarefa', null, null );
-  };
-
-
-
-  function _reloadNewTarefa() {
-    navigation.replace( 'NewTarefa', null, null );
-  };
-
 
 
   function navigateBack(){
@@ -114,8 +102,8 @@ export default function NewTarefa() {
             "Cadastro",
             `ID da tarefa cadastrada: ${response.data.id}`,
             [
-              { text: "Nova tarefa", onPress: () => _reloadNewTarefa() },
-              { text: "OK", onPress: () => _reloadListTarefa() }
+              { text: "Nova tarefa", onPress: () => navigation.replace( 'NewTarefa', null, null )},
+              { text: "OK", onPress: () => navigation.replace( 'ListTarefa', null, null )}
             ],
             { cancelable: false }
           );

@@ -15,12 +15,6 @@ export default function ListResultadoDia(){
 
 
 
-  function navigateLogin(){
-    navigation.replace('AppLogin', null, null);
-  }
-
-
-
   async function _retrieveToken(storageChave){
     try {
       const value = await AsyncStorage.getItem(storageChave);
@@ -48,10 +42,10 @@ export default function ListResultadoDia(){
   function logoutAndDeleteToken(){
     Alert.alert("Sair", `Deseja realmente sair?`,
       [
-        { text: "VOLTAR", onPress: () => {navigation.replace('ListTarefaDia', null, null)}},
+        { text: "VOLTAR", onPress: () => {navigation.replace('ListResultadoDia', null, null)}},
         { text: "OK", onPress: () => {
           _deleteToken('@tokenUsuario')
-          .then(resp => navigateLogin())
+          .then(resp => navigation.replace('AppLogin', null, null))
           .catch(err => console.log('Deu erro no delete token + '+err))
         }},
       ], { cancelable: false });
