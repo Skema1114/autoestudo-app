@@ -7,10 +7,10 @@ import api from '../../services/api';
 import styles from './styles';
 
 export default function ListResultadoMes(){
-  const navigation = useNavigation();
   const [resultadoMeses, setResultadoMeses] = useState([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
+  const navigation = useNavigation();
 
 
 
@@ -66,7 +66,8 @@ export default function ListResultadoMes(){
           .then(resp => navigation.replace('AppLogin', null, null))
           .catch(err => console.log('Deu erro no delete token + '+err))
         }},
-      ], { cancelable: false });
+      ], { cancelable: false }
+    );
   }
 
 

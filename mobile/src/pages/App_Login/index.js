@@ -10,8 +10,8 @@ import styles from './styles';
 import * as Yup from 'yup';
 
 export default function AppLogin() {
-  const formRef = useRef(null);
   const navigation = useNavigation();
+  const formRef = useRef(null);
   
   
   

@@ -12,9 +12,9 @@ import moment from 'moment';
 import * as Yup from 'yup';
 
 export default function NewTarefa() {
-  const formRef = useRef(null);
-  const navigation = useNavigation();
   const [idUsuario, setIdUsuario] = useState();
+  const navigation = useNavigation();
+  const formRef = useRef(null);
 
 
 
@@ -98,14 +98,11 @@ export default function NewTarefa() {
               }
           })
           
-          Alert.alert(
-            "Cadastro",
-            `ID da tarefa cadastrada: ${response.data.id}`,
+          Alert.alert("Cadastro", `ID da tarefa cadastrada: ${response.data.id}`,
             [
               { text: "Nova tarefa", onPress: () => navigation.replace( 'NewTarefa', null, null )},
               { text: "OK", onPress: () => navigation.replace( 'ListTarefa', null, null )}
-            ],
-            { cancelable: false }
+            ], { cancelable: false }
           );
       }catch(err){
           Alert.alert('Cadastro', 'Erro ao cadastrar caso, tente novamente.')

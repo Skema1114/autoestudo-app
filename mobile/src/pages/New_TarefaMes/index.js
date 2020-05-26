@@ -12,12 +12,12 @@ import moment from 'moment';
 import * as Yup from 'yup';
 
 export default function NewTarefaMes() {
-  const formRef = useRef(null);
-  const navigation = useNavigation();
-  const [tarefas, setTarefas] = useState([]);
   const [total, setTotal] = useState(0);
-  const [loading, setLoading] = useState(false);
+  const [tarefas, setTarefas] = useState([]);
   const [idUsuario, setIdUsuario] = useState();
+  const [loading, setLoading] = useState(false);
+  const navigation = useNavigation();
+  const formRef = useRef(null);
   var tarefasMes = [];
 
   var date = new Date();
@@ -151,13 +151,10 @@ export default function NewTarefaMes() {
                   'Content-Type': 'application/json',
               }
           })   
-          Alert.alert(
-            "Cadastro",
-            `Mês cadastrado com sucesso!`,
+          Alert.alert("Cadastro", `Mês cadastrado com sucesso!`,
             [
               { text: "OK", onPress: () => navigation.replace('ListTarefaMes', null, null)}
-            ],
-            { cancelable: false }
+            ], { cancelable: false }
           );
       }catch(err){
         Alert.alert('Cadastro', 'Ocorreu um erro inesperado (newTarefaMes), tente novamente.')

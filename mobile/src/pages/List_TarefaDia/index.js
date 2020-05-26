@@ -9,19 +9,20 @@ import styles from './styles';
 import moment from 'moment';
 
 export default function ListTarefaDia(){
-  const navigation = useNavigation();
   const [tarefaDias, setTarefaDias] = useState([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
   const [checador, setChecador] = useState(false);
-  var essaData = moment().utcOffset('-03:00').format('DD/MM/YYYY');
-  var essaHora = moment().utcOffset('-03:00').format('HH:mm');
-  var [essaDataShow, setEssaDataShow] = useState(essaData);
   const [idUsuario, setIdUsuario] = useState();
-  var contadorDia = 0;
+  const navigation = useNavigation();
   const diaHoje = 23;
   const mesHoje = 5;
-
+  var [essaDataShow, setEssaDataShow] = useState(essaData);
+  var essaData = moment().utcOffset('-03:00').format('DD/MM/YYYY');
+  var essaHora = moment().utcOffset('-03:00').format('HH:mm');
+  var contadorDia = 0;
+  
+  
 
 
   async function _reloadListTarefaDia(){
@@ -83,7 +84,8 @@ export default function ListTarefaDia(){
           .then(resp => navigation.replace('AppLogin', null, null))
           .catch(err => console.log('Deu erro no delete token + '+err))
         }},
-      ], { cancelable: false });
+      ], { cancelable: false }
+    );
   }
 
 
@@ -136,9 +138,7 @@ export default function ListTarefaDia(){
       setTotal(response.headers['x-total-count']);
       setLoading(false);
     }catch(err){
-      Alert.alert(
-        "Tarefa",
-        `Sem tarefas para o dia ${diaHoje}`);
+      Alert.alert("Tarefa", `Sem tarefas para o dia ${diaHoje}`);
     }
   }
 

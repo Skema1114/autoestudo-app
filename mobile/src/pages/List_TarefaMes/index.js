@@ -8,14 +8,13 @@ import api from '../../services/api';
 import styles from './styles';
 
 export default function ListTarefaMes(){
-  const navigation = useNavigation();
   const [tarefaMeses, setTarefaMeses] = useState([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
   const [idUsuario, setIdUsuario] = useState();
-  
-  const mesHoje = 5;
+  const navigation = useNavigation();
   const anoHoje = 2020;
+  const mesHoje = 5;
 
 
 
@@ -58,7 +57,8 @@ export default function ListTarefaMes(){
           .then(resp => navigation.replace('AppLogin', null, null))
           .catch(err => console.log('Deu erro no delete token + '+err))
         }},
-      ], { cancelable: false });
+      ], { cancelable: false }
+    );
   }
 
 
