@@ -1,4 +1,4 @@
-import {View, Image, Text, TouchableOpacity, FlatList, Alert} from 'react-native';
+import {View, Image, Text, TouchableOpacity, FlatList, AsyncStorage} from 'react-native';
 import MaterialFooterM1 from './../../Components/MaterialIconTextButtonsFooter/M2'
 import {useNavigation} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
@@ -12,7 +12,6 @@ export default function ListTarefa(){
   const [tarefas, setTarefas] = useState([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
-  const id_usuario = '1';
 
 
 
@@ -22,8 +21,40 @@ export default function ListTarefa(){
 
 
 
-  async function loadTarefas(){
-    if(loading){
+  async function _retrieveToken(storageChave){
+    try {
+      const value = await AsyncStorage.getItem(storageChave);
+      if (value !== null) {
+        return value;
+      }
+    } catch (error) {
+      console.log("Deu erro no Retrieve")
+    }
+  };
+
+
+
+  function funcaoTeste(){
+    var promise = new Promise((resolve, reject) => {
+      try{
+        const retorno = _retrieveToken('@tokenUsuario');
+        resolve(retorno);
+      }catch(err){
+        reject('Deu erro');
+      }
+    })
+
+    promise.then(resultado => {
+      loadTarefas(resultado)
+    }, erro => {
+      console.log('EROOOO = '+erro)
+    })
+  }
+
+
+
+  async function loadTarefas(id_usuario){
+     if(loading){
       return;
     }
 
@@ -46,7 +77,7 @@ export default function ListTarefa(){
 
 
   useEffect(() => {
-    loadTarefas();
+    funcaoTeste();
   }, []);
 
 

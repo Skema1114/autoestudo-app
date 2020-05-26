@@ -18,6 +18,14 @@ export default function AppLogin() {
   function _reloadTeste() {
     navigation.replace('ListTarefaDia', null, null);
   };
+  
+  
+  
+  async function _salvarToken(storageChave, storageValor){
+    await AsyncStorage.setItem(storageChave, storageValor)
+      .then(resp => console.log('Token de usuario salvo'))
+      .catch(err => console.log('Deu erro para salvar token de usuario = '+err))
+  };
 
 
 
@@ -25,9 +33,9 @@ export default function AppLogin() {
     try{
       const schema = Yup.object().shape({
         email: Yup.string().required('O e-mail é obrigatório'),
-        senha: Yup.string().min(6, 'No mínimo 6 caracteres').required('A senha é obrigatória'),
+        senha: Yup.string().required('A senha é obrigatória'),
       })
-
+     // senha: Yup.string().min(6, 'No mínimo 6 caracteres').required('A senha é obrigatória'),
       await schema.validate(data, {
         abortEarly: false,
       });
@@ -56,54 +64,14 @@ export default function AppLogin() {
 
       try{
         const response = await api.post('sessions', data);
-          _deleteData("@MyUId")
-          _storeData("@MyUId", response.data.id);
+          const responseString = response.data.id;
+          _salvarToken("@tokenUsuario", responseString.toString())
+          console.log(response.data.id)
           _reloadTeste();
         }catch(err){
           Alert.alert('Login', 'Occorreu um erro ao efetuar o login, tente novamente.')
       }
     }
-  }
-
-
-
-  async function _storeData(chave, valor){
-    try {
-      await AsyncStorage.setItem(chave, valor);
-    } catch (err) {
-      console.log(err)
-    }
-  };
-
-
-
-  async function _retrieveData(chave){
-    try {
-      const value = await AsyncStorage.getItem(chave);
-      if (value !== null) {
-        return value;
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
-
-
-  async function _deleteData(chave){
-    try {
-      const value = await AsyncStorage.removeItem(chave);
-      if (value !== null) {}
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
-
-
-  function funcaoInutil(){
-    _storeData('1e54cc5b');
-    navigation.navigate('ListTarefaDia');
   }
  
 
@@ -127,7 +95,7 @@ export default function AppLogin() {
 
         <TouchableOpacity
           style={styles.detailsButton}
-          onPress={() => funcaoInutil()}
+          onPress={() => {}}
         >
           <Text style={styles.detailsButtonText}>Entrar sem cadastro</Text>
           <Feather name="arrow-right" size={16} color="#E02041"/>

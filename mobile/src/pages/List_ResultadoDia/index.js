@@ -1,5 +1,5 @@
+import {View, Image, Text, TouchableOpacity, FlatList, AsyncStorage} from 'react-native';
 import MaterialFooterM1 from './../../Components/MaterialIconTextButtonsFooter/M4'
-import {View, Image, Text, TouchableOpacity, FlatList} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import logoImg from '../../assets/logo.png';
@@ -12,11 +12,42 @@ export default function ListResultadoDia(){
   const [resultadoDias, setResultadoDias] = useState([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
-  const id_usuario = '1';
 
 
 
-  async function loadResultadoDias(){
+  async function _retrieveToken(storageChave){
+    try {
+      const value = await AsyncStorage.getItem(storageChave);
+      if (value !== null) {
+        return value;
+      }
+    } catch (error) {
+      console.log("Deu erro no Retrieve")
+    }
+  };
+
+
+
+  function funcaoTeste(){
+    var promise = new Promise((resolve, reject) => {
+      try{
+        const retorno = _retrieveToken('@tokenUsuario');
+        resolve(retorno);
+      }catch(err){
+        reject('Deu erro');
+      }
+    })
+
+    promise.then(resultado => {
+      loadResultadoDias(resultado)
+    }, erro => {
+      console.log('EROOOO = '+erro)
+    })
+  }
+
+
+
+  async function loadResultadoDias(id_usuario){
     if(loading){
       return;
     }
@@ -40,7 +71,7 @@ export default function ListResultadoDia(){
 
 
   useEffect(() => {
-    loadResultadoDias();
+    funcaoTeste();
   }, []);
 
 

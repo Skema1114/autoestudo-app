@@ -1,4 +1,4 @@
-import { Text, Image, View, TouchableOpacity, Alert, Keyboard } from 'react-native';
+import { Text, Image, View, TouchableOpacity, Alert, Keyboard, AsyncStorage } from 'react-native';
 import MaterialFooterM3 from './../../Components/MaterialIconTextButtonsFooter/M3'
 import {useNavigation} from '@react-navigation/native';
 import React, { useRef, useEffect } from 'react';
@@ -14,7 +14,7 @@ import * as Yup from 'yup';
 export default function NewTarefa2() {
   const formRef = useRef(null);
   const navigation = useNavigation();
-  const id_usuario = '1';
+  var id_usuario;
 
 
 
@@ -30,6 +30,38 @@ export default function NewTarefa2() {
 
 
   
+  async function _retrieveToken(storageChave){
+    try {
+      const value = await AsyncStorage.getItem(storageChave);
+      if (value !== null) {
+        return value;
+      }
+    } catch (error) {
+      console.log("Deu erro no Retrieve")
+    }
+  };
+
+
+
+  function funcaoTeste(){
+    var promise = new Promise((resolve, reject) => {
+      try{
+        const retorno = _retrieveToken('@tokenUsuario');
+        resolve(retorno);
+      }catch(err){
+        reject('Deu erro');
+      }
+    })
+
+    promise.then(resultado => {
+      id_usuario = resultado;
+    }, erro => {
+      console.log('EROOOO = '+erro)
+    })
+  }
+
+
+
   async function handleSubmit(data, { reset }) {
     try{
       const schema = Yup.object().shape({
@@ -89,6 +121,12 @@ export default function NewTarefa2() {
 
 
  
+  useEffect(() => {
+    funcaoTeste();
+  }, []);
+
+
+
   return (
   <View style={styles.container}>
     <Form ref={formRef} onSubmit={handleSubmit}>

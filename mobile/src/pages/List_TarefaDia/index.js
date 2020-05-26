@@ -1,4 +1,4 @@
-import { View, Image, Text, TouchableOpacity, FlatList, CheckBox, Alert } from 'react-native';
+import { View, Image, Text, TouchableOpacity, FlatList, CheckBox, Alert, AsyncStorage } from 'react-native';
 import MaterialFooterM2 from './../../Components/MaterialIconTextButtonsFooter/M1'
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
@@ -14,17 +14,48 @@ export default function ListTarefaDia(){
   const [loading, setLoading] = useState(false);
   const [checador, setChecador] = useState(false);
   //const id_usuario = _retrieveData('UsuarioIdStorage');
-  const id_usuario = 1;
-  var essaData = moment().utcOffset('-03:00').format('DD/MM/YYYY')
-  var [essaDataShow, setEssaDataShow] = useState(essaData)
+  var essaData = moment().utcOffset('-03:00').format('DD/MM/YYYY');
+  var essaHora = moment().utcOffset('-03:00').format('HH:mm');
+  var [essaDataShow, setEssaDataShow] = useState(essaData);
   var contadorDia = 0;
   const diaHoje = 23;
   const mesHoje = 5;
 
 
-
   async function _reloadListTarefaDia(){
     await navigation.replace('ListTarefaDia', null, null)
+  }
+
+
+
+  async function _retrieveToken(storageChave){
+    try {
+      const value = await AsyncStorage.getItem(storageChave);
+      if (value !== null) {
+        return value;
+      }
+    } catch (error) {
+      console.log("Deu erro no Retrieve")
+    }
+  };
+
+
+
+  function funcaoTeste(){
+    var promise = new Promise((resolve, reject) => {
+      try{
+        const retorno = _retrieveToken('@tokenUsuario');
+        resolve(retorno);
+      }catch(err){
+        reject('Deu erro');
+      }
+    })
+
+    promise.then(resultado => {
+      loadTarefaDias(diaHoje, mesHoje, resultado)
+    }, erro => {
+      console.log('EROOOO = '+erro)
+    })
   }
 
 
@@ -56,8 +87,8 @@ export default function ListTarefaDia(){
 
 
 
-  async function loadTarefaDias(dia, mes){
-    if(loading){
+  async function loadTarefaDias(dia, mes, id_usuario){
+     if(loading){
       return;
     }
 
@@ -69,7 +100,7 @@ export default function ListTarefaDia(){
     try{
       const response = await api.get(`tarefa_dias/pesquisar/${dia}/${mes}`, {
         headers: {
-          Authorization: id_usuario,
+          Authorization: parseInt(id_usuario),
           'Content-Type': 'application/json',
         }
       });
@@ -79,14 +110,15 @@ export default function ListTarefaDia(){
     }catch(err){
       Alert.alert(
         "Tarefa",
-        `Sem tarefas para o dia ${diaHoje}!`);
+        `Sem tarefas para o dia ${diaHoje}`);
     }
   }
 
 
 
   useEffect(() => {
-    loadTarefaDias(diaHoje, mesHoje);
+    funcaoTeste()
+    //loadTarefaDias(diaHoje, mesHoje, id_usuario);
   }, []);
 
 
@@ -132,6 +164,10 @@ export default function ListTarefaDia(){
           Total de <Text style={styles.headerTextBold}>{total} casos</Text>.
         </Text>
       </View>
+
+      <TouchableOpacity style={styles.action} onPress={() => funcaoTeste()}>
+          <Text style={styles.actionText}> TESTE </Text>
+        </TouchableOpacity>
 
       <MaterialFooterM2></MaterialFooterM2>
 

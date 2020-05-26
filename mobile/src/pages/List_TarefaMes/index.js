@@ -1,5 +1,5 @@
 import MaterialFooterM3 from './../../Components/MaterialIconTextButtonsFooter/M3'
-import {View, Image, Text, TouchableOpacity, FlatList} from 'react-native';
+import {View, Image, Text, TouchableOpacity, FlatList, AsyncStorage} from 'react-native';
 import React, {useEffect, useState, useImperativeHandle} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import logoImg from '../../assets/logo.png';
@@ -12,7 +12,6 @@ export default function ListTarefaMes(){
   const [tarefaMeses, setTarefaMeses] = useState([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
-  const id_usuario = '1';
   const mesHoje = 5;
   const anoHoje = 2020;
 
@@ -24,7 +23,39 @@ export default function ListTarefaMes(){
 
 
 
-  async function loadTarefaMeses(){
+  async function _retrieveToken(storageChave){
+    try {
+      const value = await AsyncStorage.getItem(storageChave);
+      if (value !== null) {
+        return value;
+      }
+    } catch (error) {
+      console.log("Deu erro no Retrieve")
+    }
+  };
+
+
+
+  function funcaoTeste(){
+    var promise = new Promise((resolve, reject) => {
+      try{
+        const retorno = _retrieveToken('@tokenUsuario');
+        resolve(retorno);
+      }catch(err){
+        reject('Deu erro');
+      }
+    })
+
+    promise.then(resultado => {
+      loadTarefaMeses(resultado);
+    }, erro => {
+      console.log('EROOOO = '+erro)
+    })
+  }
+
+
+
+  async function loadTarefaMeses(id_usuario){
     if(loading){
       return;
     }
@@ -49,7 +80,7 @@ export default function ListTarefaMes(){
 
 
   useEffect(() => {
-    loadTarefaMeses();
+    funcaoTeste();
   }, []);
 
 

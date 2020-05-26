@@ -1,4 +1,4 @@
-import { Text, Image, View, TouchableOpacity, Alert, Keyboard, FlatList, CheckBox } from 'react-native';
+import { Text, Image, View, TouchableOpacity, Alert, Keyboard, FlatList, CheckBox, AsyncStorage } from 'react-native';
 import MaterialFooterM3 from '../../Components/MaterialIconTextButtonsFooter/M3'
 import React, { useRef, useEffect, useState } from 'react';
 import {useNavigation} from '@react-navigation/native';
@@ -17,7 +17,7 @@ export default function NewTarefaMes() {
   const [tarefas, setTarefas] = useState([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
-  const id_usuario = '1';
+  var id_usuario;
   var tarefasMes = [];
   var idsDiasCadastrados = [];
 
@@ -82,6 +82,39 @@ export default function NewTarefaMes() {
 
 
 
+  async function _retrieveToken(storageChave){
+    try {
+      const value = await AsyncStorage.getItem(storageChave);
+      if (value !== null) {
+        return value;
+      }
+    } catch (error) {
+      console.log("Deu erro no Retrieve")
+    }
+  };
+
+
+
+  function funcaoTeste(){
+    var promise = new Promise((resolve, reject) => {
+      try{
+        const retorno = _retrieveToken('@tokenUsuario');
+        resolve(retorno);
+      }catch(err){
+        reject('Deu erro');
+      }
+    })
+
+    promise.then(resultado => {
+      id_usuario = resultado;
+      loadTarefas(resultado);
+    }, erro => {
+      console.log('EROOOO = '+erro)
+    })
+  }
+
+
+
   async function submit(data, { reset }) {
       const agora = moment().utcOffset('-03:00');
       const mes = agora.format('M');
@@ -114,40 +147,6 @@ export default function NewTarefaMes() {
         console.log('DEU ERRO NO TRY DO NEW TAREFA MES')
       }
       
-      
-      /*
-      try{
-        // CADASTRA O MES
-        await newMes(data.qtd_nao);
-        
-        try{
-          // CADASTRA AS TAREFAS NO MES
-          for(let i = 0; i < tarefasMes.length; i++){
-            await newTarefaMes(idMesCadastrado, tarefasMes[i]);
-          }
-
-          try{
-            // CADASTRA TODOS OS DIAS DO MES
-            for(let dia = 1; dia <= finalMes.format('DD'); dia++) {
-              await newDia(idMesCadastrado, dia)
-                .then(resp => addIdDiasCadastrados(resp.data.id))
-            }
-
-            console.log(idsDiasCadastrados);
-
-          }catch(err){
-            // CATCH DO CADASTRO DO DIA
-            console.log('deu erro no try do new dia')
-          }
-        }catch(err){
-          // CATCH DO CADASTRO DA TAREFA DO MES
-          console.log('deu erro no try do new tarefa mes')
-        }
-      }catch(err){
-        // CATCH DO CADASTRO DO MES
-        console.log('deu erro no try do new mes')
-      }
-      */
       Keyboard.dismiss();
       reset();
 
@@ -219,7 +218,7 @@ export default function NewTarefaMes() {
 
 
 
-  async function loadTarefas(){
+  async function loadTarefas(id_usuario){
     if(loading){
       return;
     }
@@ -240,7 +239,7 @@ export default function NewTarefaMes() {
 
 
   useEffect(() => {
-    loadTarefas();
+    funcaoTeste();
   }, []);
 
 

@@ -1,4 +1,4 @@
-import { Text, Image, View, TouchableOpacity, Alert, Keyboard } from 'react-native';
+import { Text, Image, View, TouchableOpacity, Alert, Keyboard, AsyncStorage } from 'react-native';
 import MaterialFooterM1 from './../../Components/MaterialIconTextButtonsFooter/M1'
 import {useNavigation} from '@react-navigation/native';
 import React, { useRef, useEffect } from 'react';
@@ -15,8 +15,7 @@ export default function NewTarefa() {
   const formRef = useRef(null);
   const navigation = useNavigation();
   //const id_usuario = _retrieveData('UsuarioIdStorage');
-  const id_usuario = '1';
-  
+  var id_usuario;
   
   
   function _reloadListTarefa() {
@@ -33,6 +32,38 @@ export default function NewTarefa() {
 
   function navigateBack(){
     navigation.goBack();
+  }
+
+
+
+  async function _retrieveToken(storageChave){
+    try {
+      const value = await AsyncStorage.getItem(storageChave);
+      if (value !== null) {
+        return value;
+      }
+    } catch (error) {
+      console.log("Deu erro no Retrieve")
+    }
+  };
+
+
+
+  function funcaoTeste(){
+    var promise = new Promise((resolve, reject) => {
+      try{
+        const retorno = _retrieveToken('@tokenUsuario');
+        resolve(retorno);
+      }catch(err){
+        reject('Deu erro');
+      }
+    })
+
+    promise.then(resultado => {
+      id_usuario = resultado;
+    }, erro => {
+      console.log('EROOOO = '+erro)
+    })
   }
 
 
@@ -94,6 +125,12 @@ export default function NewTarefa() {
     }
   }
  
+
+
+  useEffect(() => {
+    funcaoTeste();
+  }, []);
+
 
 
   return (
