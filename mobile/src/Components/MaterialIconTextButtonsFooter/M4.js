@@ -1,4 +1,4 @@
-import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
+import { MaterialIcons, Entypo, Foundation, MaterialCommunityIcons } from '@expo/vector-icons';
 import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 import React, {} from "react";
@@ -28,68 +28,47 @@ function M4() {
     
   }
 
-/*
-function navigateToTela(tela){
-  switch(tela){
 
-    case 1:
-      navigation.navigate('ListTarefaDia')        
-    break;
-
-    case 2:
-      navigation.navigate('ListTarefa')
-    break;
-
-    case 3:
-      navigation.navigate('ListTarefaMes')
-    break;
-
-    case 4:
-      navigation.navigate('ListResultadoDia')
-    break;
-  }
-}
-*/
 
   return (
     <View style={[styles.containerNormalFooter]}>
         <TouchableOpacity 
           style={styles.buttonNormalFooter}
           onPress={() => navigateToTela(1)}>
-          <MaterialCommunityIconsIcon
-            name="timer"
+          <MaterialIcons
+            name="assignment-late"
             style={styles.iconNormalFooter}>
-          </MaterialCommunityIconsIcon>
+          </MaterialIcons>
           <Text style={styles.textNormalFooter}>Tarefas dia</Text>
         </TouchableOpacity>
         
         <TouchableOpacity 
           style={styles.buttonNormalFooter}
           onPress={() => navigateToTela(2)}>
-          <MaterialCommunityIconsIcon
-            name="heart"
+          <MaterialCommunityIcons
+            name="database-search"
             style={styles.iconNormalFooter}>
-          </MaterialCommunityIconsIcon>
+          </MaterialCommunityIcons>
           <Text style={styles.textNormalFooter}>Tarefas</Text>
         </TouchableOpacity>
         
         <TouchableOpacity 
           style={styles.buttonNormalFooter}
           onPress={() => navigateToTela(3)}>
-          <MaterialCommunityIconsIcon
-            name="map-marker-radius"
+          <Entypo
+            name="calendar"
             style={styles.iconNormalFooter}>
-          </MaterialCommunityIconsIcon>
+          </Entypo>
           <Text style={styles.textNormalFooter}>Tarefas mes</Text>
         </TouchableOpacity>
         
         <TouchableOpacity 
           style={styles.buttonSelectFooter}
           onPress={() => navigateToTela(4)}>
-          <MaterialCommunityIconsIcon
-            name="map-marker-radius"
+          <Foundation
+            name="results"
             style={styles.iconSelectFooter}>
-          </MaterialCommunityIconsIcon>
+          </Foundation>
           <Text style={styles.textSelectFooter}>Resultados</Text>
         </TouchableOpacity>
       </View>

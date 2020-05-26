@@ -1,7 +1,7 @@
 import { Text, Image, View, TouchableOpacity, Alert, Keyboard, AsyncStorage } from 'react-native';
 import MaterialFooterM1 from './../../Components/MaterialIconTextButtonsFooter/M1'
+import React, { useRef, useEffect, useState } from 'react';
 import {useNavigation} from '@react-navigation/native';
-import React, { useRef, useEffect } from 'react';
 import Input from '../../Components/Form/input';
 import logoImg from '../../assets/logo.png';
 import {Feather} from '@expo/vector-icons';
@@ -14,8 +14,8 @@ import * as Yup from 'yup';
 export default function NewTarefa() {
   const formRef = useRef(null);
   const navigation = useNavigation();
-  //const id_usuario = _retrieveData('UsuarioIdStorage');
-  var id_usuario;
+  const [idUsuario, setIdUsuario] = useState();
+
   
   
   function _reloadListTarefa() {
@@ -49,7 +49,7 @@ export default function NewTarefa() {
 
 
 
-  function funcaoTeste(){
+  function promisseTokenUsuario(){
     var promise = new Promise((resolve, reject) => {
       try{
         const retorno = _retrieveToken('@tokenUsuario');
@@ -60,7 +60,7 @@ export default function NewTarefa() {
     })
 
     promise.then(resultado => {
-      id_usuario = resultado;
+      setIdUsuario(resultado);
     }, erro => {
       console.log('EROOOO = '+erro)
     })
@@ -105,7 +105,7 @@ export default function NewTarefa() {
       try{
         const response = await api.post('tarefa', data, {
               headers: {
-                  Authorization: id_usuario,
+                  Authorization: idUsuario,
                   'Content-Type': 'application/json',
               }
           })
@@ -128,7 +128,7 @@ export default function NewTarefa() {
 
 
   useEffect(() => {
-    funcaoTeste();
+    promisseTokenUsuario();
   }, []);
 
 

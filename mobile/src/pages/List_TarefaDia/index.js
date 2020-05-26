@@ -1,5 +1,6 @@
 import { View, Image, Text, TouchableOpacity, FlatList, CheckBox, Alert, AsyncStorage } from 'react-native';
-import MaterialFooterM2 from './../../Components/MaterialIconTextButtonsFooter/M1'
+import MaterialFooterM2 from './../../Components/MaterialIconTextButtonsFooter/M1';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import logoImg from '../../assets/logo.png';
@@ -13,13 +14,20 @@ export default function ListTarefaDia(){
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
   const [checador, setChecador] = useState(false);
-  //const id_usuario = _retrieveData('UsuarioIdStorage');
   var essaData = moment().utcOffset('-03:00').format('DD/MM/YYYY');
   var essaHora = moment().utcOffset('-03:00').format('HH:mm');
   var [essaDataShow, setEssaDataShow] = useState(essaData);
+  const [idUsuario, setIdUsuario] = useState();
   var contadorDia = 0;
   const diaHoje = 23;
   const mesHoje = 5;
+
+
+
+  function navigateLogin(){
+    navigation.replace('AppLogin', null, null);
+  }
+
 
 
   async function _reloadListTarefaDia(){
@@ -41,7 +49,7 @@ export default function ListTarefaDia(){
 
 
 
-  function funcaoTeste(){
+  function promisseTokenUsuario(){
     var promise = new Promise((resolve, reject) => {
       try{
         const retorno = _retrieveToken('@tokenUsuario');
@@ -52,7 +60,8 @@ export default function ListTarefaDia(){
     })
 
     promise.then(resultado => {
-      loadTarefaDias(diaHoje, mesHoje, resultado)
+      setIdUsuario(resultado);
+      loadTarefaDias(diaHoje, mesHoje, resultado);
     }, erro => {
       console.log('EROOOO = '+erro)
     })
@@ -60,8 +69,27 @@ export default function ListTarefaDia(){
 
 
   
+  async function _deleteToken(chave){
+    try {
+      const value = await AsyncStorage.removeItem(chave);
+      if (value !== null) {}
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+
+
+  function logoutAndDeleteToken(){
+    _deleteToken('@tokenUsuario')
+      .then(resp => navigateLogin())
+      .catch(err => console.log('Deu erro no delete token + '+err))
+  }
+
+
+
   async function editTarefaDia(id_tarefa){
-    const status = 'checkado';
+    const status = 'sim';
     const data = {
         status,
     };
@@ -69,7 +97,7 @@ export default function ListTarefaDia(){
     try{
       const response = await api.patch(`tarefa_dia/${id_tarefa}`, data, {
             headers: {
-              Authorization: id_usuario,
+              Authorization: idUsuario,
             },
         })   
         Alert.alert(
@@ -117,8 +145,7 @@ export default function ListTarefaDia(){
 
 
   useEffect(() => {
-    funcaoTeste()
-    //loadTarefaDias(diaHoje, mesHoje, id_usuario);
+    promisseTokenUsuario()
   }, []);
 
 
@@ -160,14 +187,10 @@ export default function ListTarefaDia(){
     <View style={styles.container}>
       <View style={styles.header}>
         <Image source={logoImg}/>
-        <Text style={styles.headerText}>
-          Total de <Text style={styles.headerTextBold}>{total} casos</Text>.
-        </Text>
-      </View>
-
-      <TouchableOpacity style={styles.action} onPress={() => funcaoTeste()}>
-          <Text style={styles.actionText}> TESTE </Text>
+        <TouchableOpacity onPress={() => logoutAndDeleteToken()}>
+          <MaterialCommunityIcons name="logout-variant" size={28} color="#E82041"/>
         </TouchableOpacity>
+      </View>
 
       <MaterialFooterM2></MaterialFooterM2>
 

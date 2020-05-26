@@ -17,9 +17,8 @@ export default function NewTarefaMes() {
   const [tarefas, setTarefas] = useState([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
-  var id_usuario;
+  const [idUsuario, setIdUsuario] = useState();
   var tarefasMes = [];
-  var idsDiasCadastrados = [];
 
   var date = new Date();
   var primeiroDia = new Date(date.getFullYear(), date.getMonth(), 1);
@@ -47,13 +46,6 @@ export default function NewTarefaMes() {
   
   function addIdTarefasMes(dia){
     tarefasMes.push(dia);
-  }
-
-
-
-  function addIdDiasCadastrados(id){
-    console.log('id dia recebido '+id)
-    idsDiasCadastrados.push(id);
   }
 
 
@@ -95,7 +87,7 @@ export default function NewTarefaMes() {
 
 
 
-  function funcaoTeste(){
+  function promisseTokenUsuario(){
     var promise = new Promise((resolve, reject) => {
       try{
         const retorno = _retrieveToken('@tokenUsuario');
@@ -106,7 +98,7 @@ export default function NewTarefaMes() {
     })
 
     promise.then(resultado => {
-      id_usuario = resultado;
+      setIdUsuario(resultado);
       loadTarefas(resultado);
     }, erro => {
       console.log('EROOOO = '+erro)
@@ -120,7 +112,6 @@ export default function NewTarefaMes() {
       const mes = agora.format('M');
       const ano = agora.format('YYYY');
       const data_cadastro = moment().utcOffset('-03:00').format("LLL");
-
 
     try{
       const schema = Yup.object().shape({
@@ -174,7 +165,7 @@ export default function NewTarefaMes() {
       try{
         const response = await api.post('tarefa_mes', data, {
               headers: {
-                  Authorization: id_usuario,
+                  Authorization: idUsuario,
                   'Content-Type': 'application/json',
               }
           })   
@@ -205,12 +196,13 @@ export default function NewTarefaMes() {
       try{
         const response = await api.post('tarefa_dia', data, {
               headers: {
-                  Authorization: id_usuario,
+                  Authorization: idUsuario,
                   'Content-Type': 'application/json',
               }
           })   
           console.log('Tarefas do dia cadastrado com sucesso')
       }catch(err){
+        console.log(err)
         Alert.alert('Cadastro', 'Ocorreu um erro inesperado (newTarefaDia), tente novamente')
       }
     }
@@ -239,7 +231,7 @@ export default function NewTarefaMes() {
 
 
   useEffect(() => {
-    funcaoTeste();
+    promisseTokenUsuario();
   }, []);
 
 

@@ -33,7 +33,8 @@ export default function AppCadastro() {
       const schema = Yup.object().shape({
         nome: Yup.string().required('O nome é obrigatório'),
         email: Yup.string().required('O e-mail é obrigatório'),
-        senha: Yup.string().min(6, 'No mínimo 6 caracteres').required('A senha é obrigatória'),
+        senha: Yup.string().required('A senha é obrigatória'),
+        //senha: Yup.string().min(6, 'No mínimo 6 caracteres').required('A senha é obrigatória'),
       })
 
       await schema.validate(data, {

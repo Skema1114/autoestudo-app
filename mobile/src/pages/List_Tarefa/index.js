@@ -1,9 +1,9 @@
 import {View, Image, Text, TouchableOpacity, FlatList, AsyncStorage} from 'react-native';
 import MaterialFooterM1 from './../../Components/MaterialIconTextButtonsFooter/M2'
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import {useNavigation} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import logoImg from '../../assets/logo.png';
-import {Feather} from '@expo/vector-icons';
 import api from '../../services/api';
 import styles from './styles';
 
@@ -12,6 +12,12 @@ export default function ListTarefa(){
   const [tarefas, setTarefas] = useState([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
+
+
+
+  function navigateLogin(){
+    navigation.replace('AppLogin', null, null);
+  }
 
 
 
@@ -34,7 +40,26 @@ export default function ListTarefa(){
 
 
 
-  function funcaoTeste(){
+  async function _deleteToken(chave){
+    try {
+      const value = await AsyncStorage.removeItem(chave);
+      if (value !== null) {}
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+
+
+  function logoutAndDeleteToken(){
+    _deleteToken('@tokenUsuario')
+      .then(resp => navigateLogin())
+      .catch(err => console.log('Deu erro no delete token + '+err))
+  }
+
+
+
+  function promisseTokenUsuario(){
     var promise = new Promise((resolve, reject) => {
       try{
         const retorno = _retrieveToken('@tokenUsuario');
@@ -77,7 +102,7 @@ export default function ListTarefa(){
 
 
   useEffect(() => {
-    funcaoTeste();
+    promisseTokenUsuario();
   }, []);
 
 
@@ -87,9 +112,9 @@ export default function ListTarefa(){
       <View style={styles.container}>
         <View style={styles.header}>
           <Image source={logoImg}/>
-          <Text style={styles.headerText}>
-            Total de <Text style={styles.headerTextBold}>{total} casos</Text>.
-          </Text>
+          <TouchableOpacity onPress={() => logoutAndDeleteToken()}>
+            <MaterialCommunityIcons name="logout-variant" size={28} color="#E82041"/>
+          </TouchableOpacity>
         </View>
 
         <MaterialFooterM1></MaterialFooterM1>

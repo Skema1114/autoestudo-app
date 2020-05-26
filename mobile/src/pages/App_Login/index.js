@@ -34,8 +34,9 @@ export default function AppLogin() {
       const schema = Yup.object().shape({
         email: Yup.string().required('O e-mail é obrigatório'),
         senha: Yup.string().required('A senha é obrigatória'),
+      //senha: Yup.string().min(6, 'No mínimo 6 caracteres').required('A senha é obrigatória'),
       })
-     // senha: Yup.string().min(6, 'No mínimo 6 caracteres').required('A senha é obrigatória'),
+     
       await schema.validate(data, {
         abortEarly: false,
       });
@@ -69,7 +70,7 @@ export default function AppLogin() {
           console.log(response.data.id)
           _reloadTeste();
         }catch(err){
-          Alert.alert('Login', 'Occorreu um erro ao efetuar o login, tente novamente.')
+          Alert.alert('Login', 'Usuário e/ou senha não encontrados')
       }
     }
   }
@@ -91,14 +92,6 @@ export default function AppLogin() {
           style={styles.action} 
           onPress={() => formRef.current.submitForm()}>
           <Text>Entrar</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.detailsButton}
-          onPress={() => {}}
-        >
-          <Text style={styles.detailsButtonText}>Entrar sem cadastro</Text>
-          <Feather name="arrow-right" size={16} color="#E02041"/>
         </TouchableOpacity>
 
         <TouchableOpacity

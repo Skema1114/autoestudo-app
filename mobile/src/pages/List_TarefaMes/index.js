@@ -1,6 +1,7 @@
-import MaterialFooterM3 from './../../Components/MaterialIconTextButtonsFooter/M3'
 import {View, Image, Text, TouchableOpacity, FlatList, AsyncStorage} from 'react-native';
+import MaterialFooterM3 from './../../Components/MaterialIconTextButtonsFooter/M3';
 import React, {useEffect, useState, useImperativeHandle} from 'react';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import {useNavigation} from '@react-navigation/native';
 import logoImg from '../../assets/logo.png';
 import {Feather} from '@expo/vector-icons';
@@ -12,8 +13,16 @@ export default function ListTarefaMes(){
   const [tarefaMeses, setTarefaMeses] = useState([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [idUsuario, setIdUsuario] = useState();
+  
   const mesHoje = 5;
   const anoHoje = 2020;
+
+
+
+  function navigateLogin(){
+    navigation.replace('AppLogin', null, null);
+  }
 
 
 
@@ -36,7 +45,26 @@ export default function ListTarefaMes(){
 
 
 
-  function funcaoTeste(){
+  async function _deleteToken(chave){
+    try {
+      const value = await AsyncStorage.removeItem(chave);
+      if (value !== null) {}
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+
+
+  function logoutAndDeleteToken(){
+    _deleteToken('@tokenUsuario')
+      .then(resp => navigateLogin())
+      .catch(err => console.log('Deu erro no delete token + '+err))
+  }
+
+
+
+  function promisseTokenUsuario(){
     var promise = new Promise((resolve, reject) => {
       try{
         const retorno = _retrieveToken('@tokenUsuario');
@@ -80,7 +108,7 @@ export default function ListTarefaMes(){
 
 
   useEffect(() => {
-    funcaoTeste();
+    promisseTokenUsuario();
   }, []);
 
 
@@ -89,9 +117,9 @@ export default function ListTarefaMes(){
     <View style={styles.container}>
       <View style={styles.header}>
         <Image source={logoImg}/>
-        <Text style={styles.headerText}>
-          Total de <Text style={styles.headerTextBold}>{total} casos</Text>.
-        </Text>
+        <TouchableOpacity onPress={() => logoutAndDeleteToken()}>
+          <MaterialCommunityIcons name="logout-variant" size={28} color="#E82041"/>
+        </TouchableOpacity>
       </View>
 
       <MaterialFooterM3></MaterialFooterM3>
